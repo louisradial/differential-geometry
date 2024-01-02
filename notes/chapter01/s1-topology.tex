@@ -1,0 +1,54 @@
+\section{Topology}
+
+In order to define the notion of smooth manifolds, we must first begin with some building blocks, such as topology and topological manifolds.
+
+\begin{definition}{Topology}{topology}
+    A \emph{topology} on the set \(M\) is a family \(\mathcal{O}\) of subsets of \(M\) satisfying
+    \begin{enumerate}[label=(\alph*)]
+        \item the empty set and the set \(M\) belong to \(\mathcal{O}\);
+        \item a finite intersection of elements of \(\mathcal{O}\) is a member of \(\mathcal{O}\); and
+        \item an arbitrary union of members of \(\mathcal{O}\) belongs to \(\mathcal{O}\).
+    \end{enumerate}
+
+    The pair \topology{M} is named a \emph{topological space}, elements of \(\mathcal{O}\) are called \emph{open sets} and elements of \(M\smallsetminus\mathcal{O}\) are called \emph{closed sets}.
+\end{definition}
+
+In \cref{prop:standard_topology,prop:subspace_topology} we show a couple of important examples that illustrate how the axioms of topological spaces given in \cref{def:topology} are used.
+
+\begin{proposition}{Standard topology in \(\mathbb{R}^n\)}{standard_topology}
+    We define the \emph{open ball} \(B_n(r,p) \subset \mathbb{R}^n\) of radius \(r > 0\) centered in the point \(p = (p^1, \dots, p^n)\) as the set
+    \begin{equation*}
+        B_n(r, p) = \set*{q = (q^1, \dots, q^n) \in \mathbb{R}^n : \sum_{i=1}^{n}{(q^i - p^i)^2} < r^2}.
+    \end{equation*}
+    Next, we define the \emph{standard topology} \(\mathcal{O}_\text{standard}\) of \(\mathbb{R}^n\). A subset \(U \subset \mathbb{R}^n\) is an open set if for every point \(p \in U\) there exists \(r > 0\) such that \(B_n(r, p) \subset U\). Then, \((\mathbb{R}^n, \mathcal{O}_\text{standard})\) is a topological space.
+\end{proposition}
+\begin{proof}
+    It is easy to see \(\mathbb{R}^n\in\mathcal{O}_{\text{standard}}\) and \(\emptyset \in \mathcal{O}_{\text{standard}}\).
+
+    Suppose \(U, V \in \mathcal{O}_{\text{standard}}\) and let \(p \in U \cap V \neq \emptyset\).Then, there exists \(r_U > 0\) and \(r_V > 0\) such that \(B_n(r_U, p) \subset U\) and \(B_n(r_V, p) \subset V\). Setting \(r = \min\set{r_U, r_V} > 0\) we have \(B_n(r, p)\) as subset of both \(U\) and \(V\), that is, \(B_n(r, p) \subset U\cap V\). It follows that \(U\cap V\in\mathcal{O}_\text{standard}\).
+
+    Let \family{U_\alpha}{\alpha\in J} be a family of sets in \(\mathcal{O}_\text{standard}\). Let \(p \in \bigcup_{\alpha\in J}U_\alpha\), that is, there exists \(\beta \in J\) such that \(p \in U_\beta\). Since \(U_\beta \in \mathcal{O}_\text{standard}\), there exists \(r_\beta > 0\) such that \(B_n(r, p) \subset U_\beta \subset \bigcup_{\alpha \in J} U_\alpha\).
+\end{proof}
+
+\begin{proposition}{Subspace topology is a topology}{subspace_topology}
+    Given a topological space \topology{M} and a subset \(S\) of \(M\), we define the \emph{subspace topology} \restrict{\mathcal{O}_M}{S} as
+    \begin{equation*}
+        \restrict{\mathcal{O}_M}{S} = \set{U \cap S : U \in \mathcal{O}_M}.
+    \end{equation*}
+    Then \((S, \restrict{\mathcal{O}_M}{S})\) is a topological space.
+\end{proposition}
+\begin{proof}
+    We must show the conditions (a), (b), and (c) of \cref{def:topology} are satisfied.
+    \begin{enumerate}[label=(\alph*)]
+        \item Since \(S = M \cap S\) and \(\emptyset = \emptyset \cap S\), we have \(S \in \restrict{\mathcal{O}_M}{S}\) and \(\emptyset \in \restrict{\mathcal{O}_M}{S}\).
+        \item Let \(U, V \in \restrict{\mathcal{O}_M}{S}\). Then, there exists \(\tilde{U}, \tilde{V} \in \mathcal{O}_M\) such that \(U = \tilde{U} \cap S\) and \(V = \tilde{V} \cap S\).Then, \(U \cap V = (\tilde{U}\cap S) \cap (\tilde{V} \cap S) = (\tilde{U}\cap\tilde{V})\cap S\). Since \(\tilde{U} \cap \tilde{V} \in \mathcal{O}_M\), we have \(U \cap V \in \restrict{\mathcal{O}_M}{S}\).
+        \item Let \family{U_\alpha}{\alpha \in J} be a family of open sets in \(\restrict{\mathcal{O}_M}{S}\). For each \(\alpha \in J\), there exists a \(\tilde{U}_\alpha\in\mathcal{O}_M\) such that \(U_\alpha = \tilde{U}_\alpha \cap S\). Then
+            \begin{align*}
+                \bigcup_{\alpha \in J} U_\alpha &= \bigcup_{\alpha \in J} \tilde{U}_\alpha \cap S\\
+                                                &= \set{m \in S : \exists \alpha \in J \text{ such that } m \in \tilde{U}_\alpha}\\
+                                                &= \set{m \in M : \exists \alpha \in J \text{ such that } m \in \tilde{U}_\alpha} \cap S\\
+                                                &= S\cap\bigcup_{\alpha\in J}\tilde{U}_\alpha.
+            \end{align*}
+        Since arbitrary unions of open sets is an open set, it follows that \(\bigcup_{\alpha\in J}U_\alpha \in \restrict{\mathcal{O}_M}{S}\).
+    \end{enumerate}
+\end{proof}

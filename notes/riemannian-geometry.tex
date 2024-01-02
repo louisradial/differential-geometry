@@ -1,0 +1,146 @@
+\documentclass[12pt,oneside,a4paper]{book}
+
+% Language and formatting
+\usepackage{polyglossia}
+\usepackage[strict=false,autostyle=true,english=american]{csquotes} %fvextra to avoid warning?
+\setmainlanguage[variant=us]{english}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{bibliography.bib}
+
+% \setmainfont{Palatino Linotype}
+% \setmathfont{Palatino Linotype}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{booktabs}
+
+% title header
+\usepackage{titleps}% http://ctan.org/pkg/titleps
+\makeatletter
+\newpagestyle{main}{% Define page style main
+    \sethead%
+    [\textbf\thepage][][\thechapter.\ \chaptertitle]% [<even-left>][<even-center>][<even-right>]
+    {\thesection.\ \sectiontitle}{}{\textbf\thepage}% {<odd-left>}{<odd-center>}{<odd-right>}
+    \setfoot{}{}{}% {<left>}{<center>}{<right>}
+}
+\pagestyle{main}% Use page style main
+
+% Images
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usepackage{graphicx, caption, subcaption}
+\usepackage{float}
+
+% Math tools
+\usepackage{amsfonts, mathtools, amssymb, amsmath, amsthm, enumitem}
+\usepackage{newpxtext, newpxmath}
+\numberwithin{equation}{section}
+\usepackage[ISO]{diffcoeff}
+\usepackage{tensor}
+\usepackage{siunitx}
+
+% Misc
+\usepackage{xcolor}
+\usepackage[breakable]{tcolorbox}
+
+\DeclareMathOperator\sech{sech}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiterX\inner[2]{\langle}{\rangle}{#1,\mathopen{}#2}
+\DeclarePairedDelimiter\set{\{}{\}}
+\newcommand\family[2]{\ensuremath{\set{#1}_{#2}}}
+\newcommand\vetor[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand\topology[1]{\ensuremath{\left(#1, \mathcal{O}_{#1}\right)}}
+\newcommand\restrict[2]{\ensuremath{\left.#1\right\rvert_{#2}}}
+
+% catppuccin (latte)
+\definecolor{Rosewater}{RGB}{220,138,120}
+\definecolor{Flamingo}{RGB}{221,120,120}
+\definecolor{Pink}{RGB}{234,118,203}
+\definecolor{Mauve}{RGB}{136,57,239}
+\definecolor{Red}{RGB}{210,15,57}
+\definecolor{Maroon}{RGB}{230,69,83}
+\definecolor{Peach}{RGB}{254,100,11}
+\definecolor{Yellow}{RGB}{223,142,29}
+\definecolor{Green}{RGB}{64,160,43}
+\definecolor{Teal}{RGB}{23,146,153}
+\definecolor{Sky}{RGB}{4,165,229}
+\definecolor{Sapphire}{RGB}{32,159,181}
+\definecolor{Blue}{RGB}{30,102,245}
+\definecolor{Lavender}{RGB}{114,135,253}
+\definecolor{Text}{RGB}{76,79,105}
+\definecolor{Subtext1}{RGB}{92,95,119}
+\definecolor{Subtext0}{RGB}{108,111,133}
+\definecolor{Overlay2}{RGB}{124,127,147}
+\definecolor{Overlay1}{RGB}{140,143,161}
+\definecolor{Overlay0}{RGB}{156,160,176}
+\definecolor{Surface2}{RGB}{172,176,190}
+\definecolor{Surface1}{RGB}{188,192,204}
+\definecolor{Surface0}{RGB}{204,208,218}
+\definecolor{Base}{RGB}{239,241,245}
+\definecolor{Mantle}{RGB}{230,233,239}
+\definecolor{Crust}{RGB}{220,224,232}
+
+% References
+\usepackage{hyperref}
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}
+\makeatletter
+\hypersetup{
+    pdftitle=\@title,
+    pdfauthor=\@author,
+    colorlinks=true,
+    linkcolor=Mauve,
+    citecolor=pink,
+    filecolor=red,
+    urlcolor=blue,
+    bookmarksdepth=4
+}
+\makeatother
+
+% tcolorbox environments
+\tcbuselibrary{theorems}
+% theorem
+\newtcbtheorem[number within=chapter]{theorem}{Theorem}%
+{breakable,colback=Mauve!5,colframe=Mauve!95!black,fonttitle=\bfseries}{thm}
+\crefname{tcb@cnt@theorem}{Theorem}{Theorems}
+
+% definition
+\newtcbtheorem[number within=chapter]{definition}{Definition}%
+{breakable, colback=Pink!5,colframe=Pink!95!black,fonttitle=\bfseries}{def}
+\crefname{tcb@cnt@definition}{Definition}{Definitions}
+
+% proposition
+\newtcbtheorem[number within=chapter]{proposition}{Proposition}%
+{breakable,colback=Rosewater!5,colframe=Rosewater!95!black,fonttitle=\bfseries}{prop}
+\crefname{tcb@cnt@proposition}{Proposition}{Propositions}
+
+% lemma
+\newtcbtheorem[number within=chapter]{lemma}{Lemma}%
+{breakable,colback=Flamingo!5,colframe=Flamingo!95!black,fonttitle=\bfseries}{lem}
+\crefname{tcb@cnt@lemma}{Lemma}{Lemmas}
+
+% example
+\newtheorem{example}{Example}[chapter]
+
+% amsthm environments
+% \newtheorem{definition}{Definition}[chapter]
+% \newtheorem{theorem}{Theorem}[chapter]
+% \newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+% \newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\title{Notes on \textit{Riemannian Geometry}}
+\author{Louis Bergamo Radial}
+
+\setcounter{chapter}{0}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\chapter{Differentiable Manifolds}
+\input{chapter01/differentiable-manifolds}
+
+\printbibliography
+\end{document}

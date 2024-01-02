@@ -1,0 +1,96 @@
+\section{Homeomorphisms}
+
+With the notion of topological spaces, we may ask ourselves whether certain maps between topological spaces can preserve the topology. That is, a map that takes open sets in the domain topology into open sets in the target topology. To define such a map we define \emph{continuity}.
+
+\begin{definition}{Continuous map}{continuity}
+    Let \topology{M} and \topology{N} be topological spaces. Then a map \(f : M \to N\) is \emph{continuous} (with respect to \(\mathcal{O}_M\) and \(\mathcal{O}_N\)) if, for all \(V \in \mathcal{O}_N\), the preimage \(f^{-1}(V)\) is an open set in \(\mathcal{O}_M\).
+\end{definition}
+
+In short, a map is continuous if and only the preimages of (all) open sets are open sets. Now a map that preserves the topology is called a \emph{homeomorphism}, which is defined as a continuous bijection with continuous inverse. We now prove such a map satisfies the condition required.
+
+\begin{proposition}{Homeomorphism maps open sets to open sets}{homeomorphism}
+    Let \topology{M} and \topology{N} be topological spaces. Suppose a map \(f : M \to N\) is a homeomorphism, then \(f\) maps open sets in \(\mathcal{O}_M\) into open sets in \(\mathcal{O}_N\).
+\end{proposition}
+\begin{proof}
+    Given a subset \(U \in \mathcal{O}_M\), we must show the image \(V = f(U)\) is open in \topology{N}. Taking our attention to the inverse map \(g = f^{-1} : N \to M\), we see the preimage \(g^{-1}(U) = V\) must be open in \topology{N}, due to continuity.
+\end{proof}
+
+If there exists a homeomorphism between two topological spaces, they are said to be homeomorphic to each other. This begs the question: if \topology{M} is homeomorphic to \topology{N} and \topology{N} is homeomorphic to \topology{P}, are \topology{M} and \topology{P} homeomorphic? To answer this we must show whether the composition of continuous maps is itself continuous.
+
+\begin{theorem}{Composition of continuous maps}{continuous_composition}
+    Let \topology{M}, \topology{N}, and \topology{P} be topological spaces. If the maps \(f: M \to N\) and \(g : N \to P\) are continuous (with respect to the appropriate topologies), then the map \(g \circ f : M \to P\) is continuous with respect to \(\mathcal{O_M}\) and \(\mathcal{O_P}\).
+\end{theorem}
+\begin{proof}
+    Let \(V\) be an open set of \topology{P}. We must show the preimage \((g \circ f)^{-1}(V)\) is an open set of \topology{M}. We have
+    \begin{align*}
+        (g\circ f)^{-1}(V) &= \set{m \in M : g\circ f(m) \in V}\\
+                           &= \set{m \in M : f(m) \in g^{-1}(V)}\\
+                           &= f^{-1}\left(g^{-1}(V)\right).
+    \end{align*}
+    Since the map \(g\) is continuous and \(V\) is an open set in \topology{P}, it follows that \(g^{-1}(V)\) is open in \topology{N}. By the same argument, \(f^{-1}\left(g^{-1}(V)\right)\) is an open set in \topology{M}.
+\end{proof}
+
+\begin{corollary}
+    If \topology{M} is homeomorphic to \topology{N} and \topology{N} is homeomorphic to \topology{P}, then \topology{M} is homeomorphic to \topology{P}.
+\end{corollary}
+\begin{proof}
+    Let \(f : M \to N\) and \(g : N \to P\) be homeomorphisms from \topology{M} to \topology{N} and \topology{N} to \topology{P}, respectively. Consider the composition \(g\circ f : M \to P\).
+    \[
+    \begin{tikzcd}
+        M \arrow{r}{f} \arrow[swap]{dr}{g\circ f} & N \arrow{d}{g} \\
+                                            & P
+    \end{tikzcd}
+    \]
+    By \cref{thm:continuous_composition}, the map \(g\circ f\) is a homeomorphism from \topology{M} to \topology{P}.
+\end{proof}
+
+As was done for the subspace topology, we prove a similar result for continuous maps.
+
+\begin{proposition}{Restriction of a continuous map}{restriction_map}
+    Let \topology{M} and \topology{N} be topological spaces and let \(f : M \to N\) be a continuous map. Let \(S\) be a subset of \(M\) and let \topology{S} be the subspace topology, then \(\restrict{f}{S} : S \to N\) is a continuous map with respect to \(\mathcal{O}_S\) and \(\mathcal{O}_N\).
+\end{proposition}
+\begin{proof}
+    Let \(V \in \mathcal{O}_N\). Then, by the definition of preimage, we have
+    \begin{align*}
+        \restrict{f}{S}^{-1}(V) &= \set{s \in S : \restrict{f}{S}(s) \in V}\\
+                                &= \set{s \in S : f(s) \in V}\\
+                                &= f^{-1}(V) \cap S.
+    \end{align*}
+    By hypothesis, the preimage \(f^{-1}(V)\) is an open set in \topology{M}, so \(\restrict{f}{S}^{-1}(V)\) is an open set in the subspace topology.
+\end{proof}
+
+We can now define the notion of a topological space locally resembling Euclidean space.
+\begin{definition}{Locally Euclidean topological space}{locally_euclidean}
+    A topological space \topology{M} is \emph{locally Euclidean} of dimension \(n\) if for all \(m \in M\) there exists an open subset \(U \in \mathcal{O}_M\) about \(m\) that is homeomorphic to \(\mathbb{R}^n\) with respect to the subspace topology and the standard topology of \(\mathbb{R}^n\).
+\end{definition}
+It is sufficient to show the subspace topology \(\topology{U}\) is homeomorphic to an open ball in \(\mathbb{R}^n\), due to \cref{prop:ball_homeomorphic_euclidean}.
+\begin{proposition}{Open ball is homeomorphic to the Euclidean space}{ball_homeomorphic_euclidean}
+    Let \(r > 0\), then the map \(f : B_n(r, 0)\subset\mathbb{R}^n\to\mathbb{R}^n\) given by
+    \[f(x) = \frac{x}{r - \norm{x}}\]
+    is a homeomorphism with respect to the standard topology.
+\end{proposition}
+\begin{proof}
+    We begin by checking \(f\) is one-to-one and onto.
+
+    Suppose there exists \(x_1, x_2 \in B_n(r, 0)\) such that \(f(x_1) = f(x_2)\). It follows from
+    \begin{align*}
+        f(x_2) - f(x_1) &= \frac{x_2}{r - \norm{x_2}} - \frac{x_1}{r - \norm{x_1}}\\
+                        &= \frac{\left(r - \norm{x_1}\right)x_2 - \left(r - \norm{x_2}\right)x_1}{\left(r - \norm{x_2}\right)\left(r - \norm{x_1}\right)}
+    \end{align*}
+    that \(\left(r - \norm{x_1}\right)x_2 = \left(r - \norm{x_2}\right)x_1\). Applying the norm to both sides, we have \(\norm{x_1} = \norm{x_2}\). Substituting back, we have \(x_1 = x_2\), proving \(f\) is injective.
+
+    Suppose \(y \in \mathbb{R}^n\) and consider \(\xi = \frac{ry}{1 + \norm{y}}\). Clearly, \(\xi \in B_n(r,0)\). We have
+    \begin{align*}
+        f(\xi) &= f\left(\frac{ry}{1 + \norm{y}}\right)\\
+               &= \frac{ry}{1 + \norm{y}} \frac{1}{r - \norm*{\frac{ry}{1 + \norm{y}}}}\\
+               &= \frac{1}{\left(1 + \norm{y}\right)\left(1 - \frac{\norm{y}}{1 + \norm{y}}\right)} y\\
+               &= y,
+    \end{align*}
+    so \(f\) is onto.
+
+    We have shown \(f\) is a bijection with inverse \(f^{-1} : \mathbb{R}^n \to B_n(r, 0)\) defined by
+    \begin{equation}
+        f^{-1}(x) = \frac{rx}{1 + \norm{x}}.
+    \end{equation}
+    With the standard topology, continuity of \(f\) and \(f^{-1}\) follows from techniques of elementary calculus, and we conclude \(f\) is a homeomorphism.
+\end{proof}

@@ -1,0 +1,50 @@
+\section{Compactness and paracompactness}
+
+\begin{definition}{Hausdorff space}{hausdorff}
+    A topological space \topology{M} is called a \emph{Hausdorff space} if for any \(p,q\in M\) with \(p\neq q\), there exists a neighborhood \(U\) of \(p\), i.e. \(p \in U \in \mathcal{O}_M\), and a neighborhood \(V\) of \(q\) such that \(U \cap V = \emptyset\).
+\end{definition}
+\begin{remark}
+    The Hausdorff property is one of the \emph{separation axioms} of topological spaces. Namely, a Hausdorff space is also called a \emph{T2 space}.
+\end{remark}
+
+\begin{definition}{Compactness}{compact}
+    A topological space \topology{M} is \emph{compact} if every \emph{open cover} of \(M\) has a finite subcover. That is, the topological space is compact if for every family of open sets \(C\) that covers \(M\), i.e. \(\bigcup_{U \in C}U = M\) with \(U \in \mathcal{O}_M\), there exists a finite family of open sets \(F \subset C\) such that \(\bigcup_{U\in F} U = M\).
+
+    Additionally, in a topological space \topology{N}, a subset \(S\subset N\) is called compact if the subspace topology is compact.
+\end{definition}
+
+\begin{theorem}{Heine-Borel theorem}{heine_borel}
+    A subset \(S\subset\mathbb{R}^n\) with the standard topology is compact if it is closed and bounded.
+\end{theorem}
+\begin{proof}
+    Refer to \cite{babyrudin}.
+\end{proof}
+
+\begin{definition}{Locally finite collection}{locally_finite}
+    A collection of subsets \(C\) of a topological space \topology{M} is called \emph{locally finite} if each point in the space has a neighborhood that intersects only finitely many sets in \(C\). More precisely, for all \(p \in M\) there exists a neighborhood \(U \in \mathcal{O}_M\) about \(p\) such that \(U \cap V \neq \emptyset\) only for finitely many \(V \in C\).
+\end{definition}
+
+\begin{definition}{Refinement}{refinement}
+    A \emph{refinement} of a cover \(C\) of a topological space \topology{M} is a cover \(D\) such that every set in \(D\) is contained in some set in \(C\). Precisely, let \(C = \family{U_\alpha}{\alpha \in A}\) and \(D = \family{V_\beta}{\beta \in B}\) such that \(\bigcup_{\alpha \in A} U_\alpha = M\) and \(\bigcup_{\beta \in B} V_\beta = M\), then \(D\) is a refinement of \(C\) if for all \(\beta \in B\) there exists \(\alpha \in A\) such that \(V_\beta \subset U_\alpha\).
+\end{definition}
+
+\begin{definition}{Paracompactness}{paracompact}
+    A topological space \topology{M} is called \emph{paracompact} if every open cover \(C\) has an \emph{open refinement} \(\tilde{C}\) that is \emph{locally finite}.
+\end{definition}
+
+\begin{definition}{Partition of unity}{partition_of_unity}
+    A \emph{partition of unity} of a topological space \topology{M} is a set \(\mathcal{F}\) of continuous functions from \(M\) to \([0,1]\subset\mathbb{R}\) such that for every point \(p \in M\)
+    \begin{enumerate}[label=(\alph*)]
+        \item there exists a neighborhood \(U \in \mathcal{O}_M\) about \(p\) where all but finitely many functions of \(\mathcal{F}\) vanish on \(U\);
+        \item the sum of all function values at \(p\) is 1, that is, \(\sum_{f \in \mathcal{F}} f(p) = 1\).
+    \end{enumerate}
+
+    Moreover, let \(C = \family{U_\alpha}{\alpha \in J}\) be an open cover of \(M\). A \emph{partition of unity subordinate to the open cover \(C\)} is a family \(\mathcal{F}_C\) of continuous maps \(f_\alpha : p \to [0,1] \subset\mathbb{R}\) indexed over the same set \(J\) such that the support of \(f_\alpha\) is contained in \(U_\alpha\), for all \(\alpha \in J\). That is, for every \(f \in \mathcal{F}_C\) there exists an open set \(U \in C\) such that \(f(p) \neq 0 \implies p \in U\).
+\end{definition}
+
+\begin{theorem}{Paracompactness and partitions of unity}{hausdorff_paracompact}
+    Let \topology{M} be a Hausdorff space. Then it is paracompact if and only if every open cover \(C\) admits a partition of unity subordinate to that cover.
+\end{theorem}
+\begin{proof}
+    Refer to \cite{munkres_topology}.
+\end{proof}
