@@ -1,0 +1,14 @@
+\section{Convergence}
+
+In analysis on \(\mathbb{R}^n\) with the standard topology, we often consider sequences \(x : \mathbb{N} \to \mathbb{R}^n\) and study whether it converges to a value. We say the sequence \(x\) converges to \(y \in \mathbb{R}^n\) if for all \(\varepsilon > 0\) there exists \(N \in \mathbb{N}\) such that \(x(i) - y \in B_n(\varepsilon, 0)\) for all \(i > N\). We generalize the notion of a convergent sequence to any topological space in \cref{def:convergence}.
+
+\begin{definition}{Convergence of a sequence}{convergence}
+    A sequence \(x : \mathbb{N} \to M\) on a topological space \topology{M} is said to \emph{converge} to a \emph{limit point} \(p \in M\) if for every neighborhood \(U \in \mathcal{O}_M\) of \(p\) there exists \(N \in \mathbb{N}\) such that \(x(n) \in U\) for all \(n > N\).
+\end{definition}
+
+\begin{theorem}{Unique limit on Hausdorff spaces}{unique_limit}
+    Let \topology{M} be a Hausdorff space. If a sequence \(x\) converges on \(M\), its limit point is unique.
+\end{theorem}
+\begin{proof}
+    Let \(p, q \in M\) be limit points of the sequence \(x\). Suppose, by contradiction, that \(p \neq q\). By the Hausdorff property, there exists neighborhoods \(U, V \in \mathcal{O}_M\) of \(p\) and \(q\), respectively, such that \(U \cap V = \emptyset\). From the definition of convergence, there exists \(N_p, N_q \in \mathbb{N}\) such that \(x(n) \in U\) for all \(n > N_p\) and \(x(n) \in V\) for all \(n > N_q\). Let \(N = \mathrm{min}\set{N_p, N_q}\), then for all \(n > N\), \(x(n) \in U\) and \(x(n) \in V\), that is, \(x(n) \in U \cap V = \emptyset\). This contradiction proves the statement.
+\end{proof}

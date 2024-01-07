@@ -1,0 +1,43 @@
+\section{Homotopic curves and the fundamental group}
+
+\begin{definition}{Homotopic curves}{homotopy}
+    Let \topology{M} be a topological space and let \(p, q \in M\). Two curves \(\gamma,\eta: [0,1]\to M\) from \(p\) to \(q\), i.e. \(\gamma(0) = \eta(0) = p\) and \(\gamma(1) = \eta(1) = q\), are \emph{homotopic} if there exists a continuous map \(h : [0,1] \times [0,1] \to M\) such that \(h(0, \lambda) = \gamma(\lambda)\) and \(h(1, \lambda) = \eta(\lambda)\), for all \(\lambda \in [0,1]\).
+\end{definition}
+
+It is easy to check that homotopic curves form a equivalence relation. (do that)
+
+\begin{definition}{Loops at a point}{loops}
+    Let \topology{M} be a topological space and let \(p \in M\). We define the \emph{space of loops at \(p\)} as the set \(\mathscr{L}_p\) of continuous curves \(\gamma : [0,1] \to M\) such that \(\gamma(0) = \gamma(1) = p\).
+
+    A \emph{concatenation} is a binary operation \(\ast_p : \mathscr{L}_p \times \mathscr{L}_p \to \mathscr{L}_p\) defined by
+    \begin{equation*}
+        (\gamma \ast_p \eta)(\lambda) = \begin{cases}\gamma(2\lambda), & \text{ for } \lambda \in \left[0,\frac12\right]\\\eta(2\lambda -1), &\text{ for }\lambda \in \left(\frac12, 1\right]\end{cases}
+    \end{equation*}
+    for all \(\gamma,\eta \in \mathscr{L}_p\).
+\end{definition}
+
+\begin{definition}{Fundamental group}{fundamental_group}
+    The \emph{fundamental group \((\pi_{1,p}, \cdot)\)} of a topological space is the set
+    \begin{equation*}
+        \pi_{1,p} = \mathscr{L}_p / \mathrm{homotopy} = \set{[\gamma]_{\mathrm{homotopy}} : \gamma \in \mathscr{L}_p}
+    \end{equation*}
+    together with the product \(\cdot : \pi_{1,p} \times \pi_{1,p} \to \pi_{1,p}\) defined by
+    \begin{equation*}
+        [\gamma] \cdot [\eta] = [\gamma \ast_p \eta].
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item On the two-sphere \(S^2\), the fundamental group has a single element, represented by the constant loop.
+        \item For the cylinder \(C = \mathbb{R}\times S^1\), the fundamental group is homomorphic to the group \((\mathbb{Z}, +)\). There exists a bijection \(f : \pi_1 \to \mathbb{Z}\) with the property \(f(\alpha\cdot\beta) = f(\alpha) + f(\beta)\).
+        \item On the torus \(T^2 = S^1 \times S^1\), we have \(\pi_1\) isomorphic to \(\mathbb{Z}\times\mathbb{Z}\).
+    \end{enumerate}
+\end{example}
+
+\begin{definition}{Simply connected}{simply_connected}
+    A topological space \topology{M} is \emph{simply connected} if it is path-connected and if for every point \(p \in M\) the fundamental group \((\pi_{1,p}, \cdot)\) is the trivial group.
+\end{definition}
+\begin{remark}
+    Building up on the previous examples, we see that the two-sphere is simply connected, while the cylinder and the torus are not, although path-connected.
+\end{remark}

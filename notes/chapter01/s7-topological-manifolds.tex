@@ -1,0 +1,152 @@
+\section{Topological manifolds}
+
+We now finally define the notion of a manifold, which is a "well-behaving" topological space that \emph{locally} looks like Euclidean space.
+
+% second countable?
+\begin{definition}{Topological manifold}{topological_manifold}
+    A paracompact Hausdorff space \topology{M} locally Euclidean of dimension \(n\) is called a \emph{\(n\)-dimensional topological manifold}.
+\end{definition}
+
+\begin{example}
+    We list a few examples of constructions of new manifolds from other manifolds.
+    \begin{enumerate}[label=(\alph*)]
+        \item As with topological spaces, it is clear that the subspace topology \topology{N} is in its own right a manifold. This construction takes the name of \emph{submanifold}.
+        \item Let \topology{M} be an \(m\)-dimensional manifold and \topology{N} be an \(n\)-dimensional manifold. Then the product topology \topology{M\times N} is an \((n+m)\)-dimensional manifold. As an example, the circle \(S^1\) is a 1-dimensional manifold, so the torus \(T^2 = S^1 \times S^1\) is a 2-dimensional manifold.
+    \end{enumerate}
+\end{example}
+
+\subsection{Bundles}
+
+It is clear we may not always construct a manifold as a product manifold. To see this, take the Möbius strip. %I have no idea what I'm doing, one day I'll learn this properly.
+We generalize this concept with \emph{bundles}.
+
+\begin{definition}{Bundles of topological manifolds}{bundle}
+    A \emph{bundle of topological manifolds} is a triple \((E, \pi, M)\), where \topology{E} is a topological manifold called the \emph{total space}, \topology{M} is a topological manifold called the \emph{base space}, and \(\pi : E \to M\) is a continuous surjective map called the \emph{projection}. Let \(p \in M\), then \(\pi^{-1}(\set{p}) = F_p\) is the \emph{fiber at \(p\).}
+\end{definition}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item The first example is when the total space \(E = M \times F\) is a product manifold of the base space \(M\) and a fiber \(F\). We take the projection \(\pi : M \times F \to M\) as the continuous map \((p, f) \mapsto p\).
+        \item We now take the Möbius strip as the total space and the base space as \(S^1\). For any point in \(S^1\), the preimage of the projection is some interval on the real line.  % I'm not sure I understood this properly.
+        \item We consider \(M = \mathbb{R}\) as the base space. We begin construct the total space by attaching to each point of \(M\) a circle. Then, we continuously deform the circles such that they collapse to a point on the positive numbers of the real line. Finally, we continuously stretch the point on that half of the line to increasing intervals. The fiber at any given point may be homeomorphic to a circle or to a point, or to an interval.
+        % I don't see how this total space is a manifold
+    \end{enumerate}
+\end{example}
+
+In the last example, a bundle was constructed with a fiber space that is not the same at different points. This motivates the following definition.
+
+\begin{definition}{Fiber bundle}{fiber_bundle}
+    A bundle \((E, \pi, M)\) is a \emph{fiber bundle with typical fiber \(F\)} if for all \(p \in M\), the preimage \(\pi^{-1}(\{p\})\) is homeomorphic to the manifold \(F\). The diagram
+    \begin{equation*}
+        \begin{tikzcd}[row sep = large, column sep = normal]
+            F \arrow{r}{} & E \arrow{r}{\pi} & M
+        \end{tikzcd}
+    \end{equation*}
+    denotes a fiber bundle.
+\end{definition}
+
+As an example, we consider the \emph{\(\mathbb{C}\)-line bundle over \(M\)} as the bundle \((E, \pi, M)\) with typical fiber \(\mathbb{C}\).
+
+\begin{definition}{Section of the bundle}{bundle_section}
+    Let \((E, \pi, M)\) be a bundle. A map \(\sigma : M \to E\) is called a section of the bundle if \(\pi \circ \sigma = \mathrm{id}_M\).
+\end{definition}
+
+As a special case we consider the "product bundle"
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        F \arrow{r}{} & M \times F \arrow{r}{\pi} & M,
+    \end{tikzcd}
+\end{equation*}
+where \(\pi : M \times F \to M\) is the projection \((p, f) \mapsto p\). Given any function \(s : M \to F\), we may construct a section \(\sigma : M \to M \times F\) defined by \(p\mapsto (p, s(p))\). % As an example, we consider the \(\mathbb{C}\)-line bundle over \(M\) in quantum mechanics, and notice a wave function is a section of the \(\mathbb{C}\)-line bundle over the physical space.
+
+Given a bundle \((E, \pi, M)\), we may consider the submanifolds \(E' \subset E\) and \(M' \subset M\) and the restriction \(\pi' = \restrict{\pi}{E'}\), then we call \((E', \pi', M')\) a \emph{subbundle}. Similarly, we consider another submanifold \(N \subset M\) and the preimage \(G = \pi^{-1}(N)\), then \((G, \restrict{\pi}{G}, N)\) is called the \emph{restricted bundle.}
+
+Given two bundles \((E, \pi, M)\) and \((E', \pi', M')\) and a pair of maps \(u: E \to E'\) and \(f: M \to M'\). Then the pair \((u,f)\) is called a \emph{bundle morphism} if the diagram
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        E \arrow{r}{u} \arrow{d}{\pi} & E' \arrow{d}{\pi'}\\
+        M \arrow{r}{f} & M'
+    \end{tikzcd}
+\end{equation*}
+commutes. The bundles are called \emph{isomorphic as bundles} if there exists bundle morphisms \((u, f)\) and \((u^{-1}, f^{-1})\). In this case \((u,f)\) are called \emph{bundle isomorphisms} and are the structure-preserving maps for bundles.
+
+We may weaken this condition by not requiring it globally. Two bundles \((E, \pi, M)\) and \((E', \pi', M')\) are \emph{locally isomorphic as bundles} if for every \(p \in M\) there exists a neighborhood \(U \in \mathcal{O}_M\) such that the restricted bundle \((\pi^{-1}(U), \restrict{\pi}{\pi^{-1}(U)}, U)\) is isomorphic to \((E', \pi', M')\).
+
+A bundle is called \emph{(locally) trivial} if it is (locally) isomorphic to a product bundle. As an example, the cylinder is trivial and thus locally trivial and a Möbius strip is not trivial, but it is locally trivial. From now on we will disregard bundles that are not locally trivial. Then, locally, any section can be represented as a map from the base space to fiber.
+
+\begin{definition}{Pullback bundle}{pullback_bundle}
+    Let \((E, \pi, M)\) be a bundle, \(M'\) be a manifold and \(f : M' \to M\) be a continuous map.
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            f^\ast E \arrow{d}{\pi'} \arrow{r}{u} & E \arrow{d}{\pi} \\
+            M' \arrow{r}{f} & M
+        \end{tikzcd}
+    \end{equation*}
+    Let \(f^\ast E = \set{(m', e) \in M'\times E : \pi(e) = f(m')} \subset M' \times E\) equipped with the subspace topology, define the map \(u : f^\ast E \to E\) by \( (m', e) \mapsto e\) and the projection \(\pi' : f^\ast E \to M'\) by \((m',e)\mapsto m'\) such that the diagram above commutes. The bundle \((f^\ast E, \pi', M')\) is called the \emph{pullback bundle by \(f\)} or the \emph{bundle induced by \(f\)}.
+\end{definition}
+
+Given a bundle \((E, \pi, M)\) with section \(\sigma : M \to E\) and a continuous map \(f : M' \to M\), where \(M'\) is a manifold, we may define the pullback section \(f^\ast \sigma : M' \to f^\ast E\) on the bundle induced by \(f\) by the map \( m' \mapsto (m', \sigma\circ f(m'))\). Since \(\pi \circ \sigma = \mathrm{id}_M\), it is clear the image of the pullback section is contained in \(f^\ast E\), so the map is well-defined.
+
+\subsection{Atlas}
+
+Since a topological manifold is locally Euclidean, for any point there is a neighborhood homeomorphic to Euclidean space. That is, there exists a homeomorphism from one such neighborhood to Euclidean space. Moreover, the collection of all such neighborhoods must cover the manifold. These remarks motivate the \cref{def:chart,def:atlas}.
+
+\begin{definition}{Chart of a manifold}{chart}
+    Let \topology{M} be a topological manifold of dimension \(n\). Then a pair \((U, x)\) where \(U \in \mathcal{O}_M\) and \(x: U \to x(U) \subset \mathbb{R}^n\) is called a \emph{chart} of the manifold.
+
+    The component functions of x, the maps \(x^i : U \to \mathbb{R}\) defined by \(p \mapsto \mathrm{proj}_i(x(p))\), are called the \emph{coordinates of the point \(p \in U\) with respect to the chart \((U, x)\).}
+\end{definition}
+
+\begin{definition}{Atlas of a manifold}{atlas}
+    Let \topology{M} be a topological manifold. The \emph{atlas} \(\mathscr{A} = \family{(U_\alpha, x_\alpha)}{\alpha \in J}\) is a family of charts of the manifold such that \(\bigcup_{\alpha\in J}{U_{\alpha}} = M\).
+\end{definition}
+
+It is easy to see that the domains of different charts may overlap. Let \((U, x)\) and \((V, y)\) be charts of a manifold \topology{M} with \(U\cap V \neq \emptyset\). Since \(U \cap V \in \mathcal{O}_M\) is a non-empty open set, the pairs \((U\cap V, x)\) and \((U \cap V, y)\) are charts on the manifold.
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        & U\cap V \arrow[swap]{ld}{x} \arrow{rd}{y} & \\
+        x(U\cap V) \arrow{rr}{y\circ x^{-1}} && y(U\cap V)
+    \end{tikzcd}
+\end{equation*}
+As the maps \(x\) and \(y\) are bijections, the map \(y \circ x^{-1} : x(U\cap V) \to y(U \cap V)\) is well defined and it is called the \emph{chart transition map}. By \cref{thm:continuous_composition}, the transition map is a homeomorphism.
+
+The following definitions will seem redundant, but will serve as a framework of definitions as we require more and more structure on manifolds. Namely, later on we will replace the continuity requirement with a differentiability class.
+
+\begin{definition}{\(\mathcal{C}^0\)-compatible charts}{c0_compatible}
+    Two charts \((U, x)\) and \((V, y)\) of a \(n\)-dimensional manifold \topology{M} are \emph{\(\mathcal{C}^0\)-compatible} if either
+    \begin{enumerate}[label=(\alph*)]
+        \item \(U \cap V = \emptyset\); or
+        \item \(U \cap V \neq \emptyset\) and the transition map \(y \circ x^{-1}\) is continuous as a map \(\mathbb{R}^n \to \mathbb{R}^n\).
+    \end{enumerate}
+\end{definition}
+
+As discussed above, it is clear that any two charts on a manifold are \(\mathcal{C}^0\)-compatible. However, as we can study, for example, the differentiability class of the transition map as a map \(\mathbb{R}^n \to \mathbb{R}^n\), we may not conclude any such thing from the chart maps before adding structure to the manifold.
+
+\begin{definition}{\(\mathcal{C}^0\)-atlas}{c0_atlas}
+    A \emph{\(\mathcal{C}^0\)-atlas} \(\mathscr{A}\) is an atlas whose charts are pairwise \(\mathcal{C}^0\)-compatible.
+\end{definition}
+
+\begin{definition}{Maximal \(\mathcal{C}^0\)-atlas}{max_c0_atlas}
+    A \(\mathcal{C}^0\)-atlas \(\mathscr{A}\) is \emph{maximal} if any chart \((U, x)\) that is \(\mathcal{C}^0\)-compatible with any \((V, y) \in \mathscr{A}\) is already contained in \(\mathscr{A}\).
+\end{definition}
+
+Even though every atlas is a \(\mathcal{C}^0\)-atlas, not every atlas is maximal. As an example we consider \topology{M} as the real line equipped with the standard topology. Then, the family \(\set{(\mathbb{R}, \mathrm{id}_{\mathbb{R}})}\) is an atlas, but the chart \(((-\infty, 0), \mathrm{id}_{\mathbb{R}})\) is not contained in it.
+
+With an atlas and charts, one may study objects on an \(n\)-dimensional topological manifold \topology{M} from different points of view. As an example, we consider a curve \(\gamma : \mathbb{R} \to M\) and ask ourselves whether the curve is continuous. Clearly, by definition, we can check whether the preimage of open sets in \(M\) are open. From another perspective, we may employ charts.
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        & y(U) \subset \mathbb{R}^n \\
+        \gamma^{-1}(U) \subset \mathbb{R} \arrow{r}{\gamma} \arrow{ur}{y\circ \gamma} \arrow[swap]{dr}{x\circ \gamma} &  U \subset M\arrow[swap]{u}{y} \arrow{d}{x}\\
+        & x(U) \subset \mathbb{R}^n \arrow[bend right = 60, swap]{uu}{y\circ x^{-1}}
+    \end{tikzcd}
+\end{equation*}
+Let \(U \subset M\) be an open set that contains the image of the curve, and let \((U, x)\) be a chart. The \emph{expression} of \(\gamma\) in this chart is the map \(x\circ \gamma: \gamma^{-1}(U) \subset \mathbb{R} \to x(U) \subset \mathbb{R}^n\). Then, the curve is continuous if its expression is continuous as a function from \(\mathbb{R} \to \mathbb{R}^n\), that is, if its components are continuous real-valued functions of a single variable. Additionally, if \((U, y)\) is another chart, then the expression of the curve in this chart \(y \circ \gamma : \gamma^{-1}(U) \to y(U)\) is continuous if and only if the expression in the other chart \(x\circ \gamma\) is continuous, because the chart transition map \(y\circ x^{-1} : x(U) \to y(U)\) is continuous. In this perspective, it is possible to ignore altogether the inner workings of the manifolds and use only the coordinate systems given by the charts.
+
+Analogously, a map \(\phi : M \to N\), where \topology{M} is an \(m\)-dimensional topological manifold and \topology{N} is an \(n\)-dimensional topological manifold, is continuous if preimages of open sets in \(N\) are open sets in \(M\). By employing charts \((U, x)\) on \(M\) and \((V, y)\) on \(N\), the expression of the map is \(y \circ \phi \circ x^{-1} : x(U) \subset \mathbb{R}^n \to y(V) \subset \mathbb{R}^n\), and its continuity can be determined as a function of \(\mathbb{R}^m \to \mathbb{R}^n\).
+\begin{equation*}
+    \begin{tikzcd}[column sep = large, row sep = large]
+        \tilde{x}(U) \subset \mathbb{R}^m \arrow{r}{\tilde{y}\circ \phi \circ \tilde{x}^{-1}} & \tilde{y}(V) \subset \mathbb{R}^n\\
+        U \subset M \arrow{d}{x} \arrow[swap]{u}{\tilde{x}} \arrow{r}{\phi} & V \subset N \arrow{d}{y} \arrow[swap]{u}{\tilde{y}}\\
+        x(U) \subset \mathbb{R}^m \arrow{r}{y\circ \phi \circ x^{-1}} \arrow[bend left=60]{uu}{\tilde{x} \circ x^{-1}} & y(V) \subset \mathbb{R}^n \arrow[bend right=60, swap]{uu}{\tilde{y}\circ y^{-1}}
+    \end{tikzcd}
+\end{equation*}
+Taking another pair of charts \((U, \tilde{x})\) and \((V, \tilde{y})\), it follows from the continuity of the chart transition maps that the expression of \(\phi\) in these charts \(\tilde{y} \circ \phi \circ \tilde{x}^{-1} : \tilde{x}(U) \subset \mathbb{R}^n \to \tilde{y}(V) \subset \mathbb{R}^n\) is a continuous function if and only if the expression \(y \circ \phi\circ{x}^{-1}\) is continuous.

@@ -35,12 +35,12 @@ If there exists a homeomorphism between two topological spaces, they are said to
 \end{corollary}
 \begin{proof}
     Let \(f : M \to N\) and \(g : N \to P\) be homeomorphisms from \topology{M} to \topology{N} and \topology{N} to \topology{P}, respectively. Consider the composition \(g\circ f : M \to P\).
-    \[
-    \begin{tikzcd}
-        M \arrow{r}{f} \arrow[swap]{dr}{g\circ f} & N \arrow{d}{g} \\
-                                            & P
-    \end{tikzcd}
-    \]
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            M \arrow{r}{f} \arrow[swap]{dr}{g\circ f} & N \arrow{d}{g} \\
+                                                      & P
+        \end{tikzcd}
+    \end{equation*}
     By \cref{thm:continuous_composition}, the map \(g\circ f\) is a homeomorphism from \topology{M} to \topology{P}.
 \end{proof}
 
@@ -77,7 +77,7 @@ It is sufficient to show the subspace topology \(\topology{U}\) is homeomorphic 
         f(x_2) - f(x_1) &= \frac{x_2}{r - \norm{x_2}} - \frac{x_1}{r - \norm{x_1}}\\
                         &= \frac{\left(r - \norm{x_1}\right)x_2 - \left(r - \norm{x_2}\right)x_1}{\left(r - \norm{x_2}\right)\left(r - \norm{x_1}\right)}
     \end{align*}
-    that \(\left(r - \norm{x_1}\right)x_2 = \left(r - \norm{x_2}\right)x_1\). Applying the norm to both sides, we have \(\norm{x_1} = \norm{x_2}\). Substituting back, we have \(x_1 = x_2\), proving \(f\) is injective.
+    that \(\left(r - \norm{x_1}\right)x_2 = \left(r - \norm{x_2}\right)x_1\). Taking the norm on both sides, we have \(\norm{x_1} = \norm{x_2}\). Substituting back, we have \(x_1 = x_2\), proving \(f\) is injective.
 
     Suppose \(y \in \mathbb{R}^n\) and consider \(\xi = \frac{ry}{1 + \norm{y}}\). Clearly, \(\xi \in B_n(r,0)\). We have
     \begin{align*}

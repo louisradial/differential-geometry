@@ -1,0 +1,39 @@
+\section{Connectedness and path-connectedness}
+\begin{definition}{Connectedness}{connectedness}
+    A topological space \topology{M} is \emph{connected} unless there exists two non-empty, non-intersecting open sets \(A, B \in \mathcal{O}_M\) such that \(M = A \cup B\).
+\end{definition}
+
+\begin{theorem}{Interval is connected}{interval}
+    Every interval \(I \subset \mathbb{R}\) is connected with respect to the standard topology.
+\end{theorem}
+\begin{proof}
+    Suppose \(I\) is not connected, then \(I = A \cup B\), where \(A, B \subset I\) are non-empty, non-intersecting open sets. Let \(a \in A\) and \(b \in B\). Without loss of generality, we assume \(a < b\).
+
+    Consider \(\alpha = \sup\set{x \in \mathbb{R} : [a, x) \cap I \subset A}\). Then \(a \leq \alpha \leq b\), so \(\alpha \in I\). Since \(B = I \smallsetminus A\) is open, we have \(A\) closed, hence \(\alpha \in A\). Since \(A\) is open, there exists \(r > 0\) such that \((\alpha - r, \alpha + r)\cap I \subset A\). We conclude \((a, \alpha+r)\cap I \subset A\), which is a contradiction.
+\end{proof}
+
+\begin{theorem}{Open and closed subsets in a connected space}{clopen}
+    A topological space \topology{M} is connected if and only if \(\emptyset\) and \(M\) are the only subsets that are both open and closed.
+\end{theorem}
+\begin{proof}
+    Suppose the topological space is connected. Suppose, by contradiction, the non-empty subset \(U \subsetneq M\) is open and closed. It follows from \(M = U \cup (M\smallsetminus U)\) that the topological space is not connected, a contradiction.
+
+    Suppose the empty set and \(M\) are the only subsets that are both open and closed. Suppose, by contradiction, that the topological space is not connected. Then there exists two non-empty non-intersecting open sets \(A,  B \in \mathcal{O}_M\) such that \(M = A \cup B\). Clearly, \(B = M\smallsetminus A\) is closed, and likewise, \(A\) is closed. By hypothesis, \(A = B = M\) since they are both open and closed and are non-empty. We have thus arrived at a contradiction, since \(A\cap B = M\) is non-empty, which proves the topological space is connected.
+\end{proof}
+
+\begin{definition}{Path-connectedness}{pathconnected}
+    A topological space \topology{M} is called \emph{path-connected} if for every pair of points \(p, q\in M\) there exists a continuous curve \(\gamma : [0, 1] \to M\) such that \(\gamma (0) = p\) and \(\gamma(1) = q\).
+\end{definition}
+
+\begin{theorem}{Path-connectedness implies connectedness}{pathconnected_implies_connectedness}
+    A path-connected topological space is connected.
+\end{theorem}
+\begin{proof}
+    Suppose, by contradiction, a topological space \topology{M} is path-connected but not connected. Then, there exists non-empty, non-intersecting open sets \(A, B \in \mathcal{O}_M\) such that \(M = A \cup B\). Choose \(a \in A\) and \(b \in B\). Since \topology{M} is path-connected, there exists a continuous curve \(\gamma: [0,1] \to M\) such that \(\gamma(0) = a\) and \(\gamma(1) = b\). Consider the preimage \([0,1] = \gamma^{-1}(M)\). If follows from
+    \begin{align*}
+        \gamma^{-1}(M) &= \gamma^{-1}(A\cup B)\\
+                       &= \set*{x \in [0,1] : \gamma(x) \in A \cup B}\\
+                       &= \gamma^{-1}(A) \cup \gamma^{-1}(B)
+    \end{align*}
+    that \([0,1]\) is the union of two non-empty sets, since \(0 \in \gamma^{-1}(A)\) and \(1 \in \gamma^{-1}(B)\). Suppose \(\gamma^{-1}(A) \cap \gamma^{-1}(B)\) is non-empty. Then there exists \(t \in [0,1]\) such that \(\gamma(t) \in A\) and \(\gamma(t) \in B\), that is, \(\gamma(t) \in A \cap B\). This contradiction shows \(\gamma^{-1}(A)\) and \(\gamma^{-1}(B)\) are non-intersecting. By continuity, these sets are both open and closed. Therefore, \([0,1]\) is not connected. By \cref{thm:interval}, this is a contradiction, and the theorem follows.
+\end{proof}

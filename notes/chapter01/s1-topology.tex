@@ -1,5 +1,4 @@
 \section{Topology}
-
 In order to define the notion of smooth manifolds, we must first begin with some building blocks, such as topology and topological manifolds.
 
 \begin{definition}{Topology}{topology}
@@ -10,10 +9,10 @@ In order to define the notion of smooth manifolds, we must first begin with some
         \item an arbitrary union of members of \(\mathcal{O}\) belongs to \(\mathcal{O}\).
     \end{enumerate}
 
-    The pair \topology{M} is named a \emph{topological space}, elements of \(\mathcal{O}\) are called \emph{open sets} and elements of \(M\smallsetminus\mathcal{O}\) are called \emph{closed sets}.
+    The pair \topology{M} is named a \emph{topological space}, elements of \(\mathcal{O}\) are called \emph{open sets} and elements of \(M\smallsetminus\mathcal{O}\) are called \emph{closed sets}. Additionally, given an element \(p \in M\) an open set \(U\) that contains \(p\) is called a \emph{neighborhood} of \(p\).
 \end{definition}
 
-In \cref{prop:standard_topology,prop:subspace_topology} we show a couple of important examples that illustrate how the axioms of topological spaces given in \cref{def:topology} are used.
+In \cref{prop:standard_topology,prop:subspace_topology,prop:product_topology} we show a couple of important examples that illustrate how the axioms of topological spaces given in \cref{def:topology} are used.
 
 \begin{proposition}{Standard topology in \(\mathbb{R}^n\)}{standard_topology}
     We define the \emph{open ball} \(B_n(r,p) \subset \mathbb{R}^n\) of radius \(r > 0\) centered in the point \(p = (p^1, \dots, p^n)\) as the set
@@ -52,3 +51,19 @@ In \cref{prop:standard_topology,prop:subspace_topology} we show a couple of impo
         Since arbitrary unions of open sets is an open set, it follows that \(\bigcup_{\alpha\in J}U_\alpha \in \restrict{\mathcal{O}_M}{S}\).
     \end{enumerate}
 \end{proof}
+
+\begin{proposition}{Product topology}{product_topology}
+    Let \topology{M} and \topology{N} be topological spaces. Define the \emph{product topology} \(\mathcal{O}_{M\times N}\) as the collection of subsets \(U \subset M \times N\) such that for all \((m,n) \in U\), there exists neighborhoods \(S \subset M\) and \(T \subset N\) of \(m \in M\) and \(n\in N\) such that \(S \times T \subset U\). Then \topology{M\times N} is a topological space.
+\end{proposition}
+\begin{proof}
+    Clearly, \(M\times N\) and \(\emptyset\) are open sets in the product topology.
+
+    Next, we consider open sets \(U, V \in \mathcal{O}_{M\times N}\) and an element \(p \in U \cap V\). Let \(p = (m, n) \in M \times N\), then there exists neighborhoods \(S_U, S_V\subset M\) of \(m\) and \(T_U, T_V \subset N\) of \(n\) such that \(S_U \times T_U \subset U\) and \(S_V \times T_V \subset V\). Let \(S = S_U \cap S_V\) and \(T = T_U \cap T_V\), then \(S \in \mathcal{O}_M\) and \(T \in \mathcal{O}_N\) are neighborhoods of \(m\) and \(n\), respectively. Moreover, \(S \times T \subset U \cap V\) is a neighborhood of \(p\), from which follows \(U \cap V \in \mathcal{O}_{M\times N}\).
+
+    Let \family{U_\alpha}{\alpha\in J} be a family of open sets in the product topology. Let \(p\in \bigcup_{\alpha\in J}U_\alpha\), then there exists \(\beta \in J\) such that \(p \in U_{\beta}\). By definition, there exists open sets \(S \in \mathcal{O}_M\) and \(T \in \mathcal{O}_N\) such that \(S \times T \subset U_\beta \subset \bigcup_{\alpha\in J} U_\alpha\). Therefore, \(\bigcup_{\alpha\in J}U_\alpha\) is an open set.
+\end{proof}
+
+Along with the axioms of topological spaces described in \cref{def:topology} one might add further restrictions to specify the space considered. Some common restrictions are called the \emph{separation axioms}. Among these, we will make use of the T2 axiom, namely the Hausdorff property. Historically, Felix Hausdorff used this axiom in his original definition of a topological space, although the formulation of his other axioms were not exactly those of \cref{def:topology}, but an equivalent one.
+\begin{definition}{Hausdorff space}{hausdorff}
+    A topological space \topology{M} is called a \emph{Hausdorff space} if for any \(p,q\in M\) with \(p\neq q\), there exists a neighborhood \(U\) of \(p\), i.e. \(p \in U \in \mathcal{O}_M\), and a neighborhood \(V\) of \(q\) such that \(U \cap V = \emptyset\).
+\end{definition}

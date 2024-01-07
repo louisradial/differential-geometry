@@ -1,17 +1,18 @@
-\section{Topological manifolds}
+The theory of smooth manifolds is a very useful generalization of the differential calculus on \(\mathbb{R}^n\). Namely, a smooth manifold is a topological space endowed with a differentiable structure such that it locally resembles Euclidean space.
 
-\begin{definition}{Local chart}{local_chart}
-    Let \topology{M} be a topological space and let \(U \in\mathcal{O}_M\) be an open set locally Euclidean of dimension \(n\). The homeomorphism \(x : U \to \mathbb{R}^n\) is called a \emph{coordinate chart on \(U\)}, which is called a \emph{local chart}. The pair \((U, x)\) is called a \emph{local chart of coordinates on \(U\)}, which will be abbreviated simply by \emph{chart}.
-\end{definition}
+% \begin{definition}{Differentiable Manifolds}{manifold}
+%     A \emph{differentiable manifold} of dimension \(n\) is a set \(M\) and \emph{system of coordinates}, a family \(\set{(U_\alpha, \varphi_\alpha)}_{\alpha\in J}\) of injective mappings \(\varphi_\alpha: U_\alpha \to M\) of open sets \(U_\alpha\) of \(\mathbb{R}^n\) into \(M\), such that
+%     \begin{enumerate}
+%         \item the union of the \emph{coordinate neighborhoods} \(\varphi_\alpha(U_\alpha)\) cover the set \(M\), that is, \[\bigcup_{\alpha\in J} \varphi_\alpha(U_\alpha) = M;\]
+%         \item for any pair \(\alpha, \beta\), with \(\varphi_\alpha(U_\alpha) \cap \varphi_\beta(U_\beta) = W \neq \emptyset\), the sets \(\varphi_\alpha ^{-1}(W)\) and \(\varphi_\beta^{-1}(W)\) are open sets in \(\mathbb{R}^n\) and the mappings \(\varphi_\beta^{-1}\circ\varphi_\alpha\) are differentiable;
+%         \item the \emph{system of coordinates} \(\set{U_\alpha, \varphi_\alpha}_{\alpha\in J}\) is maximal relative to the conditions above.
+%     \end{enumerate}
+% \end{definition}
 
-\begin{definition}{Atlas}{atlas}
-    Let \topology{M} be a locally Euclidean space of dimension \(n\). The family of charts
-    \begin{equation*}
-        \mathscr{A} = \family{(U_\alpha, x_\alpha)}{\alpha \in J}
-    \end{equation*}
-    is called an \emph{atlas} if the family \family{U_\alpha}{\alpha\in J} covers \(M\), i.e. \(\bigcup_{\alpha \in J} U_\alpha = M\), and if, for all \(\alpha \in J\), the map \(x_\alpha : U_\alpha \to \mathbb{R}^n\) is a homeomorphism from \(U_\alpha\) to \(\mathbb{R}^n\).
-\end{definition}
-
-\begin{definition}{Topological Manifolds}{topological_manifolds}
-    A topological space \topology{M} is an \emph{\(n\)-dimensional topological manifold} if for every point \(p \in M\) there is a \emph{chart} \((U, x)\), where \(U\in\mathcal{O}_M\) is an open subset that contains \(p\) and \(x : U \to x(U) \subset \mathbb{R}^n\) is a \emph{homeomorphism} with respect to the subspace topology and the standard topology of \(\mathbb{R}^n\).
-\end{definition}
+\input{chapter01/s1-topology}
+\input{chapter01/s2-convergence}
+\input{chapter01/s3-homeomorphisms}
+\input{chapter01/s4-compactness}
+\input{chapter01/s5-connectedness}
+\input{chapter01/s6-fundamental-group}
+\input{chapter01/s7-topological-manifolds}
