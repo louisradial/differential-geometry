@@ -1,0 +1,71 @@
+\section{Smooth Atlas and Differentiable Manifolds}
+
+Even though for topological manifolds the atlas was mostly redundant, although useful, we may add a differentiable structure to a topological manifold by refining the maximal \(\mathcal{C}^0\)-atlas. The following definitions are almost the same as \cref{def:c0_compatible,def:c0_atlas,def:max_c0_atlas}, substituting the continuity trivial requirement to the differentiability class \(\mathcal{C}^k\), with \(k \geq 1\). Analogously, we may change the differentiability class \(\mathcal{C}^k\) to the smoothness condition \(\mathcal{C}^\infty\) or to real \(\mathcal{C}^\omega\) or complex analytic functions.
+
+\begin{definition}{\(\mathcal{C}^k\)-compatible charts}{compatible_charts}
+    Let \topology{M} be an \(n\)-dimensional topological manifold. Two charts \((U, x)\) and \((U, y)\) are \(\mathcal{C}^k\)-compatible if
+    \begin{enumerate}[label=(\alph*)]
+        \item \(U \cap V = \emptyset\); or
+        \item \(U \cap V \neq \emptyset\) and the transition map \(y \circ x^{-1}\) is of class \(\mathcal{C}^k\) as a map \(\mathbb{R}^n \to \mathbb{R}^n\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}{\(\mathcal{C}^k\)-atlas}{compatible_atlas}
+    A \emph{\(\mathcal{C}^k\)-compatible atlas} \(\mathscr{A}\) is an atlas whose charts are pairwise \(\mathcal{C}^k\)-compatible.
+\end{definition}
+
+\begin{definition}{Maximal \(\mathcal{C}^k\)-atlas}{maximal_atlas}
+    A \(\mathcal{C}^k\)-atlas \(\mathscr{A}\) is \emph{maximal} if any chart \((U, x)\) that is \(\mathcal{C}^k\)-compatible with any \((V, y) \in \mathscr{A}\) is already contained in \(\mathscr{A}\).
+\end{definition}
+
+We now state a theorem \cite{hirsch} that allows us to consider either maximal \(\mathcal{C}^0\)-atlas or a maximal smooth atlas. That is, the construction of a maximal \(\mathcal{C}^1\)-atlas is not weaker than the construction of a maximal \(\mathcal{C}^\infty\)-atlas.
+\begin{theorem}{Whitney}{whitney}
+    Any maximal \(\mathcal{C}^k\)-atlas with \(k \geq 1\) contains a smooth atlas. And two maximal \(\mathcal{C}^k\)-atlases that contain the same smooth atlas are already identical.
+\end{theorem}
+
+\begin{definition}{\(\mathcal{C}^k\)-manifold}{manifold}
+    A \(\mathcal{C}^k\)-manifold is a triple \manifold{M} when \topology{M} is a topological manifold and \(\mathscr{A}_M\) is a maximal \(\mathcal{C}^k\)-atlas.
+\end{definition}
+
+\begin{remark}
+    A given topological manifold can carry different incompatible atlases. As an example, take the manifold as the real line equipped with the standard topology. We consider two atlases \(\mathscr{A}_1 = \set{(\mathbb{R}, \mathrm{id}_{\mathbb{R}})}\) and \(\mathscr{A}_2 = \set{(\mathbb{R}, x)}\) where \(x : \mathbb{R} \to \mathbb{R}\) is the map \(p \mapsto p^{\frac13}\). Clearly, \(\mathscr{A}_1\) can be completed to be a maximal smooth atlas. The other atlas is a smooth atlas, as there is only one chart, so the chart transition map is the identity map, which is smooth. As such, it is also possible to complete this atlas to a maximal smooth atlas. We observe however that the atlas \(\mathscr{A}_1 \cup \mathscr{A}_2\) is not even \(\mathcal{C}^1\)-compatible, as the transition map is not differentiable at \(p = 0\).
+\end{remark}
+
+\begin{definition}{Differentiable map between manifolds}{differentiable_map}
+    Let \(\phi : M \to N\) be a map, where \manifold{M} and \manifold{N} are \(\mathcal{C}^k\)-manifolds of dimensions \(m\) and \(n\) respectively.
+
+    \begin{equation*}
+        \begin{tikzcd}[column sep = large, row sep = large]
+            U \subset M \arrow{d}{x}  \arrow{r}{\phi} & V \subset N \arrow{d}{y} \\
+            x(U) \subset \mathbb{R}^m \arrow{r}{y\circ \phi \circ x^{-1}} & y(V) \subset \mathbb{R}^n
+        \end{tikzcd}
+    \end{equation*}
+
+    The map \(\phi\) is \emph{differentiable} at \(p \in M\) if there exists charts \((U, x) \in \mathscr{A}_M\) and \((V, y) \in \mathscr{A}_N\), where \(U\) and \(V\) are neighborhoods of \(p\) and \(\phi(p)\), such that the expression of \(\phi\) in these charts, that is the map \(y \circ \phi \circ x^{-1} : x(U) \subset \mathbb{R}^m \to y(V) \subset \mathbb{R}^n\) is a \(\mathcal{C}^k\) map from \(\mathbb{R}^m\to \mathbb{R}^n\).
+\end{definition}
+
+Although the definition relies on the existence of charts, we must show the differentiability of a map between manifolds is independent of the choice of charts. Without loss of generality, we suppose there are another pair of charts \((U, \tilde{x})\in\mathscr{A}_M\) and \((V, \tilde{y})\in\mathscr{A}_N\).
+\begin{equation*}
+    \begin{tikzcd}[column sep = large, row sep = large]
+        \tilde{x}(U) \subset \mathbb{R}^m \arrow{r}{\tilde{y}\circ \phi \circ \tilde{x}^{-1}} & \tilde{y}(V) \subset \mathbb{R}^n\\
+        U \subset M \arrow{d}{x} \arrow[swap]{u}{\tilde{x}} \arrow{r}{\phi} & V \subset N \arrow{d}{y} \arrow[swap]{u}{\tilde{y}}\\
+        x(U) \subset \mathbb{R}^m \arrow{r}{y\circ \phi \circ x^{-1}} \arrow[bend left=60]{uu}{\tilde{x} \circ x^{-1}} & y(V) \subset \mathbb{R}^n \arrow[bend right=60, swap]{uu}{\tilde{y}\circ y^{-1}}
+    \end{tikzcd}
+\end{equation*}
+Because the atlases are \(\mathcal{C}^k\)-compatible, the chart transition maps \(\tilde{x}\circ x^{-1}\) and \(\tilde{y} \circ y^{-1}\) are \(\mathcal{C}^k\) maps. Therefore, the expression \(\tilde{y}\circ \phi \circ\tilde{x}^{-1} : \tilde{x}(U) \to \tilde{y}(V)\) is a \(\mathcal{C}^k\) map if and only if \(y\circ \phi\circ x^{-1} : x(U) \to y(V)\) is a \(\mathcal{C}^k\). This shows the definition is independent of the choice of charts.
+
+We now define the maps that preserve the differentiable structure on manifolds.
+\begin{definition}{Diffeomorphism}{diffeomorphism}
+    The map \(\phi : M \to N\) is a \emph{diffeomorphism} if it is is bijective and the maps \(\phi\) and \(\phi^{-1}\) are smooth.
+\end{definition}
+
+\begin{definition}{Diffeomorphic manifolds}{diffeomorphic}
+    Two manifolds \manifold{M} and \manifold{N} are \emph{diffeomorphic} if there exists a diffeomorphism between them.
+\end{definition}
+
+It is custom to regard diffeomorphic manifolds to be the same up to diffeomorphism. A natural question arises: how many different differentiable structures can one add on a given \(n\)-dimensional topological manifold up to diffeomorphism? The answer differs for the dimension of the manifold.
+\begin{enumerate}[label=(\alph*)]
+    \item The case \(1 \leq n \leq 3\). Radó-Moise theorems. There is a unique smooth manifold one can construct of a given topological manifold.
+    \item The case \(n = 4\). Depending on the structure of the topological manifold, there are possibly uncountably many different smooth manifolds.
+    \item The case \(n > 4\). Surgery theory (1960s). For compact manifolds, there are finitely many smooth manifolds one can make from a given topological manifold.
+\end{enumerate}
