@@ -15,7 +15,7 @@ In order to define the notion of smooth manifolds, we must first begin with some
 In \cref{prop:standard_topology,prop:subspace_topology,prop:product_topology} we show a couple of important examples that illustrate how the axioms of topological spaces given in \cref{def:topology} are used.
 
 \begin{proposition}{Standard topology in \(\mathbb{R}^n\)}{standard_topology}
-    We define the \emph{open ball} \(B_n(r,p) \subset \mathbb{R}^n\) of radius \(r > 0\) centered in the point \(p = (p^1, \dots, p^n)\) as the set
+    We define the \emph{open ball} \(B_n(r,p) \subset \mathbb{R}^n\) of radius \(r > 0\) centered at \(p = (p^1, \dots, p^n)\) as the set
     \begin{equation*}
         B_n(r, p) = \set*{q = (q^1, \dots, q^n) \in \mathbb{R}^n : \sum_{i=1}^{n}{(q^i - p^i)^2} < r^2}.
     \end{equation*}
@@ -63,7 +63,7 @@ In \cref{prop:standard_topology,prop:subspace_topology,prop:product_topology} we
     Let \family{U_\alpha}{\alpha\in J} be a family of open sets in the product topology. Let \(p\in \bigcup_{\alpha\in J}U_\alpha\), then there exists \(\beta \in J\) such that \(p \in U_{\beta}\). By definition, there exists open sets \(S \in \mathcal{O}_M\) and \(T \in \mathcal{O}_N\) such that \(S \times T \subset U_\beta \subset \bigcup_{\alpha\in J} U_\alpha\). Therefore, \(\bigcup_{\alpha\in J}U_\alpha\) is an open set.
 \end{proof}
 
-Along with the axioms of topological spaces described in \cref{def:topology} one might add further restrictions to specify the space considered. Some common restrictions are called the \emph{separation axioms}. Among these, we will make use of the T2 axiom, namely the Hausdorff property. Historically, Felix Hausdorff used this axiom in his original definition of a topological space, although the formulation of his other axioms were not exactly those of \cref{def:topology}, but an equivalent one.
+Along with the axioms of topological spaces described in \cref{def:topology} one might add further restrictions to specify the space considered. Some common restrictions are called the \emph{separation axioms}. Among these, we will make use of the T2 axiom, namely the Hausdorff property. Historically, Felix Hausdorff used this axiom in his original definition of a topological space, although the formulation of his other axioms was not exactly as those of \cref{def:topology}, but an equivalent one.
 \begin{definition}{Hausdorff space}{hausdorff}
     A topological space \topology{M} is called a \emph{Hausdorff space} if for any \(p,q\in M\) with \(p\neq q\), there exists a neighborhood \(U\) of \(p\), i.e. \(p \in U \in \mathcal{O}_M\), and a neighborhood \(V\) of \(q\) such that \(U \cap V = \emptyset\).
 \end{definition}

@@ -1,5 +1,18 @@
 \section{Homotopic curves and the fundamental group}
 
+\begin{definition}{Group}{group}
+    A \emph{group} is a non-empty set \(G\), called the \emph{underlying set}, closed under a map \(\cdot : G \times G \to G\), named \emph{group operation}, such that the \emph{group axioms} are satisfied:
+    \begin{enumerate}[label=(\alph*)]
+        \item Associativity: For all \(a,b,c \in G\), on has \((a\cdot b)\cdot c = a \cdot (b\cdot c)\).
+        \item Identity element: There exists a unique element \(e \in G\), called the \emph{identity element} or \emph{neutral element} of the group, such that for every \(g \in G\), \(e \cdot g = g\) and \(g \cdot e = g\).
+        \item Inverse element: For each \(g \in G\), there exists a unique element \(g^{-1} \in G\) such that \(g \cdot g^{-1} = e\) and \(g^{-1} \cdot g = e\).
+    \end{enumerate}
+    If the group operation is commutative, \(G, \cdot\) is named an \emph{abelian group}.
+\end{definition}
+\begin{remark}
+     If the group operation is notated as addition, the inverse element of \(g\) is typically denoted by \(-g\), the identity element denoted by 0, and the group may be called an \emph{additive group}. Similarly, a group may be called \emph{multiplicative group} if the group operation is notated as multiplication, and the identity element is denoted by 1. Additionally, in a multiplicative group, the group operation may be denoted simply by juxtaposition, that is, \(f \cdot g = fg\).
+\end{remark}
+
 \begin{definition}{Homotopic curves}{homotopy}
     Let \topology{M} be a topological space and let \(p, q \in M\). Two curves \(\gamma,\eta: [0,1]\to M\) from \(p\) to \(q\), i.e. \(\gamma(0) = \eta(0) = p\) and \(\gamma(1) = \eta(1) = q\), are \emph{homotopic} if there exists a continuous map \(h : [0,1] \times [0,1] \to M\) such that \(h(0, \lambda) = \gamma(\lambda)\) and \(h(1, \lambda) = \eta(\lambda)\), for all \(\lambda \in [0,1]\).
 \end{definition}
