@@ -1,0 +1,374 @@
+\section{Tangent spaces to a manifold}
+
+We suppress the notation of a smooth manifold \manifold{M} to simply its set \(M,\) unless there are more manifolds and their underlying structure need be emphasized.
+
+Let \(M\) be a smooth manifold. We equip the set of smooth functions from \(M\) to \(\mathbb{R}\) with point-wise addition and scalar multiplication, and we claim \((\mathcal{C}^\infty(M), +, \cdot)\) is a vector space. That is, if \(f, g \in \mathcal{C}^\infty(M)\) and \(\lambda \in \mathbb{R}\), then \((f+g)(p) = f(p) + g(p)\) and \((\lambda f)(p) = \lambda\cdot f(p)\), where \(p \in M\).
+
+\begin{definition}{Directional derivative at a point along a curve}{tangent_vector}
+    Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an open interval, for some \(\varepsilon > 0\). Let \(\lambda : I \to M\) be a smooth curve through a point \(p \in M\) such that \(p = \gamma(0)\). The \emph{directional derivative operator at the point \(p\) along the curve \(\gamma\)} is the linear map
+    \begin{align*}
+        X_{\gamma, p} : \mathcal{C}^\infty(M) &\linear \mathbb{R}\\
+                                            f &\mapsto (f \circ \gamma)'(0).
+    \end{align*}
+    In differential geometry, the operator \(X_{\gamma, p}\) is usually called the \emph{tangent vector to the curve \(\gamma\) at the point \(p\).}
+\end{definition}
+
+A precise intuition is \(X_{\gamma, p}\) is the velocity of the curve \(\gamma\) at the point \(p\). Given a curve \(\gamma : (-\varepsilon, \varepsilon) \to M\), this notion is easily seen with a curve \(\eta : \left(-\frac{\varepsilon}2, \frac{\varepsilon}{2}\right) \to M\) with double the parameter speed \(\eta(\lambda) = \gamma(2 \lambda),\) for \(|\lambda| < \varepsilon\), where one gets \(X_{\eta, p} = 2 X_{\gamma, p}\).
+
+\begin{definition}{Tangent vector space at a point}{tangent_space}
+    The \emph{tangent vector space at a point \(p \in M\)} is the set \(T_p M\) of all the directional derivatives operators at the point \(p\) along smooth curves \(\gamma : I \to M\) with \(\gamma(0) = p\) equipped with the addition
+    \begin{align*}
+        + : T_pM \times T_pM &\to T_pM\\
+                    (X, Y)  &\mapsto X+Y
+    \end{align*}
+    and scalar multiplication
+    \begin{align*}
+        \cdot : \mathbb{R} \times T_pM &\to T_pM\\
+                    (\lambda, X)  &\mapsto \lambda X
+    \end{align*}
+    defined point-wise, that is, \((X+Y)f = Xf + Yf\) and \((\lambda X)f = \lambda \cdot (Xf)\) for all \(f \in \mathcal{C}^\infty(M)\).
+\end{definition}
+
+We must now verify the claim that \(T_pM\) equipped with the above operations is indeed a vector space. The immediate concern is whether there exists curves such that \(X+Y\) and \(\lambda X\) are their tangent vectors. The vector space axioms follow from letting the tangent vectors act on smooth functions and by using the field properties of \(\mathbb{R}\).
+
+\begin{proposition}{Tangent vector operations are closed in the tangent space}{tangent_vector_operations}
+    Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an interval and let \(\gamma, \eta : I \to M\) be smooth curves with \(\gamma(0) = p\) and \(\eta(0) = p\), where \(p \in M\). Let \(X, Y \in T_pM\) be the directional derivative operator at \(p\) along the curves \(\gamma\) and \(\eta\), respectively. Then, there exists smooth curves \(\phi : I_\phi \to M\) and \(\psi : I_\psi \to M\), where \(I_\phi\) and \(I_\psi\) are intervals on \(\mathbb{R}\), with \(\phi(0) = p\) and \(\psi(0) = p\), such that \(X+Y\) is the tangent vector at \(p\) along \(\phi\) and \(\lambda X\) is the tangent vector at \(p\) along \(\psi\), for some \(\lambda \in \mathbb{R}\). That is, \(X + Y \in T_pM\) and \(\lambda X \in T_pM\).
+\end{proposition}
+\begin{proof}
+    We construct the curve \(\psi\) associated with scalar multiplication. If \(\lambda = 0,\) we set \(I_\psi = \mathbb{R}\) and \(\psi(t) = p\) for all \(t \in I_\psi\), clearly yielding the zero directional derivative operator. For \(\lambda \neq 0,\) we set \(I_\psi = \left(-\frac{\varepsilon}{|\lambda|}, \frac{\varepsilon}{|\lambda|}\right)\) and \(\psi(t) = \gamma(\lambda t)\), for all \(t \in I_\psi\). For any \(f \in \mathcal{C}^\infty(M)\), the map \(f \circ \gamma : \mathbb{R} \to \mathbb{R}\) is smooth as a real valued function of a single variable. Composing \(f \circ \gamma\) with the smooth map \(t \mapsto \lambda t\) yields \(f \circ \psi\). By the chain rule, we have
+    \begin{align*}
+        (f \circ \psi)'(0) &= \diff*{\underbrace{f\circ \gamma}_{\mathbb{R} \to \mathbb{R}}\underbrace{(\lambda t)}_{\mathbb{R}\to \mathbb{R}}}{t}[t=0]\\
+                           &= (f \circ \gamma)'(0) \cdot (\lambda t)'(0)\\
+                           &= \lambda Xf,
+    \end{align*}
+    as desired.
+
+    Next we construct the curve \(\phi\) associated with vector addition. We consider a chart \((U, x)\) such that \(p \in U\) and take a subset of \(J \subset I\) such that its image by the curves \(\gamma\) and \(\eta\) is contained in \(U\). Let \(\phi : J \to M\) be defined by
+    \begin{equation*}
+        \phi= x^{-1} \circ \left(x\circ \gamma+ x\circ \eta- x(p)\right),
+    \end{equation*}
+    where \(x(p)\) is the constant map \(t \mapsto x(p)\) for all \(t \in J\).
+    We compute the directional derivative at \(p\) along \(\phi\) of \(f \in \mathcal{C}^\infty(M)\) with the chain rule
+    \begin{align*}
+        (f \circ \phi)'(0) &= \left(\underbrace{f \circ x^{-1}}_{\mathbb{R}^n \to \mathbb{R}} \circ \underbrace{\left(x\circ \gamma+ x\circ \eta- x(p)\right)}_{\mathbb{R} \to \mathbb{R}^n}\right)'(0)\\
+                           &= \partial_i (f \circ x^{-1})(x(p)) \cdot \left(x^i \circ \gamma + x^i \circ \eta - x^i(p)\right)'(0)\\
+                           &= \partial_i (f \circ x^{-1})(x(p)) \cdot (x^i \circ \gamma)'(0) + \partial_j (f \circ x^{-1})(x(p))\cdot (x^j \circ \eta)'(0)\\
+                           &= \left(f \circ x^{-1} \circ x \circ \gamma\right)'(0) + \left(f \circ x^{-1} \circ x \circ \eta\right)'(0)\\
+                           &= (f \circ \gamma)'(0) + (f \circ \eta)'(0)\\
+                           &= Xf + Yf,
+    \end{align*}
+    as desired. We note the tangent vector to \(\phi\) at \(p\) does not depend of the choice of chart, since the chart map was composed with its inverse.
+\end{proof}
+
+\subsection{A quick note on algebras and derivations}
+\begin{definition}{Algebra}{algebra}
+    An \emph{algebra (over a field)} \(\mathcal{A} = (V, +, \cdot, \bullet)\) is a vector space \((V, +, \cdot)\) over a field \(\mathbb{K}\), equipped with a bilinear map \(\bullet : V \times V \linear V\), called a product.
+\end{definition}
+Defining the product of two smooth functions on a manifold point-wise, we see \(\mathcal{C}^\infty(M)\) is an algebra over the real numbers, not just a vector field.
+
+\begin{definition}{Derivation on an algebra}{derivation}
+    A \emph{derivation} \(D\) on an algebra \(\mathcal{A}\) is a linear map \(D : \mathcal{A} \to \mathcal{A}\) that satisfies the \emph{Leibniz rule}
+    \begin{equation*}
+        D(f\bullet g) = (Df) \bullet g + f \bullet (Dg),
+    \end{equation*}
+    for all \(f,g \in \mathcal{A}.\)
+\end{definition}
+Any \(X \in T_pM\) is a \emph{derivation at a point} on the algebra of smooth functions on a manifold, since the Leibniz rule is satisfied
+\begin{equation*}
+    X(fg) = (Xf)g(p) + f(p)(Xg).
+\end{equation*}
+As another example, we may set \(\mathcal{A}\) as the algebra of endomorphisms on a vector space \(V\) with product \([\phi, \psi] = \phi \circ \psi - \psi \circ \phi\). It can be shown that this product satisfies the so called \emph{Jacobi identity},
+\begin{equation*}
+    [\phi, [\psi, \rho]] + [\psi, [\rho, \phi]] + [\rho, [\phi, \psi]] = 0.
+\end{equation*}
+In particular, this algebra is called a \emph{Lie algebra}. Given \(H \in \mathcal{A}\), we define a derivation
+\begin{align*}
+    D_H : \mathcal{A} &\linear \mathcal{A}\\
+                \phi &\mapsto [H, \phi].
+\end{align*}
+Using the Jacobi identity, it's easy to verify this is indeed a derivation. We note that, in classical mechanics, the Poisson bracket is a derivation on the algebra of functions on phase space.
+
+\subsection{Chart induced basis of the tangent space}
+
+We now establish an important theorem that relates the dimension of the tangent space \(T_pM\) with the dimension of the manifold. In this constructive proof, a basis for the tangent space will be determined from a chart. First, we prove a lemma.
+
+\begin{lemma}{Component functions are smooth}{component_smooth}
+    Let \manifold{M} be an \(n\)-dimensional smooth manifold. Let \((U, x) \in \mathscr{A}_M\) be a chart. Then, the component functions \(x^i : U \to \mathbb{R}\) are smooth.
+\end{lemma}
+\begin{proof}
+    We recall that a map \(f : M \to \mathbb{R}\) is smooth at a point \(p \in U\) if and only if \(f \circ x^{-1} \in \mathcal{C}^\infty (\mathbb{R}^n, \mathbb{R})\).
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            U \arrow{r}{f} \arrow{d}{x} & \mathbb{R}\\
+            x(U) \arrow[swap]{ur}{f \circ x^{-1}} &
+        \end{tikzcd}
+    \end{equation*}
+    In particular, \(x^i : U \to \mathbb{R}\) is smooth if and only if \(x^i \circ x^{-1} \in \mathcal{C}^\infty(\mathbb{R}^n, \mathbb{R}).\)
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            U \arrow{r}{x^i} \arrow{d}{x} & \mathbb{R}\\
+            x(U) \arrow[swap]{ur}{x^i \circ x^{-1}} &
+        \end{tikzcd}
+    \end{equation*}
+    By definition, we have \(x^i \circ x^{-1} = \mathrm{proj}_i\), which is smooth, since it is linear.
+\end{proof}
+
+We may now construct a chart-induced basis for the tangent space.
+
+\begin{theorem}{Dimension of the tangent space}{dimension_tangent_space}
+    Let \(M\) be an \(n\)-dimensional smooth manifold. Then, for all \(p \in M\), the \(\dim T_pM = n\).
+\end{theorem}
+\begin{proof}
+    Let \((U, x)\) be a chart such that \(p \in U\).% Without loss of generality we may assume \(x(p) = 0\).
+
+    We consider the family of \emph{coordinate curves} \ffamily{\gamma_{i} : I \to U}{i = 1}{n}, where \(I \subset \mathbb{R}\) is an interval, with local expression satisfying
+    \begin{equation*}
+        (x^j \circ \gamma_i)(\lambda) = x(p) + \delta_i^j \lambda,
+    \end{equation*}
+    for all \(\lambda \in I\), \(i, j \in \set{1, \dots, n}\) and such that \(\gamma_i(0) = p\).
+    Intuitively, each curve is the image of a straight line in \(x(U)\) under the map \(x^{-1}\), where these straight lines are parallel to each axis of \(\mathbb{R}^n\) and meet at \(x(p)\).
+
+    Let \(e_i \in T_pM\) be the tangent vector at \(p\) along \(\gamma_i\) and let \(f \in \mathcal{C}^\infty(M).\) By the chain rule,
+    \begin{align*}
+        e_i f &= (f\circ \gamma_i)'(0)\\
+              &= (f \circ x^{-1} \circ x \circ \gamma_i)'(0)\\
+              &= \partial_j (f \circ x^{-1})(x(p)) \cdot (x^j \circ \gamma_i)'(0)\\
+              &= \partial_j (f \circ x^{-1})(x(p)) \cdot (x(p) + \delta_i^j \lambda)'(0)\\
+              &= \delta_i^j \partial_j (f \circ x^{-1})(x(p))\\
+              &= \partial_i (f \circ x^{-1})(x(p)).
+    \end{align*}
+
+    We write
+    \begin{equation*}
+        e_i f = \bvec[f]{x^i}{p}
+    \end{equation*}
+    to denote \(\partial_i (f\circ x^{-1})(x(p)).\) That is, \(e_i = \bvec{x^i}{p}\) and
+    \begin{equation*}
+        \mathcal{B} = \bset{x}{n}{p}%\set*{\diffp*{}{x^1}, \dots, \diffp*{}{x^n}}
+    \end{equation*}
+    is the set of tangent vectors to the chart induced curves \(\gamma_i\). We claim \(\mathcal{B}\) is a generating set for \(T_p M\). Indeed, let \(\eta : I \to M\) be a smooth curve with \(\eta(0) = p\) with tangent vector \(X\in T_pM\) at p. For a smooth map \(f \in \mathcal{C} ^\infty (M)\), we have
+    \begin{align*}
+        Xf &= (f \circ \eta)'(0)\\
+           &= (f \circ x^{-1} \circ x \circ \eta)'(0)\\
+           &= \partial_i (f \circ x^{-1})(x(p)) \cdot (x^i \circ \eta)'(0)\\
+           &= (x^i \circ \eta)'(0) \bvec[f]{x^i}{p}.
+    \end{align*}
+    This shows \(X\) is a linear combination of the elements of \(\mathcal{B}\), with components \((x^i \circ \eta)'(0).\) Thus, \(\mathcal{B}\) spans \(T_pM\).
+
+    Let \ffamily{\lambda^i}{i=1}{n} be one family of components of a linear combination of the elements of \(\mathcal{B}\) that results in the zero tangent vector. Due to \cref{lem:component_smooth}, we may compute the directional derivative at p of component functions \(x^i : U \to \mathbb{R}\). We have
+    \begin{align*}
+        \lambda^i \bvec[x^j]{x^i}{p} &= \lambda^i \partial_i \left(x^j \circ x^{-1}\right)(x(p))\\
+                                     &= \lambda^i \delta_{i}^j\\
+                                     &= \lambda^j.
+    \end{align*}
+    Since \(\lambda^i \diffp*{}{x^i} = 0,\) we have shown \(\lambda^j = 0,\) for all \(j \in \set{1, \dots, n}\). That is, \(\mathcal{B}\) is linearly independent and, thus, a basis of \(T_pM\).
+\end{proof}
+
+Suppose \((U, x), (V, y) \in \mathscr{A}_M\) are charts of \(M\) where \(U\) and \(V\) are neighborhoods of \(p\). Without loss of generality, we assume \(U = U \cap V\) and restrict \(y : U \to \mathbb{R}^n\). Then each chart induces a basis for \(T_pM\), namely \(\mathcal{B}_x = \bset{x}{n}{p}\) and \(\mathcal{B}_y = \bset{y}{n}{p}\).  We have already shown that for \(X \in T_pM\) with an associated curve \(\eta : I \to M,\) then
+\begin{equation*}
+    X = (y^i \circ \eta)'(0) \bvec{y^i}{p}.
+\end{equation*}
+In particular, this is valid for the basis vectors in \(\mathcal{B}_x.\) As before, for a given basis vector, we look at its associated coordinate curve \(\gamma_i : I \to M\) with \((x^j \circ \gamma_i)(\lambda) = x^j(p) + \delta_i^j \lambda\) for all \(\lambda \in I\). Then, we have
+\begin{align*}
+    \bvec{x^i}{p} &= (y^j \circ \gamma_i)'(0) \bvec{y^j}{p}\\
+                  &= (y^j \circ x^{-1} \circ x \circ \gamma_i)'(0) \bvec{y^j}{p}\\
+                  &= \partial_k (y^j \circ x^{-1})(x(p)) \cdot (x^k \circ \gamma_i)'(0) \bvec{y^j}{p}\\
+                  &= \delta_i^k \bvec[y^j]{x^k}{p} \bvec{y^j}{p}\\
+                  &= \bvec[y^j]{x^i}{p} \bvec{y^j}{p},
+\end{align*}
+that is, the linear map with components \(\bvec[y^j]{x^i}{p}\) is the map that governs the change of basis from \(\mathcal{B}_x\) to \(\mathcal{B}_y\). This map is usually called the \emph{Jacobian}.
+
+\subsection{Cotangent spaces and the gradient}
+
+We now define the dual vector space to the tangent space.
+
+\begin{definition}{Cotangent space at a point}{cotangent_space}
+    Let \(M\) be a smooth manifold. The \emph{cotangent space \(T_p ^{\ast}M\) at a point \(p \in M\)} is the dual vector space to the tangent space \(T_pM,\) that is \(T_p ^{\ast}M = (T_pM)^{\ast}.\)
+\end{definition}
+\begin{remark}
+    We recall that for a finite-dimensional vector space, its dimension is equal to the dimension of its dual vector space. Therefore, for a finite-dimensional manifold, the dimension of the cotangent space is equal to the tangent space.
+\end{remark}
+
+We may now define tensors over a tangent plane on a point of the manifold. As before, the set
+\begin{equation*}
+    T_s^r(T_pM) = \underbrace{T_pM \otimes \dots \otimes T_pM}_{r\text{ times}} \otimes \underbrace{T_p ^{\ast}M \otimes \dots \otimes T_p ^{\ast} M}_{s \text{ times}}
+\end{equation*}
+of multilinear maps
+\begin{equation*}
+    t : \underbrace{T_p^{\ast} \times \dots \times T_p^{\ast}}_{r\text{ times}} \times \underbrace{T_pM \times \dots \times T_pM}_{s \text{ times}} \linear \mathbb{R}
+\end{equation*}
+is the set (vector space) of all \((r,s)\)-tensors at the point \(p \in M\).
+
+\begin{definition}{Gradient operator at a point}{gradient}
+    The \emph{gradient \(d_p\) operator at a point \(p \in M,\)} is a linear map
+    \begin{align*}
+        d_p : \mathcal{C}^\infty(M) &\linear T_p ^{\ast}M\\
+                                  f &\mapsto d_p f
+    \end{align*}
+    defined by
+    \begin{equation*}
+        (d_p f)(X) = Xf,
+    \end{equation*}
+    for all \(X \in T_pM\).
+\end{definition}
+
+Given a smooth map \(f : M \to \mathbb{R}\), we may look at its level set \(\set{p \in M : f(p) = c}\), for some constant \(c \in \mathbb{R}\). Then, if \(X \in T_pM\) is tangent to this level set, it follows that \(d_p f(X) = 0\).
+
+With the notion of the gradient operator, we construct a chart-induced basis for the cotangent space.
+
+\begin{theorem}{Chart-induced covector basis}{dual_basis}
+    Let \(M\) be an \(n\)-dimensional smooth manifold. Let \((U, x) \in \mathscr{A}_M\) be a chart with \(p \in U\). Then
+    \begin{equation*}
+        \mathcal{B} = \set*{d_p x^1, \dots, d_p x^n}
+    \end{equation*}
+    is the \emph{chart-induced covector basis} for \(T_p ^{\ast} M\).
+\end{theorem}
+\begin{proof}
+    We recall \cref{lem:component_smooth} to show that, indeed, \(d_p x^i \in T_p ^{\ast} M\).
+
+    Consider \(d_p x^i \left(\bvec{x^j}{p}\right)\). We have
+
+    \begin{align*}
+        d_p x^i \left(\bvec{x^j}{p}\right) &= \bvec[x^i]{x^j}{p}\\
+                                           &= \partial_j \underbrace{\left(x^i \circ x^{-1}\right)}_{\mathrm{proj}_i \colon \mathbb{R}^n \to \mathbb{R}}(x(p))\\
+                                           &= \delta_j^i.
+    \end{align*}
+
+    From linearity, we have
+    \begin{equation*}
+        d_px^i\left(\lambda^j \bvec{x^j}{p}\right) = \lambda^i,
+    \end{equation*}
+    that is, \(\mathcal{B}\) is the dual basis of \bset{x}{n}{p} for the dual space \(T_p ^{\ast}M\).
+\end{proof}
+
+\subsection{Pushforward and pullback}
+
+Given a smooth map between smooth manifolds, we may define an object that takes tangent vectors on a manifold to tangent vectors on another manifold.
+
+\begin{definition}{Pushforward at a point}{pf_tangent_space}
+    Let \(\phi : M \to N\) be a smooth map between smooth manifolds. The \emph{pushforward \(\pf[p]\phi\) of the map \(\phi\) at the point \(p \in M\)} is the linear map
+    \begin{align*}
+        \pf[p]\phi : T_pM &\linear T_{\phi(p)}N\\
+                        X &\mapsto \pf[p]\phi(X),
+    \end{align*}
+    defined by
+    \begin{equation*}
+        \pf[p]{\phi}(X)f = X(f \circ \phi)
+    \end{equation*}
+    for all \(f \in \mathcal{C}^\infty(N).\)
+\end{definition}
+
+\begin{remark}
+    The pushforward \(\pf[p]{\phi}\) is often called the \emph{differential of \(\phi\) at \(p\)}.
+\end{remark}
+
+We note the tangent vector \(X_{\gamma,p}\) at \(p\) of the smooth curve \(\gamma\) is \emph{pushed forward} to the tangent vector \(\pf[p]{\phi}(X)\) of the smooth curve \(\phi \circ \gamma.\) Indeed, let \(f \in \mathcal{C}^\infty(N)\), then
+\begin{align*}
+    \pf[p]\phi(X)f &= X(f \circ \phi)\\
+                   &= (f \circ \phi \circ \gamma)'(0)\\
+                   &= X_{\phi \circ \gamma, \phi(p)} f,
+\end{align*}
+which implies \(X_{\phi \circ \gamma, \phi(p)} = \pf[p]\phi(X),\) as desired.
+
+Similarly, we define an object that relates elements in cotangent spaces from one manifold to another.
+
+\begin{definition}{Pullback at a point}{pb_cotangent_space}
+    Let \(\phi : M \to N\) be a smooth map between smooth manifolds. The \emph{pullback \(\pb[p]\phi\) of the map \(\phi\) at the point \(\phi(p)\)} is the linear map
+    \begin{align*}
+        \pb[p]\phi : T_{\phi(p)}^{\ast}N &\linear T_{p}^{\ast}M\\
+        \omega &\mapsto \pb[p]\phi(\omega),
+    \end{align*}
+    defined by
+    \begin{equation*}
+        \pb[p]\phi(\omega)(Y) = \omega(\pf[p]\phi(Y))
+    \end{equation*}
+    for all \(Y \in T_pM\).
+\end{definition}
+\begin{remark}
+    Unless the map \(\phi\) is a diffeomorphism, vectors are pushed forward and covectors are pulled back.
+\end{remark}
+
+\subsection{Ambient space}
+So far, the tangent plane and its structure has been done intrinsically.
+
+Decide the question under which circumstance some smooth manifold \(M\) can sit in some \(\mathbb{R}^n\)
+
+Although the following definitions are done between smooth manifolds \(M\) and \(N\) we will turn our attention to the special case \(N=\mathbb{R}^m\), equipped with the standard topology.
+
+\begin{definition}{Immersion}{immersion}
+    An \emph{immersion \(\phi\) of \(M\) into \(N\)} is a smooth map \(\phi : M \to N\) such that, for all \(p \in M\), the pushforward \(\pf[p]\phi\) is injective.
+\end{definition}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item We consider a map \(\phi : S^1 \to \mathbb{R}^2\) such that \(\phi(M)\) is a closed simple smooth curve in \(\mathbb{R}^2\). Then \(\phi(M)\) is an immersion.
+        \item We consider the map \(\tilde\phi : S^1 \to \mathbb{R}^2\) such that \(\tilde\phi(M)\) is a lemniscate. We note \(\tilde\phi\) is not injection, but \(\pf{\tilde\phi}\) is injective, and therefore \(\pf{\tilde\phi}\) is an immersion.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}{Embedding}{embedding}
+    An \emph{embedding} is an immersion with image homeomorphic to its range.
+\end{definition}
+\begin{example}
+    The map \(\phi\) defined in the previous example is an embedding, but the map \(\tilde\phi\) is not.
+\end{example}
+
+We may now quote two important theorems that answer the question considered in the beginning of this section.
+
+\begin{theorem}{Whitney's immersion and embedding theorem}{immersion_whitney}
+    Any \(n\)-dimensional smooth manifold can be
+    \begin{enumerate}[label=(\alph*)]
+        \item immersed in \(\mathbb{R}^{2n-1}\);
+        \item embedded in \(\mathbb{R}^{2n}\).
+    \end{enumerate}
+\end{theorem}
+\begin{example}
+    The two-dimensional Klein bottle can be immersed into \(\mathbb{R}^3\) but only embedded in \(\mathbb{R}^4\). This is the "worst case" of the Whitney theorem. The theorem does not state if there is an immersion or embedding in lower dimensions other than the ones stated. One could check, for instance, the 2-sphere may be embedded into \(\mathbb{R}^3\).
+\end{example}
+
+With this theorem one could show the intrinsically definitions are equivalent to ones defined extrinsically. For instance, one could embed a manifold into a higher dimensional Euclidean space, named the \emph{ambient space}, and define the tangent space at a point as a hyperplane in the ambient space.
+
+Even though the extrinsic approach is equivalent to the intrinsic approach, in the purely abstract sense, it may not desirable to pursue in some cases. As an example, in General Relativity there would have to be a physical justification for an ambient space where spacetime is embedded.
+
+\subsection{Tangent bundle and vector fields}
+Up until this point, the differentiable structure of the manifold was studied at one point at a time by virtue of the tangent space at such a point.
+
+\begin{definition}{Tangent bundle}{tangent_bundle}
+    Let \(\topology{M}\) be an \(n\)-dimensional smooth manifold. The \emph{tangent bundle }\(TM\) is the disjoint union of all the tangent spaces of the manifold, that is
+    \begin{equation*}
+        TM = \bigcupdot_{p \in M} T_pM
+    \end{equation*}
+    The \emph{bundle projection} \(\pi\) is the map
+    \begin{align*}
+        \pi : TM &\to M\\
+               X &\mapsto p,
+    \end{align*}
+    where \(p \in M\) is \emph{the} point for which \(X \in T_pM\), often referred as the \emph{base point}.
+\end{definition}
+\begin{remark}
+    We recall the disjoint union may be written as
+    \begin{equation*}
+        \bigcupdot_{p\in M} T_pM = \bigcup_{p \in M} \set*{p} \times T_pM,
+    \end{equation*}
+    justifying the well definition of the projection map \(\pi\).
+\end{remark}
+
+The previous definition makes it clear that
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        TM \arrow{r}{\pi} & M
+    \end{tikzcd}
+\end{equation*}
+is a \emph{set bundle}. We wish add structure to \(TM\) such that this is a bundle on smooth manifolds. We begin by equipping \(TM\) with the initial topology \(\mathcal{O}_{TM}\) induced by \(\pi\), that is,  \(\mathcal{O}_{TM}\) is the coarsest topology on \(TM\) such that the map \(\pi\) is continuous with respect to \(\mathcal{O}_{TM}\) and \(\mathcal{O}_M\).
+
+Let \((U, x) \in \mathscr{A}_M\) be a chart. We claim \(\left(\pi^{-1}(U), \xi\right)\) is a chart of \(TM,\) defining the chart map by
+\begin{align*}
+    \xi : \pi^{-1}(U) &\to \xi\left(\pi^{-1}(U)\right) \subset \mathbb{R}^{2n}\\
+               X &\mapsto \left(x^1(\pi(X)), \dots, x^n(\pi(X)),X^1, \dots, X^n\right),
+\end{align*}
+where \(X^i\) are the components of \(X\) in the basis \bset{x}{n}{\pi(X)}.
+
+We now check any two charts are \(C^\infty\)-compatible.
+
+Smooth Manifold.
+
+The projection map is smooth. Smooth bundle.

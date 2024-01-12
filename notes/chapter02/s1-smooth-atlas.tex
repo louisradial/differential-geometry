@@ -1,6 +1,12 @@
 \section{Smooth Atlas and Differentiable Manifolds}
 
-Even though for topological manifolds the atlas was mostly redundant, although useful, we may add a differentiable structure to a topological manifold by refining the maximal \(\mathcal{C}^0\)-atlas. The following definitions are almost the same as \cref{def:c0_compatible,def:c0_atlas,def:max_c0_atlas}, substituting the continuity trivial requirement to the differentiability class \(\mathcal{C}^k\), with \(k \geq 1\). Analogously, we may change the differentiability class \(\mathcal{C}^k\) to the smoothness condition \(\mathcal{C}^\infty\) or to real \(\mathcal{C}^\omega\) or complex analytic functions.
+Even though for topological manifolds the atlas was mostly redundant, although useful, we may add a differentiable structure to a topological manifold by refining the maximal \(\mathcal{C}^0\)-atlas. The following definitions are almost the same as \cref{def:c0_compatible,def:c0_atlas,def:max_c0_atlas}, substituting the continuity trivial requirement to the differentiability class \(\mathcal{C}^k\), with \(k \geq 1\).
+\begin{definition}{Differentiability class on Euclidean spaces}{diff_class}
+    A function \(f : U \subset \mathbb{R}^n \to \mathbb{R}\) defined on an open set \(U\subset \mathbb{R}^n\) (with respect to the standard topology) is of \emph{differentiability class \(\mathcal{C}^k\) on \(U\)} if all partial derivatives \(\partial_\alpha f\) on \(U\) exist and are continuous, where \(\alpha\) is a multi-index with \(|\alpha| \leq k\). We denote the set of all functions from \(U\) to \(\mathbb{R}\) that are of differentiability class \(\mathcal{C}^k\) on \(U\) by \(\mathcal{C}^k(U)\) and we say \(f \in \mathcal{C}^k(U)\) if \(f\) is of that differentiability class.
+
+    Similarly, a function \(f : U \subset \mathbb{R}^n \to \mathbb{R}^m\) is of \emph{differentiability class \(\mathcal{C}^k\) on \(U\)} if its component functions \(f_i = \pi_i \circ f\) are of that differentiability class, where \(\pi_i : \mathbb{R}^m \to \mathbb{R}\) are the projections \((x^1, \dots, x^m) \mapsto x^i\). Likewise, \(f \in \mathcal{C}^k(U, \mathbb{R}^m)\) if \(f : U \to \mathbb{R}^m\) if \(f\) is of differentiability class \(\mathcal{C}^k\) on \(U\).
+\end{definition}
+Analogously, we may change the differentiability class \(\mathcal{C}^k\) to the smoothness condition \(\mathcal{C}^\infty\) or to real \(\mathcal{C}^\omega\) or complex analytic functions.
 
 \begin{definition}{\(\mathcal{C}^k\)-compatible charts}{compatible_charts}
     Let \topology{M} be an \(n\)-dimensional topological manifold. Two charts \((U, x)\) and \((U, y)\) are \(\mathcal{C}^k\)-compatible if
@@ -19,7 +25,7 @@ Even though for topological manifolds the atlas was mostly redundant, although u
 \end{definition}
 
 We now state a theorem \cite{hirsch} that allows us to consider either maximal \(\mathcal{C}^0\)-atlas or a maximal smooth atlas. That is, the construction of a maximal \(\mathcal{C}^1\)-atlas is not weaker than the construction of a maximal \(\mathcal{C}^\infty\)-atlas.
-\begin{theorem}{Whitney}{whitney}
+\begin{theorem}{Any maximal differentiable atlas contains a smooth atlas}{whitney_atlas}
     Any maximal \(\mathcal{C}^k\)-atlas with \(k \geq 1\) contains a smooth atlas. And two maximal \(\mathcal{C}^k\)-atlases that contain the same smooth atlas are already identical.
 \end{theorem}
 
@@ -45,6 +51,7 @@ We now state a theorem \cite{hirsch} that allows us to consider either maximal \
 \end{definition}
 
 Although the definition relies on the existence of charts, we must show the differentiability of a map between manifolds is independent of the choice of charts. Without loss of generality, we suppose there are another pair of charts \((U, \tilde{x})\in\mathscr{A}_M\) and \((V, \tilde{y})\in\mathscr{A}_N\).
+
 \begin{equation*}
     \begin{tikzcd}[column sep = large, row sep = large]
         \tilde{x}(U) \subset \mathbb{R}^m \arrow{r}{\tilde{y}\circ \phi \circ \tilde{x}^{-1}} & \tilde{y}(V) \subset \mathbb{R}^n\\

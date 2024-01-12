@@ -1,0 +1,502 @@
+\section{Tensors over a field}
+
+Before defining tensors, we first review vector spaces.
+
+\begin{definition}{Field}{field}
+    A \emph{field} \((\mathbb{K}, +, \cdot)\) is a set \(\mathbb{K}\) equipped with two maps \(+, \cdot : \mathbb{K} \times \mathbb{K} \to \mathbb{K}\) called addition and multiplication that satisfy
+    \begin{enumerate}[label=(\alph*)]
+        \item Associativity of addition and multiplication: For all \(a,b,c \in \mathbb{K}\), \(a + (b + c) = (a + b) + c\) and \(a \cdot (b\cdot c) = (a\cdot b) \cdot c\);
+        \item Commutativity of addition and multiplication: For all \(a,b \in \mathbb{K}\), \(a + b = b + a\) and \(a\cdot b = b\cdot a\);
+        \item Additive and multiplicative identity: There exists two distinct elements \(0\) and \(1\) in \(\mathbb{K}\) such that for all \(a \in \mathbb{K}\), \(a + 0 = a\) and \(a \cdot 1 = a\);
+        \item Additive inverse: For every \(a \in \mathbb{K}\) there exists an element in \(-a \in \mathbb{K}\), called the additive inverse of \(a\), such that \(a + (-a) = 0\);
+        \item Multiplicative inverse: For every \(a \in \mathbb{K} \smallsetminus \set{0}\), there exists an element in \(a^{-1} \in \mathbb{K}\), called the multiplicative inverse of \(a\), such that \(a \cdot a^{-1} = 1\); and
+        \item Distributivity of multiplication over addition: For all \(a, b, c \in \mathbb{K}\), \(a \cdot (b + c) = (a \cdot b) + (a\cdot c)\).
+    \end{enumerate}
+    Usually the multiplication \(a \cdot b\) is denoted by \(ab\).
+\end{definition}
+\begin{remark}
+    A field is a group under addition with 0 as the additive identity, and the nonzero elements are a group under multiplication with 1 as the multiplicative identity.
+\end{remark}
+
+\begin{definition}{Vector space over a field}{vector_space}
+    A \emph{vector space \((V, +, \cdot)\) over a field \(\mathbb{K}\)} is a set \(V\) equipped with two maps \(+: V \times V \to V\), called vector addition, and \(\cdot : \mathbb{K} \times V \to V\), called scalar multiplication, which satisfy
+    \begin{enumerate}[label=(\alph*)]
+        \item Associativity of vector addition: For all \(u,v,w \in V\), \(u + (v + w) = (u + v) + w\);
+        \item Commutativity of vector addition: For all \(u,v \in V\), \(u + v = v + u\);
+        \item Identity element of vector addition: There exists an element \(0 \in V\), called the zero vector, such that \(v + 0 = v\) for all \(v \in V\).
+        \item Additive inverse: For every \(v \in V\) there exists an element in \(-v \in V\), called the additive inverse of \(v\), such that \(v + (-v) = 0\);
+        \item Compatibility of scalar multiplication with field multiplication: For every \(a,b\in \mathbb{K}\) and \(v \in V\), \(a\cdot(b\cdot v) = (ab) \cdot v\);
+        \item Identity element of scalar multiplication: For all \(v \in V,\) \(1\cdot v = v\), where 1 is the multiplicative identity of \(\mathbb{K}\);
+        \item Distributivity of scalar multiplication with respect to vector addition: For all \(u, v \in V\) and  \(a\in \mathbb{K}\), \(a\cdot (u+v) = (a\cdot u) + (a\cdot v)\);
+        \item Distributivity of scalar multiplication with respect to field addition: For all \(a,b \in \mathbb{K}\) and  \(v\in V\), \((a+b)\cdot v = (a\cdot v) + (b\cdot v)\).
+    \end{enumerate}
+    Usually the scalar multiplication \(a \cdot v\) is denoted by \(av\) and it is clear from context that it is the scalar multiplication.
+\end{definition}
+\begin{remark}
+    It is easy to verify the field \(\mathbb{K}\) is a vector space over \(\mathbb{K}\).
+\end{remark}
+\begin{remark}
+    A vector space is an abelian additive group under vector addition, with the extra structure of the scalar multiplication.
+\end{remark}
+
+\begin{definition}{Vector subspace}{vector_subspace}
+    A subset \(U \subset V\) is a \emph{vector subspace} if the vector addition and scalar multiplication are closed in \(U\). That is, for all \(u, u_1, u_2 \in U\) and \(\lambda \in \mathbb{K}\), we have \(u_1 \restrict{+}{U} u_2 \in U\) and \(\lambda \restrict{\cdot}{U} u \in U\).
+\end{definition}
+
+\begin{definition}{Linear map}{linear_map}
+    Let \(V, W\) be vector spaces over a field \(\mathbb{K}\). Then a map \(f : V \to W\) is a \emph{linear map} if for all \(v, v_1, v_2 \in V\) and \(\lambda\in \mathbb{K}\), it satisfies
+    \begin{enumerate}[label=(\alph*)]
+        \item \(f(v_1 + v_2) = f(v_1) + f(v_2)\); and
+        \item \(f(\lambda v) = \lambda f(v)\).
+    \end{enumerate}
+    As a shorthand, we denote \(f : V \linear M\) if \(f\) is a linear map.
+\end{definition}
+\begin{definition}{Vector space isomorphism}{vector_isomorphism}
+    A \emph{vector space isomorphism} is a bijective linear map \(f : V \linear W\) from vector spaces \(V, W\) over a field \(\mathbb{K}\). If such a map exists, \(V\) and \(W\) are \emph{isomorphic vector spaces}.
+\end{definition}
+
+\begin{definition}{Vector space homomorphisms}{homvw}
+    The set of all linear maps between vector spaces \(V, W\) over a field \(\mathbb{K}\) is denoted by \(\mathrm{Hom}(V,W),\) called the \emph{vector space homomorphisms}.
+\end{definition}
+
+\begin{proposition}{The set of vector space homomorphisms has a canonical a vector space structure}{homvw_vector_space}
+    Defining the operations
+    \begin{enumerate}[label=(\alph*)]
+        \item \(+: \mathrm{Hom}(V,W) \times \mathrm{Hom}(V,W) \to \mathrm{Hom}(V,W)\) by the map \((f,g) \mapsto f + g\), where \(f+g : V \linear W\) is defined by \((f+g)(v) = f(v) + g(v)\) for all \(v \in V\), and
+        \item \(\cdot : \mathbb{K} \times \mathrm{Hom}(V, W) \to \mathrm{Hom}(V, W)\) by the map \((\lambda, f) \mapsto \lambda f\), where \(\lambda f : V \linear W\) is defined by \((\lambda f)(v) =\lambda\cdot (f(v)) \),
+    \end{enumerate}
+    Then \((\mathrm{Hom}(V,W), +, \cdot)\) is a vector space.
+\end{proposition}
+\begin{proof}
+    We check these operations are indeed linear functions. For all \(u, v \in V\) and \(\lambda \in \mathbb{K}\), we have
+    \begin{align*}
+        (f+g)(u + \lambda v) &= f(u + \lambda v) + g(u + \lambda v)\\
+                             &= f(u) + \lambda f(v) + g(u) + \lambda g(v)\\
+                             &= (f+g)(u) + \lambda (f+g)(v),
+    \end{align*}
+    and
+    \begin{align*}
+        (\mu h)(u + \lambda v) &= \mu \cdot ( h(u + \lambda v))\\
+                               &= \mu \cdot ( h(u) + \lambda h(v))\\
+                               &= (\mu h)(u) + (\mu \lambda) h(v)\\
+                               &= (\mu h)(u) + \lambda (\mu h(v))(u),
+    \end{align*}
+    where in this last step the commutativity of the field multiplication was used. That is, these operations are indeed closed in \(\mathrm{Hom}(V, W)\). The vector field axioms are then verified by computing the linear maps of \(\mathrm{Hom}(V,W)\) on arbitrary vectors of \(V\) and using the vector field axioms of \(W\).
+\end{proof}
+
+\begin{definition}{Kernel of a linear map}{kernel}
+    Let \(V, W\) be vector spaces over a field \(\mathbb{K}\) and let \(T \in \mathrm{Hom}(V,W)\). The \emph{kernel} of the linear map \(T\) is the set \(\ker T = \set{v \in V : T(v) = 0}\).
+\end{definition}
+
+\begin{proposition}{Kernel and image of a linear map are vector subspaces}{kernel_image}
+    Let \(V, W\) be vector spaces over a field \(\mathbb{K}\) and let \(T \in \mathrm{Hom}(V,W)\). Then the kernel and the image of \(T\) are vector subspaces of \(V\) and \(W\), respectively.
+\end{proposition}
+\begin{proof}
+    Let \(u, v \in \ker T\) and let \(\lambda \in \mathbb{K}\). Then, by linearity, \(T(u + \lambda v) = T(u) + \lambda T(v) = 0,\) therefore \(u + \lambda v \in \ker T\). This shows the kernel is a vector subspace of \(V\).
+
+    Let \(x, y \in T(V)\). Then, there exists \(u, v \in V\) such that \(T(u) = x\) and \(T(v) = y\). By linearity, if \(\mu \in \mathbb{K}\), we have \(T(u + \mu v) = T(u) + \mu T(v) = x + \mu y\). This shows the image is a vector subspace of \(W\).
+\end{proof}
+
+We now prove a result that will be needed in the next section.
+\begin{lemma}{Trivial kernel and injective map}{trivial_kernel}
+    Let \(V, W\) be vector spaces over a field \(\mathbb{K}\) and let \(T\in\mathrm{Hom}(V,W)\) be a linear map. The map \(T\) is injective if and only if the kernel is the trivial vector subspace, that is \(\ker T = \set{0} \subset V\).
+\end{lemma}
+\begin{proof}
+    Suppose the map is injective. Then, for all \(u, v \in V\), we have \(T(u) = T(v) \implies u = v\). Clearly \(T(0) = 0\), so \(T(v) = 0 = T(0) \implies v = 0\) for all \(v \in V\). It follows that \(\ker T = \set{0}.\)
+
+    Suppose \(\ker T = \set{0}.\) Suppose \(T(u) = T(v)\) for some \(u, v \in V\). Then \(T(u) - T(v) = T(u-v) = 0\). It follows that \(u - v \in \ker T\), so \(u = v\). Then \(T\) is injective.
+\end{proof}
+
+\begin{definition}{Endomorphism}{endomorphism}
+    Let \(V\) be a vector space. An \emph{endomorphism} is a map \(f : V \linear V\) and it is an \emph{automorphism} if it is a vector space isomorphism. The set of all endomorphisms on \(V\) is denoted by \(\mathrm{End}(V)\), while the set of all automorphisms on \(V\) is denoted by \(\mathrm{Aut}(V)\).
+\end{definition}
+\begin{remark}
+    Clearly, \(\mathrm{End}(V) = \mathrm{Hom}(V,V)\) and \(\mathrm{Aut}(V) \subset \mathrm{End}(V)\). By \cref{prop:homvw_vector_space}, the set of endomorphisms on \(V\) also has a canonical vector space structure. However, the set of automorphisms on \(V\) is not a vector subspace of the vector space of endomorphisms.
+\end{remark}
+
+\begin{definition}{Dual space}{dual_space}
+    The vector space \(V^\ast = \mathrm{Hom}(V, \mathbb{K})\) is the \emph{dual} vector space to \(V\).
+\end{definition}
+\begin{remark}
+    Regarding the vector space \(V\) as a base vector space, elements of \(V\) may be called vectors, while the dual vector space \(V ^{\ast}\) elements may be called covectors or linear functionals on \(V\).
+\end{remark}
+
+\subsection{Basis and Dimension}
+
+\begin{definition}{Hamel Basis}{hamel_basis}
+    Let \(V\) be a vector space. Then a subset \(\mathcal{B} \subset V\) is a \emph{(Hamel) basis} if
+    \begin{enumerate}[label=(\alph*)]
+        \item every finite subset \(\set{b_1, \dots b_N} \subset \mathcal{B}\) is \emph{linear independent}, that is,
+            \begin{equation*}
+                \sum_{i = 1}^N \lambda^i b_i = 0 \implies \lambda^1 = \dots = \lambda^N = 0;
+            \end{equation*}
+        \item for every vector \(v \in V\), there exists a finite subset \(\set{b_1, \dots, b_M} \subset \mathcal{B}\) and a subset \(\set{v^1, \dots, v^M} \subset \mathbb{K}\) such that \(v\) is a \emph{linear combination} of \(\set{b_1, \dots, b_M}\), that is
+        \begin{equation*}
+            v = \sum_{i=1}^M v^ib_i.
+        \end{equation*}
+        We say \(\mathcal{B}\) \emph{spans} \(V\) or \(\mathcal{B}\) is a \emph{generating set} of \(V\).
+    \end{enumerate}
+\end{definition}
+
+We assume a result that is proven later in a more general setting, namely \nameref{thm:existence_of_basis}.
+
+\begin{definition}{Vector space dimension}{vector_dimension}
+    Let \(V\) be a vector field with a basis \(\mathcal{B}\). The \emph{dimension} of V, denoted by \(\dim{V}\), is equal to the cardinality of \(\mathcal{B}\). If a basis has a finite number of elements, we say \(V\) is \emph{finite dimensional}.
+\end{definition}
+\begin{remark}
+    It is not immediate that this is well-defined. In fact, this is motivated by a theorem that  states any two different basis for a vector space have the same cardinality.
+\end{remark}
+
+In the following, we will show the relations between a finite-dimensional vector space to its dual and bidual spaces. To show these relations, we prove a lemma and an important theorem of linear maps.
+
+\begin{lemma}{Dimension of a vector subspace}{subspace_dimension}
+    Let \(V\) be a finite-dimensional vector space over \(\mathbb{K}\). If \(U \subset V\) is a vector subspace of \(V\), then \(\dim U = \dim V\) if and only if \(U = V\).
+\end{lemma}
+\begin{proof}
+    It is obvious that if \(U = V,\) then \(\dim U = \dim V\). We now show the converse, if \(\dim U = \dim V\), then \(U = V\).
+
+    Let \(\mathcal{B}\) be a basis for \(U\). Then \(\mathcal{B}\) is linear independent and spans \(U\). Suppose, by contradiction, \(\mathcal{B}\) is not a basis for \(V\). This implies there exists \(v \in V\) that is not a linear combination of the elements of \(\mathcal{B}\). As a result, \(\mathcal{B} \cup \set{v}\) is a linearly independent subset of \(V\) with \(1 + \dim U > \dim V\) elements. This contradiction shows that \(\mathcal{B}\) is a basis for \(V\).
+\end{proof}
+\begin{remark}
+    This lemma guarantees that \(U \subset V \implies \dim U \leq \dim V\), with equality implying \(U = V\).
+\end{remark}
+
+We may now prove the theorem that relates the dimensions of the domain, kernel and image of a linear map.
+
+\begin{theorem}{Rank-nullity theorem}{rank_nullity}
+    Let \(V, W\) be vector spaces over a field \(\mathbb{K}\) and let \(T \in \mathrm{Hom}(V,W)\). If \(V\) is finite dimensional, we have \(\dim V = \dim \ker T + \dim T(V)\).
+\end{theorem}
+\begin{proof}
+    Since the kernel is a subspace of \(V\), we have \(\dim V \geq \dim \ker T,\) by the lemma. We first consider \(\dim V = \dim \ker T\). This implies \(T(V) = \set {0} \subset W\) and the statement follows. We may now assume \(\dim V > \dim \ker T\).
+
+    Let \(\mathcal{B}_{\ker T} = \set{e_1, \dots, e_n}\) be a basis for \(\ker T,\) where \(n = \dim\ker T\) it the nullity of \(T\). We may complete this basis such that the resulting set is a basis \(\mathcal{B} = \mathcal{B}_{\ker T} \cup \set{e_{n+1}, \dots, e_{n+m}}\) for \(V\), with \(\dim V = m + n\) and \(m \geq 1\). In particular, for all \(v \in V\) there exists a family \ffamily{v^i}{i=1}{n+m} in \(\mathbb{K}\) such that
+    \begin{equation*}
+        v = \sum_{i=1}^{n+m} v^ie_i,
+    \end{equation*}
+    since \(\mathcal{B}\) is a generating set for \(V\).
+
+    We consider \(u \in T(V)\). Then there exists \(v \in V\) such that \(T(v) = u\), that is
+    \begin{align*}
+        u &= T\left(\sum_{i=1}^{n+m} v^ie_i\right)\\
+          &= \sum_{i=1}^{n+m} v^i T(e_i)\\
+          &= \sum_{i=1}^{m} v^{i+n} T(e_{i+n}),
+    \end{align*}
+    since \(e_i \in \ker T\) for \(i \leq n\). Equivalently, \(\mathcal{B}_{T(V)} = \set{T(e_{n+1}), \dots, T(e_{n+m})} \subset T(V)\) is a generating set for \(T(V)\).
+
+    Consider \(0 \in T(V) \subset W\). Since \(\mathcal{B}_{T(V)}\) spans \(T(V),\) there exists a family \ffamily{\lambda^i}{i=1}{m} in \(\mathbb{K}\) such that
+    \begin{equation*}
+        \sum_{i=1}^m \lambda^i T(e_{i+n}) = 0.
+    \end{equation*}
+    By linearity, this implies \(w = \sum_{i=1}^m \lambda^ie_{i+n} \in \ker T\). Since \(e_{i+n}\) is not a linear combination of \(\mathcal{B}_{\ker T},\) we must have \(\lambda^i = 0\), for all \(1 \leq i \leq m\). Therefore, \(\mathcal{B}_{T(V)}\) is linearly independent and it is a basis of \(T(V)\) with \(m\) elements and the theorem follows.
+\end{proof}
+\begin{remark}
+    The \emph{nullity} and \emph{rank} of a linear map are the dimensions of its kernel and image. We note \(\dim \ker T\) and \(\dim T(V)\) are well-defined due to \cref{prop:kernel_image}.
+\end{remark}
+\begin{remark}
+    It is not immediate it is possible to complete a basis given a linearly independent subset, this is related to \nameref{thm:existence_of_basis}.
+\end{remark}
+\begin{corollary}
+    If both vector spaces are finite-dimensional with \(\dim V = \dim W\) and if \(T\) is injective, then \(T\) is an isomorphism.
+\end{corollary}
+\begin{proof}
+    Since \(T\) is one-to-one, its nullity is zero by \cref{lem:trivial_kernel}. Then, by the \nameref{thm:rank_nullity}, we have \(\dim T(V) = \dim V = \dim W\). Since \(T(V) \subset W\) is a vector subspace of \(W\), it follows from \cref{lem:subspace_dimension} that \(T(V) = W,\) that is, \(T\) is onto.
+\end{proof}
+
+\begin{theorem}{Dual vector space dimension}{dual_space_dimension}
+    Let \(V\) be a finite-dimensional vector space over a field \(\mathbb{K}\). Then \(\dim V = \dim V ^{\ast}\).
+\end{theorem}
+\begin{proof}
+    Let \(n = \dim V\) and let \(\mathcal{B} = \set*{e_1, \dots, e_n}\) be a basis for \(V\). Then, define  \(\mathcal{B}^{\ast} = \set*{\epsilon^1, \dots, \epsilon^n}\), a subset of maps from \(V \to \mathbb{K}\), by letting \(\epsilon^i\left(\sum_{j=1}^{n} c^je_j\right) = c^i\), where \(c^i \in \mathbb{K}\) for \(i = 1, \dots, n\).
+
+    First, we show that \(\epsilon^i\) is indeed an element of \(V ^{\ast}\). Let \(x, y \in V\) with \(x = \sum_{i=1}^n x^i e_i\) and \(y = \sum_{i=1}^n y^i e_i\) and \(x^i,y^i \in \mathbb{K}\). By definition of the maps \(\epsilon^i\), we have \(\epsilon^i(x) = x^i\) and \(\epsilon^i(y) = y^i\), for \(i = 1, \dots, n\). Let \(\lambda \in \mathbb{K}\), then
+    \begin{align*}
+        \epsilon^i\left(x + \lambda y\right) &= \epsilon^i\left[\sum_{j = 1}^n (x^j + \lambda y^j)e_j\right]\\
+                                             &= x^i + \lambda y^i\\
+                                             &= \epsilon^i(x) + \lambda \epsilon^i(y),
+    \end{align*}
+    that is, \(\epsilon^i\) is a linear map. Therefore, \(\mathcal{B}^{\ast} \subset V ^{\ast}\).
+
+    We consider the linear combination \(\omega = \sum_{i = 1}^n \omega_i \epsilon^i \in V ^{\ast}\), with \(\omega_i \in \mathbb{K}\). The dual vector \(\omega\) is the zero dual vector if \(\omega(v) = 0\) for all \(v\). We may choose \(v\) as each element of the basis \(\mathcal{B}\), that is, if \(v = e_j\), then \(v^i = \delta^i_j,\) where
+    \begin{equation*}
+        \delta_{j}^{i} = \begin{cases}
+            1, & \text{ if } j = i\\
+            0, & \text{ if } j\neq i
+        \end{cases}
+    \end{equation*}
+    is the \emph{Kronecker delta}, for \(j = 1, \dots, n\). As consequence, we have \(\omega_j = 0\) for \(j = 1, \dots, n\), therefore \(\mathcal{B}^{\ast}\) is linearly independent.
+
+    We consider a dual vector \(\varphi \in V ^{\ast}\). Then, for all \(u = \sum_{i =1}^n u^ie_i \in V\), we have \(\epsilon^i(u) = u^i\) and
+    \begin{align*}
+        \varphi(u) &= \varphi\left(\sum_{i=1}^n u^ie_i\right)\\
+                   &= \varphi\left(\sum_{i=1}^n \epsilon^i(u) e_i\right)\\
+                   &= \sum_{i=1}^n \varphi(e_i)\epsilon^i(u),
+    \end{align*}
+    that is, \(\varphi = \sum_{i=1}^n \varphi(e_i) \epsilon^i\). Then \(\mathcal{B}^{\ast}\) is a generating set of \(V^{\ast}\).
+
+    We have shown \(\mathcal{B}^{\ast}\) is a basis for \(V ^{\ast}\), therefore \(\dim V ^{\ast}= n\) and the theorem follows.
+\end{proof}
+\begin{remark}
+    The construction used in this proof will be used extensively: in lieu of making arbitrary choices of basis for both \(V\) and \(V ^{\ast}\), only the choice of basis in \(V\) is needed, and we have an induced basis on \(V ^{\ast}\), henceforth named \emph{dual basis}.
+\end{remark}
+\begin{remark}
+    The proof that two finite-dimensional vector spaces are isomorphic if and only if their dimensions are equal is very similar.
+\end{remark}
+
+\begin{theorem}{Bidual vector space canonical linear isomorphism}{double_dual_space}
+    Let \(V\) be a finite-dimensional vector space over a field \(\mathbb{K}\). Then there exists a canonical linear isomorphism from \(V\) to the bidual vector space \((V^{\ast})^{\ast}\).
+\end{theorem}
+\begin{proof}
+    We remind ourselves the bidual vector space is the set of linear maps from the dual space to the field vector space, that is
+    \begin{equation*}
+        (V^{\ast})^{\ast} = \set*{\phi : V^{\ast}\to \mathbb{K}\text{ such that }\phi\text{ is linear}}.
+    \end{equation*}
+
+    We consider the map
+    \begin{align*}
+        \psi : V &\to (V^{\ast})^{\ast}\\
+        v &\mapsto \psi(v),
+    \end{align*}
+    where \(\psi(v) \in (V ^{\ast})^{\ast}\) is the linear map
+    \begin{align*}
+        \psi(v) : V^{\ast} &\linear \mathbb{K}\\
+        \omega & \mapsto \omega(v).
+    \end{align*}
+    Since this definition requires no additional structure, this map is canonically defined: no choice of basis in what follows taints this.
+
+    First, we show the map is linear. Let \(u, v \in V\) and \(\lambda \in \mathbb{K}\), then we let \(\psi(u + \lambda v)\) act on a dual vector \(\omega\in V^{\ast}\)
+    \begin{align*}
+        \psi(u + \lambda v)(\omega) &= \omega(u + \lambda v)\\
+                                    &= \omega(u) + \lambda \omega(v)\\
+                                    &= \psi(u)(\omega) + \lambda \psi(v)(\omega),
+    \end{align*}
+    that is, \(\psi(u + \lambda v) = \psi(u) + \lambda \psi(v)\). Therefore, \(\psi : V \linear (V ^{\ast})^{\ast} \) is a linear map.
+
+    We now show this map is injective. Let \(v \in V\) such that \(\psi(v)\) is the null map. Suppose, by contradiction, \(v \neq 0\). The subset \(\set{v}\subset V\) is linearly independent and we may complete this set to be a basis for \(V\). Then, let \(v ^{\ast} \in V ^{\ast}\) be the element in the dual basis such that \(v ^{\ast}(v) = 1\). We let the null map \(\psi(v)\) act on \(v ^{\ast}\), arriving at at contradiction. This shows \(v = 0\), that is, \(\psi\) is injective.
+
+    Noting \((V ^{\ast})^{\ast}\) is the dual space of \(V ^{\ast}\), we have \(\dim V = \dim V ^{\ast} = \dim (V^{\ast})^{\ast}\) by \cref{thm:dual_space_dimension}. By \cref{thm:rank_nullity}, it follows that \(\psi\) is a bijection.
+\end{proof}
+\begin{remark}
+    Since for a finite-dimensional vector space \(V\) there is a natural isomorphism from the vector space to its bidual, if \(v \in V\) and \(\omega \in V ^{\ast}\), one may write \(\omega(v) = v(\omega)\), where \(v(\omega) = \psi(v)(\omega)\).
+\end{remark}
+
+\subsection{Tensor spaces}
+
+With the notion of vector spaces and dual vector spaces, we may construct functions of multiple vector variables, known as tensors.
+
+\begin{definition}{Tensors on a vector space}{tensor_over_field}
+    Let \(V\) be a vector space over a field \(\mathbb{K}\). An element of the vector space defined by the set
+    \begin{equation*}
+        \underbrace{V \otimes \dots \otimes V}_{r \text{ times}} \otimes \underbrace{V^\ast \otimes \dots \otimes V^\ast}_{s \text{ times}} = \set*{\underbrace{V^\ast \times \dots \times V^\ast}_{r \text{ times}} \times \underbrace{V \times \dots \times V}_{s \text{ times}} \to \mathbb{K} : T \text{ is multilinear}}
+    \end{equation*}
+    is a \emph{\((r,s)\)-tensor on the vector space \(V\)}. A map is \emph{multilinear} if it is linear on each argument. The pair \((r,s)\) is called the \emph{valence} of the tensor. As a shorthand, we denote the set of \((r,s)\)-tensors on the vector space \(V\) as \(T_s^rV\).
+\end{definition}
+
+Just as \(\mathrm{Hom}(V,W)\) had a canonical vector space structure, we show a similar result in \cref{prop:tensor_over_field_vector_space}.
+\begin{proposition}{Tensors have a canonical vector space structure}{tensor_over_field_vector_space}
+    Let \(V\) be a vector space over a field \(\mathbb{K}\). The set \(T_s^rV\) together with the operations
+    \begin{enumerate}[label=(\alph*)]
+        \item \(+: T_s^rV \times T_s^rV \to T_s^rV\) defined by \((T,S) \mapsto T+S\) where
+            \begin{equation*}
+                \hspace{-7pt}%overfull hbox I hate this
+                (T+S)(\omega_1, \dots, \omega_r, v_1, \dots, v_s) = T(\omega_1, \dots, \omega_r, v_1, \dots, v_s) + S(\omega_1, \dots, \omega_r, v_1, \dots, v_s),
+            \end{equation*}
+        \item \(\cdot: \mathbb{K} \times T_s^rV \to T_s^rV\) defined by \((\lambda,T) \mapsto \lambda T\) where
+            \begin{equation*}
+                (\lambda T)(\omega_1, \dots, \omega_r, v_1, \dots, v_s) = \lambda \cdot \left(T(\omega_1, \dots, \omega_r, v_1, \dots, v_s)\right),
+            \end{equation*}
+    \end{enumerate}
+    is a vector space.
+\end{proposition}
+\begin{proof}
+    We verify the well-definitions of the operations above. Let \(T, S \in T_s^r\) and \(\lambda \in \mathbb{K}\). We consider a family \ffamily{\omega_i}{i=1}{r} of \(r\) covectors, a family of \ffamily{v_i}{i=1}{s} vectors. Without loss of generality, we verify the linearity on an arbitrary argument, say the first argument and we abbreviate \(T(\omega_1, \dots)\) to denote \(T(\omega_1, \dots, \omega_r, v_1, \dots, v_s)\). Let \(\sigma \in V ^{\ast}\) and \(\mu \in \mathbb{K}\). We have
+    \begin{align*}
+        (T+S)(\omega_1+\mu \sigma, \dots) &= T(\omega_1 + \mu \sigma, \dots) + S(\omega_1 + \mu \sigma, \dots)\\
+                                          &= T(\omega_1, \dots) + S(\omega_1, \dots) + \mu T(\sigma, \dots) + \mu S(\sigma, \dots)\\
+                                          &= (T+S)(\omega_1, \dots) + \mu (T+S)(\sigma, \dots),
+    \end{align*}
+    and
+    \begin{align*}
+        (\lambda T)(\omega_1 + \mu\sigma, \dots) &= \lambda \cdot \left(T(\omega_1 + \mu \sigma, \dots)\right),\\
+                                                 &= \lambda \cdot \left(T(\omega_1, \dots) + \mu T(\sigma, \dots)\right)\\
+                                                 &= (\lambda T)(\omega_1, \dots) + \mu (\lambda T)(\sigma, \dots),
+    \end{align*}
+    where we have used the commutativity of field multiplication. This shows the operations yield indeed multilinear maps, and as such are well-defined. We could then verify the vector space axioms by letting \((r,s)\)-tensors act on the families of vectors and covectors and using the vector space axioms on \(\mathbb{K}\).
+\end{proof}
+
+We may construct new tensors from given tensors on the same vector space with possibly different valences.
+\begin{definition}{Tensor product}{tensor_product}
+    Let \(V\) be a vector space over \(\mathbb{K}\). The \emph{tensor product} is the map \(\otimes : T_q^p V \times T_s^rV \to T_{q+s}^{p+r}V\) defined by
+    \begin{align*}
+        (T \otimes S)&\left(\omega_1, \dots, \omega_p, \omega_{p+1}, \dots, \omega_{p+r}, v_1, \dots, v_q, v_{q+1}, \dots, v_{q+s}\right) \\
+        &= T\left(\omega_1, \dots, \omega_p, v_1, \dots, v_q\right) \cdot S\left(\omega_{p+1}, \dots, \omega_{p+r}, v_{q+1}, \dots, v_{q+s}\right).
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    Let \(V\) be a vector space over a field \(\mathbb{K}\).
+    \begin{enumerate}[label=(\alph*)]
+        \item By convention, we set \(T_0^0 V = \mathbb{K}\).
+        \item \(T_1^0V = V^\ast\). That is, \((0,1)\)-tensors are elements of the dual vector space.
+        \item \(T_1^1V = V \otimes V^\ast = \set{V^\ast \times V \to \mathbb{K} : T\text{ is multilinear}}\). We will show that this is isomorphic to \(\mathrm{End}(V^\ast)\). That is, given \(T \in V \otimes V^\ast\) we may construct \(\tilde{T} \in \mathrm{End}(V^\ast)\) by setting \(\tilde{T}(\omega) = T(\omega, \cdot)\). Similarly, given \(\tilde{T} \in \mathrm{End}(V^\ast)\) we may reconstruct \(T\) by setting \(T(\omega, v) = \tilde{T}(\omega)(v)\).
+        \item Similarly, \(T_1^1V\) is isomorphic to \(\mathrm{End}(V)\) if \(V\) is finite-dimensional, due to \cref{thm:double_dual_space}. In fact, one may check the map \(\Psi : \mathrm{End}(V) \to T_1^1 V\) defined by \((\Psi(\phi))(\omega, v) = \omega(\phi(v))\) is linear and bijective.
+        \item By \cref{thm:double_dual_space}, if \(V\) is finite-dimensional, then \(T_0^1 V = \set{V ^{\ast} \to \mathbb{K} : T \text{ is multilinear}} = (V ^{\ast})^{\ast}\) is isomorphic to \(V\).
+    \end{enumerate}
+\end{example}
+
+\begin{definition}{Components of a tensor}{tensor_components}
+    Let \(T\in T_s^r V\), where \(\dim V = n\). Let \(\set{e_1, \dots, e_n}\) be a basis of \(V\) and let \(\set{\epsilon^1, \dots, \epsilon^n}\) be the dual basis of \(V ^{\ast}\). Then the \emph{components of \(T\) with respect to the chosen basis} are
+    \begin{equation*}
+        T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}} = T\left(\epsilon^{i_1}, \dots, \epsilon^{i_r}, e_{j_1}, \dots, e_{j_r}\right) \in \mathbb{K},
+    \end{equation*}
+    with indices \(i_k, j_l \in \set{1, \dots, n}\) for all \(k \in \set{1, \dots, r}\) and \(l \in \set{1, \dots, s}\).
+\end{definition}
+
+\begin{proposition}{Components determine a tensor}{tensor_components}
+    Let \(V\) be an \(n\)-dimensional vector space over a field \(\mathbb{K}\). Let \(\set{e_1, \dots, e_n}\) be a basis of \(V\) and let \(\set{\epsilon^1, \dots, \epsilon^n}\) be the dual basis of \(V ^{\ast}\). The tensor \(T \in T_s^rV\) with components \(T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}}\), with indices \(i_k, j_l \in \set{1, \dots, n}\) for all \(k \in \set{1, \dots, r}\) and \(l \in \set{1, \dots, s}\), is given by
+    \begin{equation*}
+        T = \sum_{i_1 = 1}^{n} \dots \sum_{i_s = 1}^{n} \sum_{j_1 = 1}^{n}\dots \sum_{j_s = 1}^n T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}} e_{i_1} \otimes \dots \otimes e_{i_r} \otimes \epsilon^{j_1} \otimes \dots \otimes \epsilon^{j_r}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Let \ffamily{a_i}{i=1}{r} and \ffamily{b_i}{i=1}{s} be families of indices in \(\set{1, \dots, n}\). We verify the tensor \(T\) has indeed those components by letting it act on the vector and dual basis elements:
+    {\allowdisplaybreaks
+    \begin{align*}
+        T\indices{^{a_1, \dots, a_r}_{b_1, \dots, b_s}} &= T(\epsilon^{a_1}, \dots, \epsilon^{a_r}, e_{b_1}, \dots, e_{b_s})\\
+                                                        &= \sum_{i_1 = 1}^{n} \dots \sum_{i_s = 1}^{n} \sum_{j_1 = 1}^{n}\dots \sum_{j_s = 1}^n T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}} e_{i_1}(\epsilon^{a_1}) \cdot \dotso \cdot e_{i_r}(\epsilon^{a_r}) \cdot \epsilon^{j_1}(e_{b_1}) \cdot \dotso \cdot \epsilon^{j_r}(e_{b_r})\\
+                                                        &= \sum_{i_1 = 1}^{n} \dots \sum_{i_s = 1}^{n} \sum_{j_1 = 1}^{n}\dots \sum_{j_s = 1}^n T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}} \delta^{a_1}_{i_1}\cdot \dotso \cdot \delta^{a_r}_{i_r}\cdot \delta^{j_1}_{b_1}\cdot \dotso \cdot \delta^{j_s}_{b_s}\\
+                                                        &= T\indices{^{a_1, \dots, a_r}_{b_1, \dots, b_s}},
+    \end{align*}
+    }
+    and we have recovered the desired components.
+\end{proof}
+
+From now on, the \emph{Einstein summation notation} will be used. In this notation, we use the convention that \emph{basis vectors of \(V\) are labeled by lower indices} and \emph{dual basis covectors are labeled by upper indices}, as was used in the previous definition. The summation convention is to omit the sum signs over an index whenever it appears as an upper and lower index in the same product. As an example, instead of writing \(v = v^1e_1 + \dots + v^n e_n\), we simply write
+\begin{equation*}
+    v = v^i e_i,
+\end{equation*}
+and the summation over \(i\) from 1 to \(n\) is implied. Likewise, the expression in \cref{prop:tensor_components} is simplified to
+\begin{equation*}
+    T = T\indices{^{i_1, \dots, i_r}_{j_1, \dots, j_s}} e_{i_1} \otimes \dots \otimes e_{i_r} \otimes \epsilon^{j_1} \otimes \epsilon^{j_r},
+\end{equation*}
+and the summation over all the indices are implied.
+
+We note however that the convention only works with linear spaces and (multi)linear maps. We consider a \((1,1)\)-tensor \(\phi : V ^{\ast} \times V \linear K\) acting on \(\omega \in V ^{\ast}\) and \(v \in V\), writing each step with and without the summation notation:
+
+\begin{equation*}
+    \begin{aligned}
+        \phi(\omega, v) &= \phi \left(\sum_{i = 1}^n \omega_i \epsilon^i, \sum_{j = 1}^n v^j e_j\right)&&= \phi\left(\omega_i\epsilon^i, v^j e_j\right)\\
+                        &= \sum_{i=1}^n\sum_{j=1}^n \phi\left(\omega_i \epsilon^i, v^je_j\right) &&= \phi\left(\omega_i\epsilon^i, v^j e_j\right)\\
+                        &= \sum_{i=1}^n \sum_{j=1}^n \omega_i v^j \phi\left(\epsilon^i, e_j\right)&&=\omega_i v^j \phi\left(\epsilon^i, e_j\right)\\
+                        &= \sum_{i=1}^n \sum_{j=1}^n \omega_i v^j \phi\indices{^i_j} &&=\omega_i v^j \phi\indices{^i_j}.
+    \end{aligned}
+\end{equation*}
+Notice that the first step relies on the multilinearity of \(\phi\), but in the summation notation it is not clear \emph{where} the implied summations are happening. This example illustrates the use of the summation convention and serves as a warning that it is well-defined only for linear structures.
+
+\subsection{Change of Basis}
+
+Let \(V\) be an \(n\)-dimensional vector space over a field \(\mathbb{K}\) with a basis \(\mathcal{B} = \set{e_1, \dots, e_n}\) of \(V\). We now consider another basis \(\tilde{\mathcal{B}}=\set{\tilde{e}_1, \dots, \tilde{e}_n}\) of \(V\). Since the elements of \(\tilde{\mathcal{B}}\) are vectors of \(V\), there exists \(A\indices{^i_j} \in \mathbb{K}\) such that
+\begin{equation*}
+    \tilde{e}_j = A\indices{^i_j}e_i,
+\end{equation*}
+for \(j = 1, \dots, n\). Likewise, elements of \(\mathcal{B}\) can be expanded in terms of their components in the \(\tilde{\mathcal{B}}\) basis, that is
+\begin{equation*}
+    e_j = B\indices{^i_j}\tilde{e}_i,
+\end{equation*}
+for some \(B\indices{^i_j} \in \mathbb{K}\), for \(j = 1, \dots, n\). In this case, we must have \(A\indices{^i_j}B{^j_k} = \delta_{k}^{i}.\) That is, there exists an automorphism \(A : V \linear V\)that relates the basis \(\mathcal{B}\) to the basis \(\tilde{\mathcal{B}}\) with components \(A\indices{^i_j}\) and its inverse \(B = A^{-1} : V \linear V\) has components \(B\indices{^i_j}\).
+
+We now see how the dual basis is modified under this change of basis. Let \(\tilde{\epsilon}^i = C\indices{^i_j}\epsilon^j\) and then determine the components \(C\indices{^i_j}\) with
+\begin{align*}
+    \tilde{\epsilon}^i(\tilde{e}_j) &= A\indices{^k_j}C\indices{^i_l}\epsilon^l(e_k)\\
+    \delta^i_j &= A\indices{^k_j}C\indices{^i_l}\delta^l_k\\
+    \delta^i_j &= C\indices{^i_k}A\indices{^k_j},
+\end{align*}
+which implies \(C\indices{^i_k} = B\indices{^i_k}\). That is, \(\tilde{\epsilon}^i = B\indices{^i_j}\epsilon^j\) and \(\epsilon^i = A\indices{^i_j}\epsilon^j.\)
+
+Let \(\omega = \omega_i \epsilon^i \in V ^{\ast}\) and \(v = v^i e_i\) in the basis \(\mathcal{B}\). We now determine the relation between the components of these objects in the basis \(\tilde{\mathcal{B}}\). For the covector, we have
+\begin{equation*}
+    \omega_i = \omega(e_i) = \omega(B\indices{^j_i}\tilde{e}_j) = B\indices{^j_i}\tilde{\omega}_j,
+\end{equation*}
+and for the vector,
+\begin{equation*}
+    v^i = v(\epsilon^i) = \epsilon^i(v) = \epsilon^i(\tilde{v}^j \tilde{e}_j) = A\indices{^k_j} \tilde{v}^j \epsilon^i(e_k) = A\indices{^i_j}\tilde{v}^j.
+\end{equation*}
+We see the components of the covector \(\omega\) change just like the basis vectors \(e_i\) do and the components of the vector \(v\) change as the dual basis vectors \(\epsilon^i\) do. More generally, for a (r,s)-tensor, the upper indices change like vector components and lower indices like covector components:
+\begin{equation*}
+    T\indices{^{a_1,\dots,a_r}_{b_1,\dots,b_s}} = A\indices{^{a_1}_{m_1}}\dots A\indices{^{a_r}_{m_r}} B\indices{^{n_1}_{b_1}} \dots B\indices{^{n_s}_{b_s}} \tilde{T}\indices{^{m_1, \dots, m_r}_{n_1, \dots, n_s}}.
+\end{equation*}
+
+\subsection{Determinants}
+
+Let \(V\) be a \(n\)-dimensional vector space over a field \(\mathbb{K}\).
+
+\begin{definition}{\(m\)-form on a vector space}{m-form}
+    An \(m\)-form is a \(T_m^0V\) tensor \(\omega\) that is totally anti-symmetric. That is, let \(\pi\) be a permutation of the permutation group \(S^m\), then
+    \begin{equation*}
+        \omega(v_1, \dots, v_m) = \mathrm{sgn}(\pi)\cdot \omega(v_{\pi(1)}, \dots, v_{\pi(m)}).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    In case \(m = 0\), \(\omega \in \mathbb{K}\) and in the case \(m > d\), \(\omega\) is the null tensor. The special case \(m = n\) is called \emph{volume form} and it can be shown that if \(\omega\) and \(\omega'\) are two non-vanishing volume forms, then there exists \(\lambda \in \mathbb{K}\) such that \(\omega' = \lambda\omega\).
+\end{remark}
+
+\begin{definition}{Volume form}{volume_form}
+    A choice of a non-vanishing volume form \(\omega\) is called a \emph{choice of volume on \(V\)}. Let \(\mathcal{F} = \ffamily{v_i}{i=1}{n}\) be a family of \(n\) vectors in \(V\), then
+    \begin{equation*}
+        \mathrm{vol}(v_1, \dots, v_n) = \omega(v_1, \dots, v_n)
+    \end{equation*}
+    is the \emph{volume spanned by \(\mathcal{F}\)}.
+\end{definition}
+\begin{remark}
+    It follows from the anti-symmetries of the volume form \(\omega\) that \(\mathcal{F}\) is not linearly independent if and only if the volume spanned by \(\mathcal{F}\) is zero. Equivalently, \(\mathcal{F}\) is a basis if and only if the volume spanned by \(\mathcal{F}\) is non-zero.
+\end{remark}
+
+\begin{definition}{Determinant of an endomorphism on \(V\)}{determinant}
+    Let \(\phi \in \mathrm{End}(V) \cong T_1^1 V\). The determinant of \(\phi\) is defined as
+    \begin{equation*}
+        \det \phi = \frac{\mathrm{vol}(\phi(e_1), \dots, \phi(e_n))}{\mathrm{vol}(e_1, \dots, e_n)}
+    \end{equation*}
+    for some choice of volume on \(V\) and some basis \(\set{e_1, \dots, e_n}\) of \(V\).
+\end{definition}
+
+\begin{proposition}{Determinant is well-defined}{determinant}
+    The determinant is well defined.
+\end{proposition}
+\begin{proof}
+    Clear for volume forms, must check basis.
+\end{proof}
+
+Find a way to calculate determinant of a bilinear map. Tensor density.
+
+
+\begin{remark}
+    Having chosen a basis, it is tempting to consider elements of vector spaces as collections of elements of \(\mathbb{K}\) arranged in some matricial representation. As an example, we may choose the following convention
+    \begin{equation*}
+        \begin{aligned}
+            \omega = \omega_i \epsilon^i \in V ^{\ast}& \leftrightsquigarrow & \omega &\doteq \begin{pmatrix}\omega^1 & \dots & \omega^n\end{pmatrix}\\
+            v = v^ie_i \in V & \leftrightsquigarrow & v &\doteq \begin{pmatrix}v^1\\\vdots\\v^n\end{pmatrix}\\
+            \phi = \phi\indices{^i_j} e_i \otimes \epsilon^j\in T_1^1V & \leftrightsquigarrow & \phi &\doteq \begin{pmatrix}\phi\indices{^1_1}&\phi\indices{^1_2}&\dots&\phi\indices{^1_n}\\\phi\indices{^2_1}&\phi\indices{^2_2}&\dots&\phi\indices{^2_n}\\\vdots&\vdots&\ddots&\vdots\\\phi\indices{^n_1}&\phi\indices{^n_2}&\dots&\phi\indices{^n_n}\\\end{pmatrix},
+        \end{aligned}
+    \end{equation*}
+    that is, covectors are represented by row matrices, vectors by column matrices, and the (1,1)-tensor \(\phi : V \to V\) has its components \(\phi\indices{^i_j}\) arranged in a square matrix where the first (upper) index \(i\) indicates the row, and second (lower) index \(j\), the column. First, we identify \(\mathrm{End}(V)\) with \(T_1^1V\), that is \(\phi(\epsilon^i, e_j) = \epsilon^i(\phi(e_j))\) by abuse of notation: in the left hand side, \(\phi\) is understood as (1,1)-tensor and on the right hand side, as an endomorphism on \(V\) and therefore
+    \begin{equation*}
+        \phi\indices{^i_j} = \phi(\epsilon^i, e_j) = \epsilon^i(\phi(e_j)) \implies \phi(e_j) = \phi\indices{^k_j}e_k.
+    \end{equation*}
+    To motivate this convention, if \(\phi, \psi \in \mathrm{End}(V) \cong T_1^1\), then \(\phi \circ \psi \in \mathrm{End}(V)\) and we have
+    \begin{align*}
+        (\phi\circ\psi)(\epsilon^i, e_j) &= \epsilon^i(\phi\circ\psi(e_j))\\
+        (\phi \circ \psi)\indices{^i_j} &= \epsilon^i(\phi(\psi(e_j)))\\
+                                         &= \epsilon^i(\phi(\psi\indices{^k_j}e_k))\\
+                                         &= \psi\indices{^k_j}\epsilon^i(\phi(e_k))\\
+                                         &= \psi\indices{^k_j}\phi\indices{^i_k}\\
+                                         &= \phi\indices{^i_k}\psi\indices{^k_j},
+    \end{align*}
+    and this last line may be interpreted as the matrix multiplication of the matrix representations of \(\phi\) and \(\psi\), in this order. Similarly, if \(\omega \in V ^{\ast}\) and \(v \in V,\) then \(\omega(v) = \omega_i v^i\) may be interpreted as the matrix multiplication of the row matrix that represents \(\omega\) by the column matrix that represents \(v\). Finally, we consider \(\phi(\omega, v)\)
+    \begin{align*}
+        \phi(\omega, v) &= \phi(\omega_i \epsilon^i, v^je_j)\\
+                        &= \omega_i v^j \phi\indices{^i_j}\\
+                        &= \omega_i \phi\indices{^i_j} v^j,
+    \end{align*}
+    and the result may be interpreted as the matrix multiplication of a row matrix, by the square matrix and finally by the column matrix.
+
+    However, determinants
+\end{remark}
