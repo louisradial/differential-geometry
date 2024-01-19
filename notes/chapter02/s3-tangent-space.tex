@@ -2,12 +2,12 @@
 
 We suppress the notation of a smooth manifold \manifold{M} to simply its set \(M,\) unless there are more manifolds and their underlying structure need be emphasized.
 
-Let \(M\) be a smooth manifold. We equip the set of smooth functions from \(M\) to \(\mathbb{R}\) with point-wise addition and scalar multiplication, and we claim \((\mathcal{C}^\infty(M), +, \cdot)\) is a vector space. That is, if \(f, g \in \mathcal{C}^\infty(M)\) and \(\lambda \in \mathbb{R}\), then \((f+g)(p) = f(p) + g(p)\) and \((\lambda f)(p) = \lambda\cdot f(p)\), where \(p \in M\).
+Let \(M\) be a smooth manifold. We equip the set of smooth functions from \(M\) to \(\mathbb{R}\) with point-wise addition and scalar multiplication, and we claim \((\smooth{M}, +, \cdot)\) is a vector space. That is, if \(f, g \in \smooth{M}\) and \(\lambda \in \mathbb{R}\), then \((f+g)(p) = f(p) + g(p)\) and \((\lambda f)(p) = \lambda\cdot f(p)\), where \(p \in M\).
 
 \begin{definition}{Directional derivative at a point along a curve}{tangent_vector}
     Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an open interval, for some \(\varepsilon > 0\). Let \(\lambda : I \to M\) be a smooth curve through a point \(p \in M\) such that \(p = \gamma(0)\). The \emph{directional derivative operator at the point \(p\) along the curve \(\gamma\)} is the linear map
     \begin{align*}
-        X_{\gamma, p} : \mathcal{C}^\infty(M) &\linear \mathbb{R}\\
+        X_{\gamma, p} : \smooth{M} &\linear \mathbb{R}\\
                                             f &\mapsto (f \circ \gamma)'(0).
     \end{align*}
     In differential geometry, the operator \(X_{\gamma, p}\) is usually called the \emph{tangent vector to the curve \(\gamma\) at the point \(p\).}
@@ -26,7 +26,7 @@ A precise intuition is \(X_{\gamma, p}\) is the velocity of the curve \(\gamma\)
         \cdot : \mathbb{R} \times T_pM &\to T_pM\\
                     (\lambda, X)  &\mapsto \lambda X
     \end{align*}
-    defined point-wise, that is, \((X+Y)f = Xf + Yf\) and \((\lambda X)f = \lambda \cdot (Xf)\) for all \(f \in \mathcal{C}^\infty(M)\).
+    defined point-wise, that is, \((X+Y)f = Xf + Yf\) and \((\lambda X)f = \lambda \cdot (Xf)\) for all \(f \in \smooth{M}\).
 \end{definition}
 
 We must now verify the claim that \(T_pM\) equipped with the above operations is indeed a vector space. The immediate concern is whether there exists curves such that \(X+Y\) and \(\lambda X\) are their tangent vectors. The vector space axioms follow from letting the tangent vectors act on smooth functions and by using the field properties of \(\mathbb{R}\).
@@ -35,7 +35,7 @@ We must now verify the claim that \(T_pM\) equipped with the above operations is
     Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an interval and let \(\gamma, \eta : I \to M\) be smooth curves with \(\gamma(0) = p\) and \(\eta(0) = p\), where \(p \in M\). Let \(X, Y \in T_pM\) be the directional derivative operator at \(p\) along the curves \(\gamma\) and \(\eta\), respectively. Then, there exists smooth curves \(\phi : I_\phi \to M\) and \(\psi : I_\psi \to M\), where \(I_\phi\) and \(I_\psi\) are intervals on \(\mathbb{R}\), with \(\phi(0) = p\) and \(\psi(0) = p\), such that \(X+Y\) is the tangent vector at \(p\) along \(\phi\) and \(\lambda X\) is the tangent vector at \(p\) along \(\psi\), for some \(\lambda \in \mathbb{R}\). That is, \(X + Y \in T_pM\) and \(\lambda X \in T_pM\).
 \end{proposition}
 \begin{proof}
-    We construct the curve \(\psi\) associated with scalar multiplication. If \(\lambda = 0,\) we set \(I_\psi = \mathbb{R}\) and \(\psi(t) = p\) for all \(t \in I_\psi\), clearly yielding the zero directional derivative operator. For \(\lambda \neq 0,\) we set \(I_\psi = \left(-\frac{\varepsilon}{|\lambda|}, \frac{\varepsilon}{|\lambda|}\right)\) and \(\psi(t) = \gamma(\lambda t)\), for all \(t \in I_\psi\). For any \(f \in \mathcal{C}^\infty(M)\), the map \(f \circ \gamma : \mathbb{R} \to \mathbb{R}\) is smooth as a real valued function of a single variable. Composing \(f \circ \gamma\) with the smooth map \(t \mapsto \lambda t\) yields \(f \circ \psi\). By the chain rule, we have
+    We construct the curve \(\psi\) associated with scalar multiplication. If \(\lambda = 0,\) we set \(I_\psi = \mathbb{R}\) and \(\psi(t) = p\) for all \(t \in I_\psi\), clearly yielding the zero directional derivative operator. For \(\lambda \neq 0,\) we set \(I_\psi = \left(-\frac{\varepsilon}{|\lambda|}, \frac{\varepsilon}{|\lambda|}\right)\) and \(\psi(t) = \gamma(\lambda t)\), for all \(t \in I_\psi\). For any \(f \in \smooth{M}\), the map \(f \circ \gamma : \mathbb{R} \to \mathbb{R}\) is smooth as a real valued function of a single variable. Composing \(f \circ \gamma\) with the smooth map \(t \mapsto \lambda t\) yields \(f \circ \psi\). By the chain rule, we have
     \begin{align*}
         (f \circ \psi)'(0) &= \diff*{\underbrace{f\circ \gamma}_{\mathbb{R} \to \mathbb{R}}\underbrace{(\lambda t)}_{\mathbb{R}\to \mathbb{R}}}{t}[t=0]\\
                            &= (f \circ \gamma)'(0) \cdot (\lambda t)'(0)\\
@@ -48,7 +48,7 @@ We must now verify the claim that \(T_pM\) equipped with the above operations is
         \phi= x^{-1} \circ \left(x\circ \gamma+ x\circ \eta- x(p)\right),
     \end{equation*}
     where \(x(p)\) is the constant map \(t \mapsto x(p)\) for all \(t \in J\).
-    We compute the directional derivative at \(p\) along \(\phi\) of \(f \in \mathcal{C}^\infty(M)\) with the chain rule
+    We compute the directional derivative at \(p\) along \(\phi\) of \(f \in \smooth{M}\) with the chain rule
     \begin{align*}
         (f \circ \phi)'(0) &= \left(\underbrace{f \circ x^{-1}}_{\mathbb{R}^n \to \mathbb{R}} \circ \underbrace{\left(x\circ \gamma+ x\circ \eta- x(p)\right)}_{\mathbb{R} \to \mathbb{R}^n}\right)'(0)\\
                            &= \partial_i (f \circ x^{-1})(x(p)) \cdot \left(x^i \circ \gamma + x^i \circ \eta - x^i(p)\right)'(0)\\
@@ -64,7 +64,7 @@ We must now verify the claim that \(T_pM\) equipped with the above operations is
 \begin{definition}{Algebra}{algebra}
     An \emph{algebra (over a field)} \(\mathcal{A} = (V, +, \cdot, \bullet)\) is a vector space \((V, +, \cdot)\) over a field \(\mathbb{K}\), equipped with a bilinear map \(\bullet : V \times V \linear V\), called a product.
 \end{definition}
-Defining the product of two smooth functions on a manifold point-wise, we see \(\mathcal{C}^\infty(M)\) is an algebra over the real numbers, not just a vector field.
+Defining the product of two smooth functions on a manifold point-wise, we see \(\smooth{M}\) is an algebra over the real numbers, not just a vector space.
 
 \begin{definition}{Derivation on an algebra}{derivation}
     A \emph{derivation} \(D\) on an algebra \(\mathcal{A}\) is a linear map \(D : \mathcal{A} \to \mathcal{A}\) that satisfies the \emph{Leibniz rule}
@@ -128,7 +128,7 @@ We may now construct a chart-induced basis for the tangent space.
     for all \(\lambda \in I\), \(i, j \in \set{1, \dots, n}\) and such that \(\gamma_i(0) = p\).
     Intuitively, each curve is the image of a straight line in \(x(U)\) under the map \(x^{-1}\), where these straight lines are parallel to each axis of \(\mathbb{R}^n\) and meet at \(x(p)\).
 
-    Let \(e_i \in T_pM\) be the tangent vector at \(p\) along \(\gamma_i\) and let \(f \in \mathcal{C}^\infty(M).\) By the chain rule,
+    Let \(e_i \in T_pM\) be the tangent vector at \(p\) along \(\gamma_i\) and let \(f \in \smooth{M}.\) By the chain rule,
     \begin{align*}
         e_i f &= (f\circ \gamma_i)'(0)\\
               &= (f \circ x^{-1} \circ x \circ \gamma_i)'(0)\\
@@ -202,7 +202,7 @@ is the set (vector space) of all \((r,s)\)-tensors at the point \(p \in M\).
 \begin{definition}{Gradient operator at a point}{gradient}
     The \emph{gradient \(d_p\) operator at a point \(p \in M,\)} is a linear map
     \begin{align*}
-        d_p : \mathcal{C}^\infty(M) &\linear T_p ^{\ast}M\\
+        d_p : \smooth{M} &\linear T_p ^{\ast}M\\
                                   f &\mapsto d_p f
     \end{align*}
     defined by
@@ -255,14 +255,14 @@ Given a smooth map between smooth manifolds, we may define an object that takes 
     \begin{equation*}
         \pf[p]{\phi}(X)f = X(f \circ \phi)
     \end{equation*}
-    for all \(f \in \mathcal{C}^\infty(N).\)
+    for all \(f \in \smooth{N}.\)
 \end{definition}
 
 \begin{remark}
     The pushforward \(\pf[p]{\phi}\) is often called the \emph{differential of \(\phi\) at \(p\)}.
 \end{remark}
 
-We note the tangent vector \(X_{\gamma,p}\) at \(p\) of the smooth curve \(\gamma\) is \emph{pushed forward} to the tangent vector \(\pf[p]{\phi}(X)\) of the smooth curve \(\phi \circ \gamma.\) Indeed, let \(f \in \mathcal{C}^\infty(N)\), then
+We note the tangent vector \(X_{\gamma,p}\) at \(p\) of the smooth curve \(\gamma\) is \emph{pushed forward} to the tangent vector \(\pf[p]{\phi}(X)\) of the smooth curve \(\phi \circ \gamma.\) Indeed, let \(f \in \smooth{N}\), then
 \begin{align*}
     \pf[p]\phi(X)f &= X(f \circ \phi)\\
                    &= (f \circ \phi \circ \gamma)'(0)\\
@@ -329,46 +329,3 @@ With this theorem one could show the intrinsically definitions are equivalent to
 
 Even though the extrinsic approach is equivalent to the intrinsic approach, in the purely abstract sense, it may not desirable to pursue in some cases. As an example, in General Relativity there would have to be a physical justification for an ambient space where spacetime is embedded.
 
-\subsection{Tangent bundle and vector fields}
-Up until this point, the differentiable structure of the manifold was studied at one point at a time by virtue of the tangent space at such a point.
-
-\begin{definition}{Tangent bundle}{tangent_bundle}
-    Let \(\topology{M}\) be an \(n\)-dimensional smooth manifold. The \emph{tangent bundle }\(TM\) is the disjoint union of all the tangent spaces of the manifold, that is
-    \begin{equation*}
-        TM = \bigcupdot_{p \in M} T_pM
-    \end{equation*}
-    The \emph{bundle projection} \(\pi\) is the map
-    \begin{align*}
-        \pi : TM &\to M\\
-               X &\mapsto p,
-    \end{align*}
-    where \(p \in M\) is \emph{the} point for which \(X \in T_pM\), often referred as the \emph{base point}.
-\end{definition}
-\begin{remark}
-    We recall the disjoint union may be written as
-    \begin{equation*}
-        \bigcupdot_{p\in M} T_pM = \bigcup_{p \in M} \set*{p} \times T_pM,
-    \end{equation*}
-    justifying the well definition of the projection map \(\pi\).
-\end{remark}
-
-The previous definition makes it clear that
-\begin{equation*}
-    \begin{tikzcd}[column sep = normal, row sep = large]
-        TM \arrow{r}{\pi} & M
-    \end{tikzcd}
-\end{equation*}
-is a \emph{set bundle}. We wish add structure to \(TM\) such that this is a bundle on smooth manifolds. We begin by equipping \(TM\) with the initial topology \(\mathcal{O}_{TM}\) induced by \(\pi\), that is,  \(\mathcal{O}_{TM}\) is the coarsest topology on \(TM\) such that the map \(\pi\) is continuous with respect to \(\mathcal{O}_{TM}\) and \(\mathcal{O}_M\).
-
-Let \((U, x) \in \mathscr{A}_M\) be a chart. We claim \(\left(\pi^{-1}(U), \xi\right)\) is a chart of \(TM,\) defining the chart map by
-\begin{align*}
-    \xi : \pi^{-1}(U) &\to \xi\left(\pi^{-1}(U)\right) \subset \mathbb{R}^{2n}\\
-               X &\mapsto \left(x^1(\pi(X)), \dots, x^n(\pi(X)),X^1, \dots, X^n\right),
-\end{align*}
-where \(X^i\) are the components of \(X\) in the basis \bset{x}{n}{\pi(X)}.
-
-We now check any two charts are \(C^\infty\)-compatible.
-
-Smooth Manifold.
-
-The projection map is smooth. Smooth bundle.

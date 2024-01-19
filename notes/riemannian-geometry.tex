@@ -5,7 +5,7 @@
 \usepackage[strict=false,autostyle=true,english=american]{csquotes} %fvextra to avoid warning?
 \setmainlanguage[variant=us]{english}
 
-\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
 \addbibresource{bibliography.bib}
 
 % \setmainfont{Palatino Linotype}
@@ -47,18 +47,30 @@
     outer-Rdelim = \right|,
     sub-nudge=0 mu
 }
+\DeclareMathOperator\sgn{sgn}
+\DeclareMathOperator\End{End}
 \DeclareMathOperator\sech{sech}
+\DeclareMathOperator\preimage{preim}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiterX\inner[2]{\langle}{\rangle}{#1,\mathopen{}#2}
 \DeclarePairedDelimiter\set{\{}{\}}
-\newcommand\ffamily[3]{\ensuremath{\set{#1}_{#2}^{#3}}}
-\newcommand\family[2]{\ensuremath{\set{#1}_{#2}}}
+\newcommand\todo{{\color{Red} TODO!}}
+\newcommand\preim[2]{\preimage_{#1}{\left(#2\right)}}
+\newcommand\colorunderline[2]{{\color{#1}\underline{{\color{black}{#2}}}}}
+\newcommand\Hom[2][]{\ensuremath{\operatorname{Hom}_{#1}{\left(#2\right)}}}
+\newcommand\bundle[3]{\ensuremath{#1 \xrightarrow{#2} #3}}
+\newcommand\smooth[1]{\ensuremath{\mathcal{C}^\infty(#1)}}
+\newcommand\sections[1]{\ensuremath{\Gamma\left(#1\right)}}
+\newcommand\forms[2][]{\ensuremath{\Lambda^{#1}{\left({#2}\right)}}}
+\newcommand\ffamily[3]{\ensuremath{\set*{#1}_{#2}^{#3}}}
+\newcommand\family[2]{\ensuremath{\set*{#1}_{#2}}}
 \newcommand\vetor[1]{\ensuremath{\boldsymbol{#1}}}
 \newcommand\linear{\ensuremath{\mathrel{\tilde{\to}}}}
 \newcommand\topology[1]{\ensuremath{\left(#1, \mathcal{O}_{#1}\right)}}
 \newcommand\manifold[1]{\ensuremath{\left(#1, \mathcal{O}_{#1}, \mathscr{A}_{#1}\right)}}
 \newcommand\restrict[2]{\ensuremath{\left.#1\right\rvert_{#2}}}
+\newcommand\bfield[1]{\ensuremath{\diffp*{}{#1}}}
 \newcommand\bvec[3][]{\ensuremath{\diffp*{#1}{#2}[#3]}}
 \newcommand\bset[3]{\ensuremath{\set*{\diffp*{}{{#1}^1}[#3], \dots, \diffp*{}{{#1}^{#2}}[#3]}}}
 \newcommand\pf[2][]{\ensuremath{{#2}_{\ast{#1}}}}
@@ -154,6 +166,9 @@
 
 \chapter{Differentiable Manifolds}
 \input{chapter02/differentiable-manifolds}
+
+\chapter{Lie Groups and Algebras}
+\input{chapter03/lie-groups-and-algebras}
 
 \printbibliography
 \end{document}

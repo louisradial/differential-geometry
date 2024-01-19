@@ -1,1 +1,276 @@
-\section{Grassmann algebras}
+\section{Differential forms and exterior algebra}
+
+Recall \(S_k\) is the group of permutations on the finite set of natural numbers \(\set{1, \dots, k}\). If \(\pi \in S_k\) is a permutation, then its parity \(\sgn(\pi)\) is \(1\) if \(\pi\) has an even amount of inversions, and \(-1\) otherwise.
+
+\begin{definition}{Differential form}{differential_form}
+    Let \(M\) be a smooth manifold. A \emph{(differential) \(k\)-form} is a \((0, k)\)-tensor field \(\omega\) on \(M\) that is totally antisymmetric, that is
+    \begin{equation*}
+        \omega(X_1, \dots, X_k) = \sgn(\pi)\cdot\omega(X_{\pi(1)}, \dots, X_{\pi(k}),
+    \end{equation*}
+    where \(X_i \in \sections{TM}\), and \(\pi \in S_k.\)
+\end{definition}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item Smooth functions on \(M\) and covector fields are trivially differential forms. We may now refer to covector fields as 1-forms.
+        \item If \(M\) is orientable, then there exists a nowhere vanishing volume form.
+        \item Electromagnetic field strength \(F\) is a 2-form.
+        \item In classical mechanics, if \(Q\) is the configuration space, then its cotangent bundle \(T^\ast Q\) is the phase space. On \(T^\ast Q\) there exists a canonically defined 2-form, called the \emph{symplectic form}.
+    \end{enumerate}
+\end{example}
+
+We denote the set of all \(k\)-forms on \(M\) by \forms[k]{M}, which can be equipped to be a \smooth{M}-module, as it is a submodule of the set of all \((0, k)\)-tensor fields on \(M\). It is easy to see the tensor product of differential forms does not yield a form. Indeed, let \(\omega, \eta \in \forms[1]{M}\) be 1-forms, then
+\begin{equation}
+    (\omega\otimes\eta)(X, Y) = \omega(X) \cdot \eta(Y),
+\end{equation}
+which generically is not the same as \(-(\omega \otimes \eta)(Y, X)\).
+
+We wish to construct a \smooth{M}-algebra of forms, where the algebra over a ring is defined by changing \enquote{field} to \enquote{ring} and \enquote{vector field} to \enquote{module} in \cref{def:algebra}. A product between forms that yields forms must be defined, but we have just seen the tensor product is not enough.
+
+\begin{definition}{Wedge product}{wedge}
+    Let \(M\) be a smooth manifold. The \emph{wedge product} between two differential forms is the map
+    \begin{align*}
+        \wedge : \forms[k]{M}\times \forms[\ell]{M} &\to \forms[k+\ell]{M}\\
+                                (\omega, \eta) &\mapsto \omega \wedge \eta,
+    \end{align*}
+    defined by
+    \begin{equation*}
+        (\omega \wedge \eta)(X_1, \dots X_{k+\ell}) = \frac{1}{k! \ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi)\cdot(\omega \otimes \eta)\left(X_{\pi(1)}, \dots, X_{\pi(k+\ell)}\right),
+    \end{equation*}
+    where \(X_i \in \sections{TM}.\)
+\end{definition}
+\begin{example}
+    In the case of 1-forms, we have \(\omega \wedge \eta = \omega \otimes \eta - \eta \otimes \omega,\) and it is easy to see \(\omega \wedge \eta\) indeed is a 2-form and that \(\omega \wedge \eta = - \eta \wedge \omega\). A similar result is generalized for any pair of differential forms, which is shown in \cref{prop:wedge_properties}.
+\end{example}
+
+We now check the assertion made in the previous definition. That is, we must check if the wedge product yields a differential form.
+\begin{proposition}{Wedge product yields a differential form}{wedge_forms}
+    Let \(\omega \in \forms[k]{M}\) and \(\eta \in \forms[\ell]{M}\). Then \(\omega \wedge \eta \in \forms[k+\ell]{M}\).
+\end{proposition}
+\begin{proof}
+    Consider the differential forms \(\omega \in \forms[k]{M}\) and \(\eta \in \forms[\ell]{M}\), we have. It is easy to see \(\omega \wedge \eta\) is a multilinear map, since \(\omega\) and \(\eta\) are tensors and the wedge product is defined with the tensor product. That is, \(\omega \wedge \eta\) is a \((0, k + \ell)\)-tensor field, and we must now show it is a differential form.
+
+    Let \(\tau \in S_{k+\ell}\) be a permutation and let \(X_i \in \sections{TM}\) be vector fields for \(i \in \set{1, \dots, k+\ell}\). From the definition of the wedge product, we have
+    \begin{equation*}
+        (\omega \wedge \eta)\left(X_{\tau(1)}, \dots, X_{\tau(k + \ell)}\right) = \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi)\cdot(\omega \otimes \eta)\left(X_{\pi \circ \tau(1)}, \dots, X_{\pi \circ \tau(k+\ell)}\right).
+    \end{equation*}
+    For any \(\pi \in S_{k+\ell},\) \(\pi \circ \tau \in S_{k+\ell},\) since the permutation group is closed under composition. It is clear that \(\sgn(\pi \circ \tau) = \sgn(\pi) \cdot \sgn(\tau)\), and we have
+    \begin{align*}
+        \sgn(\tau)\cdot(\omega \wedge \eta)\left(X_{\tau(1)}, \dots, X_{\tau(k+\ell)}\right) &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi\circ\tau)\cdot (\omega \otimes\eta)\left(X_{\pi \circ \tau(1)}, \dots, X_{\pi \circ \tau(k+\ell)}\right)\\
+                                                                                             &= \frac{1}{k!\ell!}\sum_{\sigma \in S_{k+\ell}} \sgn(\sigma)\cdot(\omega\otimes \eta)\left(X_{\sigma(1)}, \dots, X_{\sigma(k+\ell)}\right)\\
+                                                                                             &= (\omega \wedge \eta)\left(X_1, \dots, X_{k+\ell}\right).
+    \end{align*}
+    This shows \(\omega \wedge \eta\) is an alternating tensor, and this proves our claim.
+\end{proof}
+
+% cite munkres analysis on manifolds
+\begin{proposition}{Wedge product properties}{wedge_properties}
+    The wedge product is associative and graded anticommutative, meaning
+    \begin{equation*}
+        \omega \wedge \eta = (-1)^{k\ell} \eta \wedge \omega,
+    \end{equation*}
+    and
+    \begin{equation*}
+        (\omega \wedge \eta) \wedge \alpha = \omega \wedge (\eta \wedge \alpha),
+    \end{equation*}
+    for all \(\omega \in \forms[k]{M}\), \(\eta \in \forms[\ell]{M}\), and \(\alpha \in \forms[m]{M}\).
+\end{proposition}
+\begin{proof}
+    As the proof for associativity is cumbersome, we refer to \cite{munkres_analysis}. To show graded anticommutativity, we consider the permutation \(\tau \in S_{k+\ell}\) such that
+    \begin{equation*}
+        (\tau(1), \dots, \tau(k+\ell)) = (k+1, \dots, k+\ell, 1, \dots, k).
+    \end{equation*}
+    We verify the parity of this permutation by counting the number of inversions of \(\tau.\) It is easy to see that the only inversions are between elements \(k+i\) and \(j\), where \(1 \leq i \leq \ell\) and \(1 \leq j \leq k\). Moreover, for a given element \(k + i,\) there are exactly \(k\) inversions. Then, there are \(k\ell\) inversions, hence  \(\sgn(\tau) = (-1)^{k\ell}.\)
+
+    Then, given vector fields \(X_i \in \sections{TM}\), for \(i \in \set{1, \dots, k+\ell}\), it follows that
+    \begin{equation*}
+        (\omega \otimes \eta)\left(X_1, \dots, X_{k+\ell}\right) = (\eta \otimes \omega)\left(X_{\tau(1)}, \dots, X_{\tau(k+\ell)}\right).
+    \end{equation*}
+    From the definition of the wedge product we have
+    \begin{align*}
+        (\omega \wedge \eta)\left(X_{1}, \dots, X_{k+\ell}\right) &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi)\cdot (\omega \otimes \eta)\left(X_{\pi(1)}, \dots X_{\pi(k+\ell)}\right)\\
+                                                                  &= \frac{1}{k!\ell!}\sum_{\pi \in S_{k+\ell}} \frac{\sgn(\tau \circ \pi)}{\sgn(\tau)} \cdot (\eta\otimes\omega)\left(X_{\tau\circ\pi(1)}, \dots, X_{\tau\circ\pi(k+\ell)}\right)\\
+                                                                  &= \frac{(-1)^{k\ell}}{k!\ell!}\sum_{\sigma \in S_{k+\ell}} \sgn(\sigma) (\eta\otimes\omega)\left(X_{\sigma(1)}, \dots, X_{\sigma(k+\ell)}\right)\\
+                                                                  &= (-1)^{k\ell} (\eta \wedge \omega) \left(X_1, \dots, X_{k+\ell}\right),
+    \end{align*}
+    that is, \(\omega \wedge \eta = (-1)^{k\ell} \eta \wedge \omega,\) as desired.
+\end{proof}
+
+Recall that a product in an algebra must not only be closed in the algebra, but it must be a bilinear map.
+\begin{proposition}{Wedge product is \smooth{M}-bilinear}{wedge_bilinear}
+    Let \(\alpha,\beta \in \forms[k]{M}\), \(\omega\in \forms[\ell]{M}\) and \(f \in \smooth{M}\). Then
+    \begin{equation*}
+        (\alpha + f \beta) \wedge \omega = \alpha \wedge \omega + f (\beta\wedge\omega),
+    \end{equation*}
+    that is, the wedge product is bilinear.
+\end{proposition}
+\begin{proof}
+    It is clear this property follows from the bilinearity of the tensor product, that is, we have \((\alpha + f \beta) \otimes \omega = \alpha \otimes \omega + f \beta \otimes \omega\). Let \(X_i \in \sections{TM}\) be vector fields, with \(i \in \set{1, \dots, k+\ell},\) then
+    \begin{align*}
+        \left((\alpha + f \beta) \wedge \omega\right)\left(X_1, \dots, X_{k+\ell}\right) &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi)\cdot \left((\alpha + f \beta) \otimes \omega\right)\left(X_{\pi(1)}, \dots, X_{\pi(k+\ell)}\right)\\
+                                                                                         &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi)\cdot (\alpha \otimes \omega + f \beta \otimes \omega)\left(X_\pi(1), \dots, X_{\pi(k+\ell)}\right)\\
+                                                                                         &= (\alpha \wedge \omega + f \beta \wedge \omega)\left(X_1, \dots, X_{k+\ell}\right),
+    \end{align*}
+    as desired.
+\end{proof}
+
+We generalize the pullback of covectors to differential forms and show it is compatible with the wedge product.
+
+\begin{definition}{Pullback of a differential form}{pullback_form}
+    Let \(h : M \to N\) be a smooth map between smooth manifolds \(M\) and \(N\). The \emph{pullback of a \(k\)-form \(\omega \in \forms[k]{N}\) on \(N\) is the \(k\)-form \(\pb{h}\omega \in \forms[k]{M}\) on \(M\)} defined by
+    \begin{equation*}
+        (\pb{h}\omega)(p) (X_1(p), \dots, X_k(p)) = \omega(h(p))\left(\pf[p]{h}(X_1(p)), \dots, \pf[p]{h}(X_k(p))\right),
+    \end{equation*}
+    for all points \(p \in M\) and vector fields \(X_i \in \sections{TM}\).
+\end{definition}
+It is clear that \(\pb{h}\omega \in \forms[k]{M},\) since it inherits both multilinearity and antisymmetry from the differential form \(\omega \in \forms[k]{N}\).
+
+\begin{proposition}{Pullback is compatible with the wedge product}{pullback_wedge}
+    Let \(h : M \to N\) be a smooth map between smooth manifolds \(M\) and \(N\). Then
+    \begin{equation*}
+        \pb{h}(\omega \wedge \eta) = (\pb{h}\omega) \wedge (\pb{h}\eta),
+    \end{equation*}
+    for all \(\omega \in \forms[k]{N}\) and \(\eta \in \forms[\ell]{N}.\)
+\end{proposition}
+\begin{proof}
+    We consider vector fields \(X_i \in \sections{TM},\) for \(i \in \set{1, \dots, k+\ell}\) and differential forms \(\omega \in \forms[k]{N}\) and \(\eta\in\forms[\ell]{M}\). Then, for each point \(p \in M\) we assign \(Y_i = X_i(p) \in T_pM\) for aesthetic purposes. Then,
+    \begin{align*}
+        (\pb{h}\omega \otimes \pb{h}\eta)(p)(Y_1, \dots, Y_{k+\ell}) &= \pb{h}\omega(p)(Y_1, \dots, Y_{k})\cdot \pb{h}\eta(p)(Y_{k+1}, \dots, Y_{k+\ell})\\
+                                                                     &= \omega(h(p))(\pf[p]{h}Y_1, \dots, \pf[p]{h}Y_k)\cdot \eta(h(p))(\pf[p]{h}Y_{k+1}, \dots, \pf[p]{H}Y_{k+\ell})\\
+                                                                     &= (\omega \otimes \eta)(h(p))(\pf[p]{h}Y_1, \dots, \pf[p]{h}Y_{k+\ell}),
+    \end{align*}
+    and as a result,
+    \begin{align*}
+        (\pb{h}\omega\wedge\pb{h}\eta)(p)(X_1(p), \dots, X_{k+\ell}(p)) &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi) (\pb{h}\omega \otimes \pb{h}\eta)(p) (Y_{\pi(1)}, \dots, Y_{\pi(k+\ell)})\\
+                                                                  &= \frac{1}{k!\ell!} \sum_{\pi \in S_{k+\ell}} \sgn(\pi) (\omega \otimes \eta)(h(p)) (\pf[p]{h}Y_{\pi(1)}, \dots, \pf[p]{h}Y_{\pi(k+\ell)})\\
+                                                                  &= (\omega \wedge \eta)(h(p))(\pf[p]{h}Y_1, \dots, \pf[p]{h}Y_{k+\ell})\\
+                                                                  &= \pb{h}(\omega\wedge \eta )(p)(X_1(p), \dots, X_{k+\ell}(p)),
+    \end{align*}
+    and we conclude \(\pb{h}\omega \wedge \pb{h}\eta = \pb{h}(\omega\wedge \eta)\) as desired.
+\end{proof}
+
+We may now define the algebra with the \smooth{M}-module of the direct sum of all differential forms, that is closed under the linear continuation of the wedge product.
+\begin{definition}{Exterior algebra}{exterior_algebra}
+    Let \(M\) be an \(n\)-dimensional smooth manifold. The \emph{exterior algebra \forms{M}} is the \smooth{M}-module
+    \begin{equation*}
+        \forms{M} = \bigoplus_{k = 0}^n \forms[k]{M}
+    \end{equation*}
+    equipped with the \emph{exterior product \(\wedge\)}, the bilinear map
+
+    \begin{align*}
+        \wedge : \forms{M} \times \forms{M} &\to \forms{M}\\
+                             (\omega, \eta) &\mapsto \omega \wedge \eta,
+    \end{align*}
+    defined by linear continuation of the wedge product.
+\end{definition}
+\begin{remark}
+    Any differential form of rank greater than \(n\) is the zero tensor. To see this, consider a local chart, where the dimension of the tangent space is equal to \(n,\) that is, there are at most \(n\) linearly independent vectors, and thus any differential form of rank greater than \(n\) would only yield zero for any family of tangent vectors.
+\end{remark}
+\begin{example}
+    We illustrate the meaning of the linear continuation of the wedge product. Recall an element \(u\) of a direct sum module \(V \oplus W\) has a unique decomposition \(u = v + w,\) where \(v \in V\) and \(w \in W\). A differential form \(\omega \in \forms{M}\) may be expressed as
+    \begin{equation*}
+        \omega = \sum_{k = 0}^{n} \omega^k,
+    \end{equation*}
+    where \(\omega^k \in \forms[k]{M}.\) Let \(\eta \in \forms[\ell]{M} \subset \forms{M}\). The exterior product \(\omega \wedge \eta\) is then
+    \begin{equation*}
+        \omega \wedge \eta = \sum_{k = 0}^{n} \omega^k \wedge \eta,
+    \end{equation*}
+    where \(\omega^k \wedge \eta\) is defined by the wedge form between a \(k\)-form and an \(\ell\)-form, as before.
+
+    We warn, however, that the graded anticommutativity shown in \cref{prop:wedge_properties} does not hold for a general element of the exterior algebra, and we may only use it for elements whose ranks are known, that is
+    \begin{equation*}
+        \eta \wedge \omega = \sum_{k = 0}^{n} \eta \wedge \omega^k = \sum_{k = 0}^n (-1)^{k\ell} \omega^k \wedge \eta,
+    \end{equation*}
+    which is not, in general, related to \(\omega \wedge \eta\).
+\end{example}
+
+Recall we have already defined the gradient operator
+\begin{align*}
+    d : \forms[0]{M} &\to \forms[1]{M}\\
+                   f &\mapsto df
+\end{align*}
+where \((df)(p) = d_p f \in T_p ^{\ast}M\), for all \(p\in M\). This can be extended to differential forms of higher ranks.
+
+\begin{definition}{Exterior derivative}{exterior_derivative}
+    The \emph{exterior derivative} is the linear operator
+    \begin{align*}
+        d : \forms[k]{M} &\to \forms[k+1]{M}\\
+                  \omega &\mapsto d\omega,
+    \end{align*}
+    defined by
+
+    \begin{align*}
+        (d\omega)\left(X_1, \dots, X_{k+1}\right) &= \sum_{i=1}^{k+1}\; (-1)^{i+1} X_i\left(\omega(X_1, \dots, \widehat{X_i}, \dots, X_{k+1})\right) \\
+                                                  &+ \sum_{i < j} (-1)^{i+j} \omega\left([X_i, X_j], X_1, \dots, \widehat{X_i}, \dots, \widehat{X_j}, \dots, X_{k+1}\right),
+    \end{align*}
+    where \(X_i \in \sections{TM}\) are vector fields, with \(\widehat{X_m}\) denoting the omission of \(X_m\).
+\end{definition}
+
+A few results must be obtained in order to show the exterior derivative is well-defined. Namely, the definition claims the operator is linear and that \(d\omega\) is a \((k+1)\)-form. {\color{Red} These are assumed without proof.}
+
+\begin{theorem}{Exterior derivative is an antiderivation}{exterior_antiderivation}
+    Let \(\omega \in \forms[k]{M}\) and \(\sigma \in \forms[\ell]{M}\), then
+    \begin{equation*}
+        d(\omega \wedge \sigma) = d\omega \wedge \sigma + (-1)^{k} \omega \wedge d\sigma.
+    \end{equation*}
+\end{theorem}
+
+\begin{theorem}{Exterior differentiation commutes with the pullback}{exterior_pullback}
+    Let \(h : M \to N\) be a smooth map between smooth manifolds \(M\) and \(N\). Then
+    \begin{equation*}
+        \pb{h}(d\omega) = d(\pb{h}\omega),
+    \end{equation*}
+    for all \(\omega \in \forms[k]{N}.\)
+\end{theorem}
+
+By linear continuation, we may extend the exterior derivative to any differential form \(\omega \in \forms{M}.\)
+
+\begin{example}
+    We continue the examples given before.
+    \begin{enumerate}[label=(\alph*)]
+        \item In Maxwell electrodynamics, the homogeneous equations may be expressed as \(dF = 0\). In \(\mathbb{R}^4,\) this means \(F = dA,\) where \(A\) is the gauge potential.
+        \item In classical mechanics, there exists a symplectic form \(\omega \in \forms[2]{T ^{\ast}Q}\) with \(d\omega = 0.\) There is a natural 1-form defined by \(\theta = p_i dq^i,\) from which one defines the symplectic form \(\omega = d\theta\). With this definition, one finds that \(d\theta = 0.\)
+    \end{enumerate}
+\end{example}
+
+
+\begin{theorem}{d² = 0}{d2}
+    The operator \(d \circ d : \forms[k]{M} \to \forms[k+2]{M}\) is the null operator. More succinctly, \(d^2 = 0.\)
+\end{theorem}
+\begin{proof}
+    In local coordinates,
+    \begin{equation*}
+    d\omega = \partial_b\omega\indices{_{a_1\dots a_k}} dx^b \wedge dx^{a_1} \wedge \dots \wedge dx^{a_k},
+    \end{equation*}
+    then
+    \begin{align*}
+        d(d\omega) &= \partial_c\partial_b\omega\indices{_{a_1\dots a_k}} dx^c\wedge dx^b \wedge dx^{a_1} \wedge \dots \wedge dx^{a_k}\\
+                   &= \partial_{(cb)}\omega\indices{_{[a_1\dots a_k]}} dx^{[c}\wedge dx^b \wedge dx^{a_1} \wedge \dots \wedge dx^{a_k]}\\
+                   &= 0.
+    \end{align*}
+    This result is extended for the entire manifold.
+\end{proof}
+
+\subsection{deRham cohomology}
+The last result implies that given the sequence of maps
+\begin{equation*}
+    \begin{tikzcd}[column sep = small, row sep = large]
+        \forms[0]{M} \arrow{r}{d} & \forms[1]{M} \arrow{r}{d} & \dots  \arrow{r}{d} & \forms[k-1]{M} \arrow{r}{{\color{Peach}d}} & \forms[k]{M} \arrow{r}{{\color{Mauve}d}} & \forms[k+1]{M} \dots \arrow{r}{d} & \forms[n]{M},
+    \end{tikzcd}
+\end{equation*}
+then the kernel of \({\color{Mauve} d} : \forms[k]{M} \to \forms[k+1]{M}\) contains the image of \({\color{Peach} d} : \forms[k-1]{M} \to \forms[k]{M}.\) A \(k\)-form is called \emph{exact} if it lies in the image of {\color{Peach}\(d\)}, and it is called \emph{closed} if it lies in the kernel of {\color{Mauve}\(d\)}.
+
+The submodule of exact \(k\)-forms is denoted by \(B^k\) and the submodule of closed \(k\)-forms is denoted by \(Z^k.\) The Poincaré lemma states that if the underlying manifold is \(\mathbb{R}^n\), then \(Z^k = B^k\), for \(n > 0.\) In cases where \(N^k\) is a proper subset of \(Z^k,\) how to relate these submodules?
+
+\begin{definition}{deRham cohomology group}{deRham}
+    The \emph{\(k\)-th deRham cohomology group} is the quotient space
+    \begin{equation*}
+        H^k(M) = Z^k/B^k,
+    \end{equation*}
+    where the equivalence relation is given by
+    \begin{equation*}
+        \omega \sim \sigma \iff \omega - \sigma \in B^k,
+    \end{equation*}
+    for \(\omega,\sigma \in Z^k.\)
+\end{definition}
+
+Remarkably, the cohomology group \(H^k(M)\) depends only on the \emph{global} topology of \(M\), by deRham's theorem. As an example, \(H^0(M)\) is isomorphic to \(\mathbb{R}^d,\) where \(d\) is the number of connected pieces of \(M.\)

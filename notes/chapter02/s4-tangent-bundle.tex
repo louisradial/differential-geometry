@@ -1,0 +1,502 @@
+\section{Tangent bundle and tensor fields}
+Up until this point, the differentiable structure of the manifold was studied at one point at a time by virtue of the tangent space at such a point.
+
+\begin{definition}{Tangent bundle}{tangent_bundle}
+    Let \manifold{M} be an \(n\)-dimensional smooth manifold. The \emph{tangent bundle }\(TM\) is the disjoint union of all the tangent spaces of the manifold, that is
+    \begin{equation*}
+        TM = \bigcupdot_{p \in M} T_pM
+    \end{equation*}
+    The \emph{bundle projection} \(\pi\) is the map
+    \begin{align*}
+        \pi : TM &\to M\\
+               X &\mapsto p,
+    \end{align*}
+    where \(p \in M\) is \emph{the} point for which \(X \in T_pM\), often referred as the \emph{base point}.
+\end{definition}
+\begin{remark}
+    We recall the disjoint union may be written as
+    \begin{equation*}
+        \bigcupdot_{p\in M} T_pM = \bigcup_{p \in M} \set*{p} \times T_pM,
+    \end{equation*}
+    justifying the well definition of the projection map \(\pi\).
+\end{remark}
+
+The previous definition makes it clear that
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        TM \arrow{r}{\pi} & M
+    \end{tikzcd}
+\end{equation*}
+is a \emph{set bundle}. We wish to add structure to \(TM\) such that this is a bundle on smooth manifolds.
+
+
+Let \((U, x) \in \mathscr{A}_M\) be a chart. We define the map
+\begin{align*}
+    \xi : \pi^{-1}(U) &\to \xi\left(\pi^{-1}(U)\right) \subset \mathbb{R}^{2n}\\
+               X &\mapsto \left(x^1(\pi(X)), \dots, x^n(\pi(X)),X^1, \dots, X^n\right),
+\end{align*}
+where \(X^i = d_{\pi(X)}x^i(X)\) are the components of \(X\) in the basis \bset{x}{n}{\pi(X)}. Suppose there exists \(X, Y \in \pi^{-1}(U)\) such that \(\xi(X) = \xi(Y)\). Since \(x\) is injective, we must have \(\pi(X) = \pi(Y),\) and because the components of \(X\) are the same as those of \(Y,\) we have \(X = Y,\) hence \(\xi\) is one-to-one. For any \((a^1, \dots, a^n, b^1, \dots, b^n) \in \pi^{-1}(U),\) we have
+\begin{equation*}
+    \xi\left(b^i \bvec{x^i}{x^{-1}(a^1, \dots, a^n)}\right) = (a^1, \dots, a^n, b^1, \dots, b^n),
+\end{equation*}
+therefore \(\xi\) is onto. We have shown \(\xi\) is a bijection, with inverse given by
+\begin{align*}
+    \xi^{-1} : \xi\left(\pi^{-1}(U)\right)&\to \pi^{-1}(U)\\
+    \left(a^1, \dots, a^n, b^1, \dots, b^n\right)&\mapsto b^i\bvec{x^i}{x^{-1}(a^1, \dots, a^n)},
+\end{align*}
+where the base point is \(x^{-1}(a^1, \dots, a^n).\)
+
+It is clear that if \(TM\) had a topology where \(\pi^{-1}(U)\) was an open set, then \(\xi\) would be a homeomorphism from \(\pi^{-1}(U)\) to \(\mathbb{R}^{2n}\). Let \(\mathscr{A}_M = \family{(U_\alpha, x_\alpha)}{\alpha \in J}\) be the smooth atlas for \(M\), where \(J\) is an indexing set. We define \(\mathscr{A}_{TM} = \family{\left(\pi^{-1}(U_\alpha), \xi_\alpha\right)}{\alpha\in J}\), with \(\xi_\alpha\) constructed analogously from \(x_\alpha\). We define the topology \(\mathcal{O}_{TM}\) on \(TM\) with the maps \(\xi_\alpha\): a set \(A \subset TM\) is open if and only if \(\xi_\alpha(U_\alpha \cap A)\) is open in \(x_\alpha(U_\alpha)\times \mathbb{R}^n\) in its subspace topology induced from the standard topology in \(\mathbb{R}^{2n}\).
+{\color{Red} I need to check if this is Hausdorff and second-countable, and that it is a topology.}
+
+
+We now check any two charts in \(\mathscr{A}_{TM}\) are \(C^\infty\)-compatible. Without loss of generality, let \((U, \tilde{x}) \in \mathscr{A}_M\) be another chart on \(M\) and let \(\tilde{\xi} : \pi^{-1}(U) \to \tilde{\xi}\left(\pi^{-1}(U)\right)\) be constructed analogously to \(\xi\), that is, \(\left(\pi^{-1}(U), \tilde{\xi}\right) \in \mathscr{A}_{TM}.\)
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        & \pi^{-1}(U) \arrow[swap]{dl}{\xi} \arrow{dr}{\tilde{\xi}} &\\
+        \xi\left(\pi^{-1}(U)\right) \arrow{rr}{\tilde{\xi} \circ \xi^{-1}} & & \tilde{\xi}\left(\pi^{-1}(U)\right)
+    \end{tikzcd}
+\end{equation*}
+The chart transition map \(\tilde{\xi} \circ \xi^{-1} : \xi\left(\pi^{-1}(U)\right) \to \tilde{\xi}\left(\pi^{-1}(U)\right)\) is given by
+\begin{align*}
+    \tilde{\xi} \circ \xi^{-1} \left(a^1, \dots, a^n, b^1, \dots b^n\right) &= \tilde{\xi}\left(b^i \bvec{x^i}{x^{-1}\left(a^1, \dots, a^n\right)}\right)\\
+                                                                      &= \left(\tilde{a}^1, \dots, \tilde{a}^n, \tilde{b}^1, \dots, \tilde{b}^n\right),
+\end{align*}
+where \(\tilde{a}^i = \tilde{x}^i \circ x^{-1} \left(a^1, \dots, a^n\right)\) and \(\tilde{b}^j = b^i\bvec[\tilde{x}^j]{x^i}{x^{-1}(a^1, \dots, a^n)}\), since we have
+\begin{equation*}
+    b^k \bvec{x^k}{p} = b^i\bvec[\tilde{x}^j]{x^i}{p} \bvec{\tilde{x}^j}{p},
+\end{equation*}
+for all \(p \in U\). From the definition of the chart-induced basis, we have
+\begin{equation*}
+    \tilde{b}^j = b^i \partial_i(\tilde{x}^j \circ x^{-1})(a_1, \dots, a^n),
+\end{equation*}
+so it follows from smoothness of the chart transition maps in \(\mathscr{A}_M\) that \(\tilde{\xi} \circ \xi^{-1}\) is smooth. Interpreting \(\xi(\pi^{-1}(U)) = x(U) \times \mathbb{R}^n \subset \mathbb{R}^n \times \mathbb{R}^n\), we have shown
+\begin{equation*}
+    \tilde{\xi}\circ \xi^{-1}(a, b) = \left((\tilde{x}\circ x^{-1})(a), \pf[a]{(\tilde{x}\circ x^{-1})}(b)\right),
+\end{equation*}
+for \((a, b) \in x(U) \times \mathbb{R}^n\).
+
+Now that we have established that \(TM\) is a smooth manifold on its own right, we can ask whether the projection map \(\pi : TM \to M\) is smooth. Let \((U, x) \in \mathscr{A}_M\) and \((\pi^{-1}(U), \xi) \in \mathscr{A}_{TM}\) as before.
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        \pi^{-1}(U) \arrow{d}{\xi} \arrow{r}{\pi} & U \arrow{d}{x}\\
+        \xi\left(\pi^{-1}(U)\right) \arrow{r}{x \circ \pi \circ \xi^{-1}} & x(U)
+    \end{tikzcd}
+\end{equation*}
+It is easy to see the map \(x \circ \pi \circ \xi^{-1}\) is the projection
+\begin{align*}
+    x \circ \pi \circ \xi^{-1} : \xi\left(\pi^{-1}(U)\right)\subset \mathbb{R}^n \times \mathbb{R}^n &\to x(U) \subset \mathbb{R}^n\\
+    (a, b) &\mapsto a,
+\end{align*}
+and therefore \(x \circ \pi \circ \xi^{-1} \in \mathcal{C}^\infty(\mathbb{R}^{2n}, \mathbb{R}^n).\) By the definition of a smooth map between manifolds, the bundle projection \(\pi\) is smooth.
+%smooth bundle
+
+\subsection{Rings and modules}
+We now define vector fields on the manifold. Unlike the previous discussion on tangent spaces, vector fields will not be vector spaces, but \emph{modules}.
+
+\begin{definition}{Vector field}{vector_field}
+    Let \(M\) be a smooth manifold and \(TM\) its tangent bundle. A \emph{(smooth) vector field} \(\sigma\) is a (smooth) section of \(TM\), that is, the (smooth) map \(\sigma : M \to TM\) satisfies \(\pi \circ \sigma = \mathrm{id}_M\). The set
+    \begin{equation*}
+        \sections{TM} = \set*{\sigma : M \to TM\;|\; \sigma \text{ is smooth and } \pi \circ \sigma = \mathrm{id}_M}
+    \end{equation*}
+    denotes the set of all smooth vector fields.
+\end{definition}
+
+We equip the set \(\sections{TM}\) with two operations defined point-wise, namely addition of vector fields
+\begin{align*}
+    + : \sections{TM} \times \sections{TM} &\to \sections{TM}\\
+    (\sigma, \tau) &\mapsto \sigma+\tau,
+\end{align*}
+where \((\sigma+\tau)(p) = \sigma(p) + \tau(p)\), and scaling by a smooth map
+\begin{align*}
+    \cdot : \smooth{M} \times \sections{TM} &\to \sections{TM}\\
+    (f, \sigma)  &\mapsto f\cdot\sigma,
+\end{align*}
+where \((f\cdot \sigma)(p) = f(p) \sigma(p).\)
+
+The choice of scaling vector fields by functions and not just real numbers is a very intuitive notion, however the set of all smooth functions on a manifold, equipped with point-wise addition and multiplication, is not a field. To see this, one considers a map that has at least one zero at a point, so there is no guarantee of a multiplicative inverse.
+
+\begin{definition}{Ring}{ring}
+    A ring \((R, +, \cdot)\) is a set \(R\) equipped with two maps \(+, \cdot : R \times R \to R\) called addition and multiplication that satisfy
+    \begin{itemize}
+        \item \((R, +)\) is an abelian group under addition;
+        \item Associativity of multiplication: For all \(a,b,c \in R\), \((a\cdot b)\cdot c = a \cdot(b \cdot c);\)
+        \item Distributivity of multiplication over addition: For all \(a, b, c \in R\), \(a \cdot (b + c) = (a \cdot b) + (a\cdot c)\).
+    \end{itemize}
+
+    A \emph{commutative ring} satisfies the commutativity of multiplication: for all \(a,b \in R\), \(a\cdot b = b \cdot a\).
+
+    If there exists a multiplicative identity, i.e., an element \(1 \in R\) such that \(1 \cdot a = a\) and \(a \cdot 1 = a\) for all \(a \in R\), then \(R\) is a \emph{unital ring}. A unital ring is a \emph{division ring} if there exists a multiplicative inverse, that is, for all \(a \in R\smallsetminus{\set{0}},\) there exists \(a^{-1} \in R\smallsetminus{\set{0}}\) such that \(a^{-1}\cdot a = 1\) and \(a\cdot a^{-1}=1\).
+
+    Usually the multiplication \(a \cdot b\) is denoted by \(ab\).
+\end{definition}
+\begin{remark}
+    A field is a commutative unital division ring.
+\end{remark}
+
+It is easy to verify \((\smooth{M}, + , \cdot)\) is a commutative unital ring, but \emph{not} a division ring. Thus we may not say \(\sections{TM}\) is a vector space. We now generalize the concept of vector space over fields to rings.
+
+\begin{definition}{Module over a commutative unital ring}{module}
+    An \emph{R-module \((V, +, \cdot)\) over a commutative unital ring \(R\)} is a set \(V\) equipped with two maps \(+: V \times V \to V\), called addition, and \(\cdot : R \times V \to V\), called scalar multiplication, which satisfy
+    \begin{itemize}
+        \item \((V, +)\) is an abelian group under addition;
+        \item For all \(r,s \in R\) and \(x, y \in V\):
+            \begin{enumerate}[label=(\alph*)]
+                \item \(r \cdot (x + y) = r\cdot x + r \cdot y\);
+                \item \((r+s) \cdot x  = r\cdot x + s \cdot x\);
+                \item \((rs) \cdot x = r\cdot (s \cdot x)\);
+                \item \(1 \cdot x = x\).
+            \end{enumerate}
+    \end{itemize}
+    Usually the scalar multiplication \(a \cdot v\) is denoted by \(av\) and it is clear from context that it is the scalar multiplication.
+\end{definition}
+\begin{remark}
+    If the ring is not commutative, one may define left and right modules. And if the ring is not unital, the axiom \(1 \cdot x = x\) or \(x \cdot 1 = x\) is omitted.
+\end{remark}
+\begin{remark}
+    Since every field \(\mathbb{K}\) is a commutative unital ring, it is trivial that every \(\mathbb{K}\)-vector space is a \(\mathbb{K}\)-module.
+\end{remark}
+It is easy to verify \((\sections{TM}, +, \cdot)\) is a \smooth{M}-module. We finally prove the existence of a Hamel basis for \(R\)-modules if the underlying ring is a \emph{division} ring. As motivation, we consider the plane \(\mathbb{R}^2\) and the 2-sphere \(S^2\). It is easy to see the canonical basis of \(\mathbb{R}^2\) provides a basis for \(\Gamma(T \mathbb{R}^2)\), however, there is no non-vanishing smooth vector field on the sphere \cite{manfredo_gd}, and thus there is no basis for \(\Gamma(TS^2)\). Were \smooth{M} a division ring, there would exist a basis for vector fields in all manifolds.
+
+We begin with a few definitions \cite{kostrikin_manin} in order to state the Zorn's lemma, which is needed to prove the theorem.
+
+\begin{definition}{Partially ordered set and chain}{poset_chain}
+    A \emph{partially ordered set} \(X\) is a set \(X\) equipped with a \emph{ordering} \(\leq\) that is
+    \begin{enumerate}[label=(\alph*)]
+        \item reflexive: \(\forall x \in X, x \leq x\);
+        \item transitive: \(\forall x,y,z \in X, x \leq y \land y \leq z \implies x \leq z\); and
+        \item anti-symmetric: \(\forall x, y\in X, x \leq y \land y \leq x \implies x = y\).
+    \end{enumerate}
+    If for any pair \(x, y \in X\) either \(x \leq y\) or \(y \leq x,\) then \(X\) is a \emph{chain}.
+
+    An \emph{upper bound of a subset \(Y \subset X\)} in a partially ordered set \(X\) is an element \(x \in X\) such that \(y \leq x\) for all \(y \in Y.\) The \emph{greatest element of a partially ordered set \(X\)} is an element \(n \in X\) such that \(x \leq n\) for all \(x \in X\). A \emph{maximal element of a partially ordered set \(X\)} is an element \(m \in X\) such that \(x \in X : m \leq x \implies x = m\).
+\end{definition}
+\begin{example}
+    An example of a partially ordered set is the power set \(\mathcal{P}(S)\) of some set \(S\) with the ordering given by the inclusion \(\subset\).
+\end{example}
+
+\begin{theorem}{Zorn's lemma}{zorn}
+    Let \(X\) be a non-empty partially ordered set, any chain in which has an upper bound in \(X\). Then some chain has an upper bound that is simultaneously the maximal element in \(X\).
+\end{theorem}
+\begin{remark}
+    Within ZF-set theory, this lemma is equivalent to the axiom of choice, that is, this theorem follows from ZFC-set theory.
+\end{remark}
+
+\begin{theorem}{Existence of Hamel basis}{existence_of_basis}
+    If \(D\) is a division ring, then the \(D\)-module \(V\) has a Hamel basis.
+\end{theorem}
+\begin{proof}
+    We assume without loss of generality that \(V\) is a left \(D\)-module.
+
+    Trivially, \(V\) is a generating system for \(V\). Let \(S \subset V\) be a generating system for \(V,\) taking \(S = V,\) if necessary. We recall the definition of a generating system:
+    \begin{equation*}
+        \forall v \in V, \exists N \in \mathbb{N}, \exists v^1, \dots, v^N \in D, \exists e_1, \dots, e_N \in S : v = v^i e_i.
+    \end{equation*}
+    We define the non-empty set \(X\) of linearly independent subsets of \(S\)
+    \begin{equation*}
+        X = \set*{U \in \mathcal{P}(S) : U\text{ is linearly independent}},
+    \end{equation*}
+    which is partially ordered under inclusion. We recall a set \(U\) is linearly independent if any finite linear combination of elements in \(U\) equals \(0_V\), then the coefficients of the linear combination are \(0_D\).
+
+    Let \(Z \subset X\) be any chain in \(X\). Consider the union
+    \begin{equation*}
+        T = \bigcup Z = \set*{v \in V : \exists Y \in Z \text{ such that } v \in Y}.
+    \end{equation*}
+    We consider a finite set \(\set*{y_1, \dots, y_m}\) from \(T\) where \(y_i \in Y_i \in Z\). Since \(Z\) is a chain, we either have \(Y_i \subset Y_j\) or \(Y_j \subset Y_i\), for all \(i, j \in \set{1, \dots, m}\), and we may ignore one of them, say \(Y_j\), since if \(Y_j \subset Y_i,\) we have \(y_j \in Y_i.\) We may do this until only one subset \(Y\) remains and the entire set of \(m\) elements is contained in it. Since \(Y \in Z,\) the finite set is linearly independent, hence \(T\) is linearly independent and thus \(T \in X\). It is clear \(Y \subset T\), for all \(Y \in Z\), therefore \(T\) is an upper bound of \(Z\) in \(X\). By Zorn's lemma, \(X\) has a maximal element, one of which we name \(\mathcal{B}\).
+
+    Since \(\mathcal{B}\) is linearly independent, we want to show it is a basis for the generating system \(S\). That is, we must show \(\mathcal{B}\) is a generating system for \(S\). Let \(v \in S\). If \(v \in \mathcal{B},\) then \(v\) is clearly a finite linear combination of elements in \(\mathcal{B},\) so we may assume \(v \notin \mathcal{B}\). In which case, we have \(\mathcal{B} \cup \set{v}\) linearly dependent, since \(\mathcal{B}\) is a maximal linearly independent set. This implies there exists \(e_1, \dots, e_N \in \mathcal{B}, a^1, \dots, a^N, b \in D\) such that
+    \begin{equation*}
+        a^i e_i + bv = 0
+    \end{equation*}
+    and not all \(a^1, \dots, a^N, b \in D\) vanish. Suppose \(b = 0\), then \(a^ie_i = 0\) is a finite linear combination of elements in \(\mathcal{B}\) that results in zero, which would mean \(a^i = 0\). Thus, \(b\) must be non-zero. Rearranging, we get
+    \begin{equation*}
+        a^i e_i = -b v.
+    \end{equation*}
+    Since \(b \neq 0\) and \(D\) is a division ring, we have
+    \begin{equation*}
+        (-b)^{-1} a^i e_i  = v,
+    \end{equation*}
+    hence \(\mathcal{B}\) is a generating system for \(S\). Since \(S\) spans \(V\) and \(\mathcal{B}\) is a basis for \(S,\) it must follow that \(\mathcal{B}\) is a basis for \(V\).
+\end{proof}
+\begin{corollary}
+    Every vector space has a Hamel basis.
+\end{corollary}
+
+Since components are related to the existence of a basis, then for a tensor field, which generically does not have a basis, one cannot think of it only about its components, since there is no such a thing globally.
+
+\begin{definition}{Direct sum of modules}{direct_sum}
+    Let \(U, V\) be \(R\)-modules. The direct sum \(U \oplus V\) denotes the \(R\)-module \((U \times V, +, \cdot)\), where
+    \begin{align*}
+        + : (U \times V) \times (U \times V) &\to U \times V\\
+        \left((u_1, v_1), (u_2, v_2)\right) &\mapsto (u_1 + u_2, v_1 + v_2)
+    \end{align*}
+    and
+    \begin{align*}
+        \cdot : R \times (U \times V) &\to U \times V\\
+        \left(a, (u, v)\right) &\mapsto (au, av).
+    \end{align*}
+\end{definition}
+\begin{remark}
+    It is easy to verify \(U \oplus V\) is an \(R\)-module.
+\end{remark}
+
+We may now state the theorem that classifies the sections of a vector fiber bundle, such as the tangent bundle, as a \smooth{M}-module.
+
+\begin{definition}{Free module}{free_module}
+    A \emph{module} is free if it has a basis. It is said to be \emph{finitely generated} if the cardinality of the basis is finite.
+\end{definition}
+\begin{remark}
+    It is possible to show that a finitely-generated \(R\)-module \(F\) is free, then \(F\) is isomorphic to \(R \oplus \dots \oplus R\).
+\end{remark}
+
+\begin{definition}{Projective module}{projective_module}
+    An \(R\)-module \(\Gamma\) is \emph{projective} if it is a direct summand of a free \(R\)-module \(F,\) that is
+    \begin{equation*}
+        \Gamma \oplus Q = F,
+    \end{equation*}
+    for some \(R\)-module \(Q\).
+\end{definition}
+\begin{remark}
+    Taking \(Q = \set{0},\) we see every free module is projective.
+\end{remark}
+
+
+\begin{theorem}{Serre-Swan theorem}{serre_swam}
+    The set of all smooth sections of a vector fiber bundle \(E\) over a smooth manifold \(M\) is a finitely generated projective \smooth{M}-module \(\Gamma(E)\), that is
+    \begin{equation*}
+        \Gamma(E) \oplus Q = F,
+    \end{equation*}
+    where \(F\) and \(Q\) are \smooth{M}-modules and \(F\) is free.
+\end{theorem}
+
+\begin{proposition}{Set of \(R\)-modules of homomorphisms is a module}{homomorphism_module}
+    Let \(P, Q\) be finitely generated (projective) \(R\)-modules, where \(R\) is a \emph{commutative} ring. The set of \(R\)-linear maps from \(P\) to \(Q\)
+    \begin{equation*}
+        \Hom[R]{P,Q}= \set*{\phi : P \linear Q \text{ such that }\phi\text{ is }R\text{-linear}}
+    \end{equation*}
+    equipped with point-wise addition
+    \begin{align*}
+        + :  \Hom[R]{P,Q} \times \Hom[R]{P,Q} &\to \Hom[R]{P,Q}\\
+                                  (\phi,\psi) &\mapsto \phi+\psi,
+    \end{align*}
+    where \((\phi+\psi)(a) = \phi(a) + \psi(a)\) and
+    \begin{align*}
+        \cdot : R \times \Hom[R]{P,Q} &\to \Hom[R]{P,Q}\\
+                                  (b,\psi) &\mapsto b\cdot\psi,
+    \end{align*}
+    where \((b\cdot\psi)(a) = b \cdot \psi(a),\) is a \(R\)-module.
+\end{proposition}
+\begin{proof}
+    We recall the proof of \cref{prop:homvw_vector_space}. The commutativity of field multiplication was necessary to prove the set of linear maps between vector spaces is a vector space. Doing the exact same computations, this proposition follows.
+\end{proof}
+
+In particular, the dual \smooth{M}-module to \(\sections{TM}\), the set
+\begin{equation*}
+    \sections{TM}^{\ast} = \Hom[\smooth{M}]{\sections{TM}, \smooth{M}}
+\end{equation*}
+is a \smooth{M}-module. It can be shown that \(\sections{TM}^{\ast} = \sections{T^{\ast}M}\), called the cotangent bundle. {\color{Red} I kinda want to show this, as it's not immediate to me, although intuitive.}
+
+% move this somewhere
+
+\begin{definition}{Tensor field}{tensor_field}
+    A \((r,s)\)-tensor field \(t\) on a smooth manifold \(M\) is a \smooth{M}-multilinear map
+    \begin{equation*}
+        t : \underbrace{\sections{T^{\ast}M} \times \dots \times \sections{T^{\ast}M}}_{r \text{ times}} \times \underbrace{\sections{TM}\times \dots \times \sections{TM}}_{s \text{ times}} \linear \smooth{M}.
+    \end{equation*}
+\end{definition}
+
+\subsection{Vector fields}
+Throughout this section, \manifold{M} is an \(n\)-dimensional smooth manifold. Even though there is no guarantee of a basis for the \smooth{M}-module \sections{TM}, we may find \emph{local} basis for submanifolds. Let \((U, x) \in \mathscr{A}_M\) be a chart, where we define the \(n\) vector fields
+\begin{align*}
+    \bfield{x^i} : U &\to TU\\
+                   p &\mapsto \bvec{x^i}{p},
+\end{align*}
+then at each point \(p \in U,\) this set spans the tangent space \(T_pU\). A vector field \(X \in\sections{TM}\) may be expressed in \(U\) as a linear combination of the vector fields \(\bfield{x^i}\), that is
+\begin{align*}
+    \bfield{X} : U &\to TU\\
+                   p &\mapsto a^i(p) \bvec{x^i}{p},
+\end{align*}
+may be written as \(X = a^i \bfield{x^i}\), where the component functions are maps \(a^i : U \to \mathbb{R}\).
+
+\begin{lemma}{Smooth vector field components are smooth}{vector_field_components}
+    Let \((U,x)\in \mathscr{A}_M\) be a chart on \(M\). A vector field \(X = a^i \bfield{x^i}\) on \(U\) is smooth if and only if the component functions \(a^i\) are smooth on \(U\).
+\end{lemma}
+\begin{proof}
+    Let \((TU, \xi)\) be the induced chart on \(TU\) by \((U, x)\), defined by
+    \begin{align*}
+        \xi : TU &\to x(U)\times \mathbb{R}^n\\
+               Y &\mapsto (x^1 \circ \pi(Y), \dots, x^n \circ \pi(Y), c^1(Y), \dots, c^n(Y)),
+    \end{align*}
+    where \(c^i \in \smooth{TU}\) are the smooth maps defined by
+    \begin{align*}
+        c^i : TU &\to \mathbb{R}\\
+               Y &\mapsto d_{\pi(Y)}x^i(Y),
+    \end{align*}
+    that is, \(Y = c^i(Y) \bvec{x^i}{\pi(Y)}\). Note that
+    \begin{equation*}
+        c^i(X(p)) = a^i(p)
+    \end{equation*}
+    for all \(p \in U\), then we have \(a^i = c^i \circ X\).
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            U \arrow{rr}{X}\arrow[swap]{dr}{a^i} && TU\arrow{dl}{c^i}\\
+                                                 & \mathbb{R}
+        \end{tikzcd}
+    \end{equation*}
+    Since \(\xi\) is a diffeomorphism, \(X\) is smooth if and only if \(\xi \circ X : U \to x(U) \times \mathbb{R}^n\) is smooth. For all \(p \in U\), we have
+    \begin{equation*}
+        \xi \circ X(p) = (x^1(p), \dots, x^n(p), a^1, \dots, a^1(p), \dots, a^n(p)).
+    \end{equation*}
+    Due to the component functions \(x^i\) being smooth, this implies \(\xi \circ X\) is smooth if and only if the maps \(a^i\) are smooth.
+\end{proof}
+\begin{remark}
+    As a consequence\cite{tu_manifolds}, a vector field \(X\) on \(M\) is smooth if and only if for any chart \((U, x)\) the coefficients \(a^i\) of \(\restrict{X}{U} = a^i\bfield{x^i}\) are smooth.
+\end{remark}
+
+Just as tangent vectors are derivations at a point on the \(\mathbb{R}\)-algebra \smooth{M} of smooth maps, smooth vector fields are derivations on that algebra. Indeed, let \(X \in \sections{TM}\) and \(f \in \smooth{M},\) then \(Xf\) is the map defined by
+\begin{align*}
+    Xf : M &\to \mathbb{R}\\
+         p &\mapsto X(p)f.
+\end{align*}
+Let \(f,g \in \smooth{M}\). If \(Xf\) and \(Xg\) are smooth, then it is easy to see that
+\begin{equation*}
+    X(fg) = (Xf)g + f(Xg),
+\end{equation*}
+from the fact \(X(p)\) is a derivation at the point \(p \in M\). It remains to show whether \(Xf\) is a smooth map, to conclude \(X\) is a derivation of the algebra.
+
+\begin{lemma}{Smooth vector fields are derivations}{vector_field_derivations}
+    Let \(X \in \sections{TM}\) be a vector field and let \(f \in \smooth{M}\) be a smooth map. Then, the map \(Xf\) is smooth.
+\end{lemma}
+\begin{proof}
+    Suppose \(X\) is smooth. Then for any chart \((U, x) \in \mathscr{A}_M\), the coefficients \(a^i\) of \(X = a^i \bfield{x^i}\) are smooth on \(U.\) For all \(p \in U,\) we have
+    \begin{equation*}
+        Xf(p) = a^i(p) \bvec[f]{x^i}{p} = a^i(p) \partial_i(f \circ x^{-1})(p),
+    \end{equation*}
+    that is, \(Xf = a^i\cdot \partial_i(f \circ x^{-1})\) in \(U\). By \cref{lem:vector_field_components}, \(a^i \in \smooth{U}\), and we conclude \(Xf\) is smooth in \(U\). Since the charts cover \(M,\) \(Xf \in \smooth{M}.\)
+\end{proof}
+\begin{remark}
+    Weakening the hypothesis from a smooth vector field \(X\) to any section of tangent bundle, the converse may be shown \cite{tu_manifolds}: if \(Xf\) is smooth, then \(X\) is smooth.
+\end{remark}
+
+From \cref{lem:vector_field_derivations}, we may consider the iterated action of vector fields on a smooth map. Let \(X, Y \in \sections{TM}\) and \(f \in \smooth{M}\), then \(Xf\) and \(Yf\) are smooth maps, and as a consequence so too \(X(Yf)\) and \(Y(Xf)\) must be smooth. Let us denote the iterations by the compositions \(XY = X \circ Y\) and \(YX = Y \circ X\), regarding the vector fields as derivations. Let \(f, g \in \smooth{M},\) then
+\begin{align*}
+    XY(fg) &= X\left(Yf \cdot g + f \cdot Yg\right)\\
+           &= XY(f) \cdot g + Yf\cdot Xg + Xf\cdot Yg + f \cdot XY(g)
+\end{align*}
+and similarly
+\begin{equation*}
+    YX(fg) = YX(f) \cdot g + Xf\cdot Yg + Xf\cdot Yg + f \cdot YX(g).
+\end{equation*}
+It is clear the iterated derivations are not derivations, since the term \(Xf\cdot Yg + Xf\cdot Yg\) appears in both.
+
+\begin{definition}{Lie bracket of vector fields}{vector_fields_lie_bracket}
+    Given two smooth vector fields \(X, Y \in \sections{TM},\) their \emph{Lie bracket} \([X,Y]\) or \emph{commutator} is the vector field defined by
+    \begin{equation*}
+        [X,Y](p)f = X(p)(Yf) - Y(p)(Xf),
+    \end{equation*}
+    for all \(p \in M\) and \(f \in \smooth{M}.\)
+\end{definition}
+
+With a similar computation, we check \([X,Y](p)\) is a derivation at the point \(p,\) and thus a tangent vector of \(T_pM\). For clarity, the evaluation of vector fields at a point are denoted by subscript, such as \(X(p) = X_p\). For \(f, g \in \smooth{M}\), we have
+\begin{align*}
+    X_p(Y(fg)) &= X_p(gYf + fYg)\\
+               &= (Yf)(p)X_pg + g(p) X_p(Yf) + f(p) X_p(Yg) + (Yg)(p) X_pf\\
+               &= f(p) X_p(Yg) + g(p) X_p(Yf) + X_p((Yg)(p) f + (Yf)(p) g)
+\end{align*}
+and similarly
+\begin{equation*}
+    Y_p(X(fg)) = f(p) Y_p(Xg) + g(p) Y_p(Xf) + Y_p((Xg)(p) f + (Xf)(p) g).
+\end{equation*}
+It is clear when we subtract this pair of equations, the first two terms will result in the desired outcome, however we must check the other subtraction vanishes. Indeed, let \((U, x)\) be a chart such that \(p \in U\), then \(X = a^i \bfield{x^i}\) and \(Y = b^i \bfield{y^i}\). We have
+\begin{align*}
+    X_p((Yg)(p) f + (Yf)(p) g) &= a^i(p) \bvec[{\left(b^j(p) \bvec[g]{x^j}{p} f + b^j(p)\bvec[f]{x^j}{p}g \right)}]{x^i}{p}\\
+                               &= a^i(p)b^j(p)\bvec[{\left(\partial_j(g\circ x^{-1})(p) f + \partial_j(f \circ x^{-1})(p) g\right)}]{x^i}{p}
+\end{align*}
+and similarly
+\begin{align*}
+    Y_p((Xg)(p) f + (Xf)(p) g) &= b^i(p) \bvec[{\left(a^j(p) \bvec[g]{x^j}{p} f + a^j(p)\bvec[f]{x^j}{p}g \right)}]{x^i}{p}\\
+                               &= b^i(p)a^j(p)\bvec[{\left(\partial_j(g\circ x^{-1})(p) f + \partial_j(f \circ x^{-1})(p) g\right)}]{x^i}{p},
+\end{align*}
+which results in
+\begin{align*}
+    X_p((Yg)(p) f &+ (Yf)(p) g) - Y_p((Xg)(p) f + (Xf)(p) g) =\\
+     &=(a^ib^j - b^ia^j)(p)\bvec[{\left(\partial_j(g\circ x^{-1})(p) f + \partial_j(f \circ x^{-1})(p) g\right)}]{x^i}{p}\\
+     &=(a^ib^j - b^ia^j)(p)\left(\partial_j(g\circ x^{-1})(p) \partial_i(f\circ x^{-1})(p)+ \partial_j(f \circ x^{-1})(p) \partial_i(g\circ x^{-1})(p)\right)\\
+     &=0,
+\end{align*}
+since the first term is anti-symmetric and the second is symmetric. In the end, we are left with
+\begin{align*}
+    [X,Y]_p(fg) &= X_p(Y(fg)) - Y_p(X(fg))\\
+                &= f(p) \left(X_p(Yg) - Y_p (Xg)\right) + g(p) \left(X_p(Yf) - Y_p(Xf)\right)\\
+                &= f(p) [X,Y]_pg + g(p)[X,Y]_pf,
+\end{align*}
+that is, \([X,Y](p)\) is a derivation at \(p\), so \([X,Y](p) \in T_pM\). Finally, \([X,Y] : M \to TM\) is a vector field.
+
+\begin{theorem}{Lie bracket of smooth vector fields is smooth}{lie_bracket_smooth}
+    If \(X, Y \in \sections{TM}\) are smooth vector fields, then \([X,Y]\) is a smooth vector field.
+\end{theorem}
+\begin{proof}
+    Let \((U, x) \in \mathscr{A}_M\) be a chart, where \(X = a^i \bfield{x^i}\) and \(Y = b^i \bfield{x^i}\). Then, for any map \(f \in \smooth{M}\), we have
+    \begin{align*}
+        XYf &= a^i \bfield{x^i}\left(b^j \bfield{x^j} f\right)\\
+            &= a^i \bfield{x^i}\left(b^j\partial_j(f \circ x^{-1})\right)\\
+            &= a^i \partial_i\left(b^j\circ x^{-1}\right) \partial_j\left(f \circ x^{-1}\right) + a^i b^j \partial^2_{ji} \left(f \circ x^{-1}\right)
+    \end{align*}
+    and
+    \begin{equation*}
+        YXf = b^i \partial_i\left(a^j\circ x^{-1}\right) \partial_j\left(f \circ x^{-1}\right) + b^i a^j \partial^2_{ji} \left(f \circ x^{-1}\right)
+    \end{equation*}
+    in \(U\). Note the last term in each of the above equations is symmetric by Schwarz's theorem, then
+    \begin{align*}
+        [X,Y]f &=a^i \partial_i\left(b^j\circ x^{-1}\right) \partial_j\left(f \circ x^{-1}\right)  -  b^i \partial_i\left(a^j\circ x^{-1}\right) \partial_j\left(f \circ x^{-1}\right)\\
+               &= \left(a^i \bfield{x^i} b^j - b^i \bfield{x^i}a^j\right)\bfield{x^j}f,
+    \end{align*}
+    hence
+    \begin{equation*}
+        [X,Y] = \left(a^i \bfield{x^i} b^j - b^i \bfield{x^i}a^j\right)\bfield{x^j}.
+    \end{equation*}
+    By \cref{lem:vector_field_components}, the component functions \(a^i, b^i\) are smooth maps, so the components of \([X,Y]\) are smooth. Therefore, \([X,Y]\) is a smooth vector field.
+\end{proof}
+
+We may regard the Lie bracket as a product of vector fields. We now present properties of this map.
+\begin{proposition}{Properties of the Lie bracket of vector fields}{lie_bracket_field_properties}
+    The Lie bracket is a map
+    \begin{align*}
+        [\cdot, \cdot] : \sections{TM} \times \sections{TM} &\to \sections{TM}\\
+                                                      (X,Y) &\mapsto [X,Y]
+    \end{align*}
+    that satisfies the following properties
+    \begin{enumerate}[label=(\alph*)]
+        \item Anticommutativity: \([X,Y] = -[Y,X]\);
+        \item \(\mathbb{R}\)-bilinearity: \([\alpha X + \beta Y, Z] = \alpha[X,Z] + \beta[Y,Z]\);
+        \item Jacobi identity: \([X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0\),
+    \end{enumerate}
+    for all \(\alpha,\beta\in \mathbb{R},\) and \(X,Y,Z \in \sections{TM}.\)
+\end{proposition}
+\begin{remark}
+    This result establishes \sections{TM} as a \emph{Lie algebra} over the \(\mathbb{R}\)-vector space \(\sections{TM}\).
+\end{remark}
+\begin{proof}
+    From the definition, it is clear that \([X,Y] = -[Y,X]\). We consider \(f \in \smooth{M}\), then
+    \begin{align*}
+        [\alpha X + \beta Y, Z]f &= (\alpha X + \beta Y)Zf - Z\left(\alpha X + \beta Y\right)f\\
+                                 &= \alpha XZ f + \beta YZ f - \alpha ZX f - \beta ZYf\\
+                                 &= \alpha (XZf - ZXf) + \beta(YZf - ZYf)\\
+                                 &= \alpha [X,Z]f + \beta[Y, Z]f.
+    \end{align*}
+    Linearity in the second argument follows similarly or by successive applications of the anticommutativity property. Finally, we have
+    \begin{align*}
+        [X, [Y, Z]]f &= X[Y,Z]f - [Y,Z]Xf\\
+                     &= X(YZf - ZYf) - (YZXf - ZYXf)\\
+                     &= \colorunderline{Pink}{XYZf} - \colorunderline{Mauve}{XZYf} - \colorunderline{Peach}{YZXf} + \colorunderline{Green}{ZYXf},
+    \end{align*}
+    and by cyclic permutations, we obtain
+    \begin{equation*}
+        [Y, [Z, X]]f = \colorunderline{Peach}{YZXf} - \colorunderline{Red}{YXZf} - \colorunderline{Lavender}{ZXYf} + \colorunderline{Mauve}{XZYf}
+    \end{equation*}
+    and
+    \begin{equation*}
+        [Z, [X, Y]]f = \colorunderline{Lavender}{ZXYf} - \colorunderline{Green}{ZYXf} - \colorunderline{Pink}{XYZf} + \colorunderline{Red}{YXZf}.
+    \end{equation*}
+    It is easy to see that the sum of the last three equations yields the Jacobi identity.
+\end{proof}
