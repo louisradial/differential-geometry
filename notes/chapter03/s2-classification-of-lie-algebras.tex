@@ -1,0 +1,373 @@
+\section{Classification of Lie algebras}
+
+In this section, Lie algebras will be studied as their own objects.
+
+\begin{definition}{Nilpotent and solvable Lie algebras}{nilpotent_solvable}
+    Let \(\mathfrak{g}\) be a Lie algebra. We denote \(\mathfrak{g}^{[n]}\) the sequence of sets given by \(\mathfrak{g}^{[0]} = \mathfrak{g}\) and \(\mathfrak{g}^{[n+1]} = [\mathfrak{g}, \mathfrak{g}^{[n]}]\) for all \(n \in \mathbb{N}\). A \emph{nilpotent} Lie algebra satisfies \(\mathfrak{g}^{[m]} = \set{0}\) for some \(m \in \mathbb{N}.\)
+
+    Similarly, we denote \(\mathfrak{g}^{(n)}\) the sequence of sets given by \(\mathfrak{g}^{(0)} = \mathfrak{g}\) and \(\mathfrak{g}^{(n+1)} = [\mathfrak{g}^{(n)}, \mathfrak{g}^{(n)}]\), for all \(n \in \mathbb{N}\). A \emph{solvable} Lie algebra satisfies \(\mathfrak{g}^{(m)} = \set{0}\) for some \(m \in \mathbb{N}\).
+\end{definition}
+\begin{remark}
+    It is easy to show that every nilpotent algebra is a solvable algebra: it suffices to show \(\mathfrak{g}^{(n)} \subset \mathfrak{g}^{[n]}\) by induction. Indeed, \(\mathfrak{g}^{(1)} = \mathfrak{g}^{[1]}\) and by the induction hypothesis,
+    \begin{align*}
+        \mathfrak{g}^{(n+1)} = [\mathfrak{g}^{(n)}, \mathfrak{g}^{(n)}] &\subset [\mathfrak{g}, \mathfrak{g}^{(n)}]\\
+                                                                        &\subset [\mathfrak{g}, \mathfrak{g}^{[n]}] = \mathfrak{g}^{[n+1]}.
+    \end{align*}
+    The converse result, however, does not hold, that is, not every solvable Lie algebra is nilpotent.
+\end{remark}
+
+\begin{definition}{Ideals, simple and semi-simple Lie algebras}{simple_lie}
+    A vector subspace \(I\) of a Lie algebra \(\mathfrak{g}\) is an \emph{ideal} if \([\mathfrak{g}, I] \subset I\). A non-abelian Lie algebra \(\mathfrak{g}\) is \emph{simple} if there are no non-trivial proper ideals. A Lie algebra \(\mathfrak{g}\) is \emph{semisimple} if it has no non-trivial solvable ideals.
+\end{definition}
+\begin{remark}
+    It is clear every ideal is a Lie subalgebra and that every simple Lie algebra is also semisimple.
+\end{remark}
+
+We now extend the concept of direct sum of vector spaces to Lie algebras.
+\begin{definition}{Direct sum and semidirect sum of Lie algebras}{lie_direct_sum}
+    A Lie algebra \(\mathfrak{g}\) is a \emph{direct sum} of two of its Lie subalgebras \(\mathfrak{g}_1\) and \(\mathfrak{g}_2\) if \([\mathfrak{g}_1, \mathfrak{g}_2] = \set{0}\) and if for every element \(x \in \mathfrak{g}\) there exist unique \(x_1 \in \mathfrak{g}_1\) and \(x_2 \in \mathfrak{g}_2\) such that \(x = x_1 + x_2.\) In this case, we denote \(\mathfrak{g} = \mathfrak{g}_1 \oplus \mathfrak{g}_2.\)
+
+    A Lie algebra \(\mathfrak{g}\) is a \emph{semidirect sum} of two of its Lie subalgebras \(\mathfrak{g}_1\) and \(\mathfrak{g}_2\) if \([\mathfrak{g}_1, \mathfrak{g}_2] \subset \mathfrak{g}_1\) and if for every element \(x \in \mathfrak{g}\) there exist unique \(x_1 \in \mathfrak{g}_1\) and \(x_2 \in \mathfrak{g}_2\) such that \(x = x_1 + x_2.\) In this case, we denote \(\mathfrak{g} = \mathfrak{g}_1 \ltimes \mathfrak{g}_2\).
+\end{definition}
+\begin{proposition}{Semisimple Lie algebra is a direct sum of simple Lie algebras}{semisimple_direct_sum}
+    A Lie algebra \(\mathfrak{g}\) is semisimple if and only if it may be expressed as
+    \begin{equation*}
+        \mathfrak{g} = \bigoplus_{i = 1}^{n} \mathfrak{g}_i,
+    \end{equation*}
+    where \(\mathfrak{g}_i\) is a simple Lie algebra.
+\end{proposition}
+\begin{proof}
+    \todo
+\end{proof}
+
+We now quote an important theorem that reduces the classification of finite-dimensional Lie algebras to the classification of solvable Lie algebras and semisimple Lie algebras.
+\begin{theorem}{Levi's theorem}{levi}
+    Every finite-dimensional Lie algebra \((\mathfrak{g}, [\cdot, \cdot])\) over a field \(\mathbb{K}\) with characteristic zero can be decomposed as
+    \begin{equation*}
+        \mathfrak{g} = R \ltimes S,
+    \end{equation*}
+    where \(R\) is a \emph{solvable} ideal of \(\mathfrak{g}\) and \(S\) is a semisimple Lie subalgebra.
+\end{theorem}
+\begin{remark}
+    The characteristic of \(\mathbb{R}\) and \(\mathbb{C}\) is zero.
+\end{remark}
+Considering \cref{prop:semisimple_direct_sum}, we may classify semisimple Lie algebras with the simple Lie algebras as building blocks.
+
+\subsection{Adjoint endomorphism and Killing form}
+The Lie bracket defines a natural endomorphism, called the \emph{adjoint endomorphism, adjoint action, or adjoint map}.
+\begin{definition}{Adjoint endomorphism}{adjoint_map}
+    Let \(\mathfrak{g}\) be a Lie algebra and let \(x \in \mathfrak{g}\) the linear map
+    \begin{align*}
+        \ad{x} : \mathfrak{g} &\linear \mathfrak{g}\\
+                            y &\mapsto [x,y]
+    \end{align*}
+    is called the \emph{adjoint endomorphism with respect to \(x\)}.
+\end{definition}
+The linearity of \(\ad{x}\) follows directly from the bilinearity of the Lie bracket. By the same token, the map
+\begin{align*}
+    \operatorname{ad} : \mathfrak{g} &\to \End(\mathfrak{g})\\
+                                   x &\mapsto \ad{x}
+\end{align*}
+is linear. Recall the set of endomorphisms of a vector space has a natural Lie algebra defined with the commutator of endomorphisms. We may now show the map \(\operatorname{ad}\) establishes a Lie algebra homomorphism between \(\mathfrak{g}\) and \(\End(\mathfrak{g})\).
+
+Let \(x, y, z \in \mathfrak{g}\), then
+\begin{align*}
+    \ad{[x,y]}z &= [[x,y], z]\\
+                &= [x, [y,z]] + [y, [z, x]],
+\end{align*}
+by the Jacobi identity and the antisymmetric property. By rearranging with the antisymmetric property, we obtain the desired result,
+\begin{align*}
+    \ad{[x,y]}z &= [x, \ad{y}z] - [y, \ad{x}z]\\
+                  &= \left(\ad{x} \circ \ad{y} - \ad{y} \circ \ad{x}\right)z\\
+                  &= \left[\ad{x}, \ad{y}\right]z,
+\end{align*}
+that is, \(\operatorname{ad}\) is a Lie algebra homomorphism from \(\mathfrak{g}\) to \(\End(\mathfrak{g})\).
+
+\begin{definition}{Killing form}{killing_form}
+    The bilinear map
+    \begin{align*}
+        K : \mathfrak{g} \times \mathfrak{g} &\linear \mathbb{K}\\
+                                       (x,y) &\mapsto \tr{\left(\ad{x} \circ \ad{y}\right)}
+    \end{align*}
+    is called the \emph{Killing form}.
+\end{definition}
+\begin{remark}
+    If \(\mathfrak{g}\) is finite-dimensional, then the trace is cyclic, and as a result the Killing form is symmetric.
+\end{remark}
+\begin{remark}
+    A Lie algebra \(\mathfrak{g}\) is semisimple if and only if \(K\) is non-degenerate:
+    \begin{equation*}
+        \forall x\in \mathfrak{g} : K(x,y) = 0 \implies y = 0.
+    \end{equation*}
+    Equivalently, in (semi)simple Lie algebras, the Killing form is a pseudo inner product.
+    \todo prove this at least for simple algebras.
+\end{remark}
+
+Let \(x,y,z \in \mathfrak{g},\) then for a finite-dimensional Lie algebra, we have
+\begin{align*}
+    K([x,y], z) &= \tr\left(\ad{[x,y]}\circ\ad{z}\right) \\
+                &= \tr\left([\ad{x}, \ad{y}]\circ \ad{z}\right)\\
+                &= \tr\left(\ad{x}\circ\ad{y}\circ\ad{z} - \ad{y}\circ\ad{x}\circ\ad{z}\right)\\
+                &= \tr\left(\ad{x}\circ\ad{y}\circ\ad{z}\right) - \tr\left(\ad{y}\circ\ad{x}\circ\ad{z}\right)\\
+                &= \tr\left(\ad{x}\circ\ad{y}\circ\ad{z}\right) - \tr\left(\ad{x}\circ\ad{z}\circ\ad{y}\right)\\
+                &= \tr\left(\ad{x}\circ[\ad{y}, \ad{z}]\right)\\
+                &= \tr\left(\ad{x} \circ \ad{[y,z]}\right)\\
+                &= K(x, [y,z]).
+\end{align*}
+
+Recall a linear map \(\varphi \in \End(V)\) is called symmetric with respect to a pseudo inner product \(B\) if
+\begin{equation*}
+    B(\varphi(v), w) = B(v, \varphi(w))
+\end{equation*}
+and antisymmetric if
+\begin{equation*}
+    B(\varphi(v), w) = -B(v, \varphi(w)),
+\end{equation*}
+for all \(v, w \in V\). We may show the adjoint endomorphisms are antisymmetric with respect to the Killing form. Let \(x, y, z \in \mathfrak{g}\), then as before, we have
+\begin{align*}
+    K(\ad{x}y, z) &= \tr\left(\ad{x}\circ\ad{y}\circ\ad{z}\right) - \tr\left(\ad{y}\circ\ad{x}\circ\ad{z}\right)\\
+                  &= \tr\left(\ad{y}\circ\ad{z}\circ\ad{x}\right) - \tr\left(\ad{y}\circ\ad{x}\circ\ad{z}\right)\\
+                  &= -\tr\left(\ad{y}\circ\ad{[x,z]}\right)\\
+                  &= -K(y, \ad{x}z)
+\end{align*}
+as desired.
+
+We now turn our attention to the special case of a \(n\)-dimensional complex Lie algebra \(\mathfrak{g}\). Let \(\set{E_1, \dots, E_n}\) be a basis of \(\mathfrak{g}\), and let \(\set{\epsilon^1, \dots, \epsilon^n}\) be the dual basis. We define the \emph{structure coefficients \(C\indices{^k_{ij}} \in \mathbb{C}\)} of \(\mathfrak{g}\) with respect to the chosen basis by
+\begin{equation*}
+    [E_i, E_j] = C\indices{^k_{ij}}E_k.
+\end{equation*}
+The antisymmetry of the Lie bracket may be expressed as
+\begin{equation*}
+    C\indices{^k_{ij}} = -C\indices{^k_{ji}}
+\end{equation*}
+and the Jacobi identity as
+\begin{equation*}
+    C\indices{^a_{ib}}C\indices{^b_{jk}} + C\indices{^a_{jb}}C\indices{^b_{ki}} + C\indices{^a_{kb}}C\indices{^b_{ij}} = 0.
+\end{equation*}
+
+Then, the components of the adjoint endomorphism with respect to the chosen basis are given by
+\begin{align*}
+    (\ad{E_i})\indices{^k_j} &= \epsilon^k (\ad{E_i}(E_j))\\
+                             &= \epsilon^k([E_i, E_j])\\
+                             &= \epsilon^k(C\indices{^m_{ij}}E_m)\\
+                             &= C\indices{^m_{ij}} \delta^k_m\\
+                             &= C\indices{^k_{ij}},
+\end{align*}
+therefore the adjoint map has the same components as the structure coefficients.
+The components of the Killing form with respect to this basis are
+\begin{align*}
+    K_{ij} &= K(E_i, E_j)\\
+           &= \tr\left(\ad{E_i} \circ \ad{E_j}\right)\\
+           &= C\indices{^k_{im}}C\indices{^m_{jk}}.
+\end{align*}
+
+\subsection{The fundamental roots and the Weyl group}
+From now on, we concern ourselves with a \(n\)-dimensional semisimple complex Lie algebra \(\mathfrak{g}\).
+
+\begin{definition}{Cartan subalgebra}{cartan_subalgebra}
+    A Cartan subalgebra \(\mathfrak{h}\) is a maximal Lie subalgebra of \(\mathfrak{g}\) such that there exists a basis \(\set{h_1, \dots, h_m}\) of \(\mathfrak{h}\) that can be extended to a basis \(\set{h_1, \dots, h_m, e_1, \dots, e_{n-m}}\) of \(\mathfrak{g}\), where \(e_{\alpha}\) is an eigenvector of \(\ad{h}\) for any \(h \in \mathfrak{h}\), that is
+    \begin{equation*}
+        \forall h \in \mathfrak{h} : \exists \lambda_{\alpha}(h) \in \mathbb{C} : \ad{h}e_{\alpha} = \lambda_{\alpha}(h) e_{\alpha}.
+    \end{equation*}
+    The basis \(\set{h_1, \dots, h_m, e_1, \dots, e_{n-m}}\) is called the \emph{Cartan-Weyl basis.}
+\end{definition}
+\begin{remark}
+    Any finite-dimensional Lie algebra possess a Cartan subalgebra. Moreover, if \(\mathfrak{g}\) is simple, then \(\mathfrak{h}\) is abelian, \([\mathfrak{h}, \mathfrak{h}] = \set{0}.\)
+\end{remark}
+
+From the definition, we note \(\lambda_{\alpha} : \mathfrak{h} \to \mathbb{C}\) is a linear map, that is \(\lambda_{\alpha} \in \mathfrak{h}^{\ast}\). Also, we have \(\lambda_{\alpha} \neq 0\), otherwise \(e_{\alpha} \in \mathfrak{h},\) that is, \(\mathfrak{h}\) wouldn't be maximal. \todo %show this
+
+\begin{definition}{Roots of the Lie algebra}{roots_lie}
+    The linear functionals \(\lambda_1, \dots, \lambda_{n-m} \in \mathfrak{h}^{\ast}\) are called the \emph{roots} of the Lie algebra \(\mathfrak{g}\). The set
+    \begin{equation*}
+        \Phi = \set{\lambda_1, \dots, \lambda_{n-m}} \subset \mathfrak{h}^{\ast}
+    \end{equation*}
+    is called the \emph{root set}.
+\end{definition}
+\begin{remark}
+    \todo % show this
+    It follows from the antisymmetry of the adjoint endomorphisms with respect to the Killing form that if \(\lambda \in \Phi,\) then \(-\lambda \in \Phi\). In particular, the set \(\Phi\) is not linearly independent.
+\end{remark}
+
+\begin{definition}{Fundamental roots}{fundamental_roots_lie}
+    A subset \(\Pi \subset \Phi\) is a \emph{set of fundamental roots} if \(\Pi = \set{\pi_1, \dots, \pi_f}\) is linearly independent and if, for all \(\lambda \in \Phi\), there exists \(N_1, \dots, N_f \in \mathbb{N}\) and \(\epsilon \in \set{-1, 1}\) such that
+    \begin{equation*}
+        \lambda = \epsilon \sum_{i=1}^f N_i \pi_i.
+    \end{equation*}
+    This last expression may be denoted concisely by \(\lambda \in \mathrm{span}_{\epsilon,\mathbb{N}}\Pi\) and we emphasize \(\mathrm{span}_{\mathbb{Z}}\Pi \neq \mathrm{span}_{\epsilon, \mathbb{N}}\Pi\).
+\end{definition}
+
+\begin{theorem}{Existence of fundamental roots}{fundamental_roots_lie}
+    Let \(\mathfrak{g}\) be a finite-dimensional complex Lie algebra with Cartan subalgebra \(\mathfrak{h}\). Then, a set of fundamental roots \(\Pi\) exists and it is a basis for \(\mathfrak{h}^{\ast}\), that is \(\mathrm{span}_{\mathbb{C}}\Pi = \mathfrak{h}^{\ast}.\)
+\end{theorem}
+\begin{remark}
+    As with any basis, \(\Pi\) is not unique.
+\end{remark}
+
+We now construct a pseudo inner product on \(\mathfrak{h}^{\ast}\) from the Killing form on \(\mathfrak{g}\). First, the Killing form induces a linear isomorphism
+\begin{align*}
+    \psi : \mathfrak{g} &\linear \mathfrak{g}^{\ast}\\
+                      x &\mapsto \psi(x),
+\end{align*}
+where \(\psi(x)(y) = K(x,y).\) With such a map, we may define
+\begin{align*}
+    K^{\ast} : \mathfrak{h}^{\ast} \times \mathfrak{h}^{\ast} &\linear \mathbb{C}\\
+    (x,y) &\mapsto \restrict{K}{\mathfrak{h}}\left(\psi^{-1}(x), \psi^{-1}(y)\right).
+\end{align*}
+It is clear that, if \(\restrict{K}{\mathfrak{h}}\) is a pseudo inner product, then \(K*\) is a pseudo inner product, since \(\psi^{-1}\) is a linear isomorphism. By being a restriction of a pseudo inner product, we must only check non-degeneracy. Let \(\set{h_1, \dots, h_m, e_1, \dots, e_{n-m}}\) be a Cartan-Weyl basis of \(\mathfrak{g}\), and let \(\lambda_{\alpha} \in \Phi.\) Since \(\lambda_{\alpha}\) is not the zero linear functional, there exists \(h' \in \mathfrak{h}\) such that \(\lambda_{\alpha}(h') \neq 0\), then
+\begin{align*}
+    \lambda_{\alpha}(h') K(h_i, e_{\alpha}) &= K(h_i, \lambda_{\alpha}(h')e_{\alpha})\\
+                                             &= K(h_i, \ad{h'}e_{\alpha})\\
+                                             &= K(\ad{h'}h_i, e_{\alpha})\\
+                                             &= 0,
+\end{align*}
+because \(\mathfrak{h}\) is abelian. By bilinearity, this shows
+\begin{equation*}
+    \mathrm{span}_{\mathbb{C}}\set{e_1, \dots, e_{n-m}} = \mathfrak{h}^{\perp},
+\end{equation*}
+that is, for all \(x \in \mathfrak{g}\) and all \(h \in \mathfrak{h}\)
+\begin{equation*}
+    K(h, x) = K(h, \mathrm{proj}_{\mathfrak{h}}x).
+\end{equation*}
+Since \(K\) is non-degenerate,
+\begin{equation*}
+    (\forall x \in \mathfrak{h} : K(h, x) = 0) \implies h = 0,
+\end{equation*}
+that is, \(\restrict{K}{\mathfrak{h}}\) is non-degenerate. This shows the bilinear map \(K*\) is a pseudo inner product.
+
+Consider \(\mathfrak{h}_{\mathbb{R}}^{\ast} = \mathrm{span}_{\mathbb{R}}\Pi \subset \mathfrak{h}, \) then we have the chain of inclusions
+\begin{equation*}
+    \Pi \subset \Phi \subset \mathrm{span}_{\epsilon,\mathbb{N}}\Pi \subset \mathfrak{h}_{\mathbb{R}}^{\ast} \subset \mathfrak{h}^{\ast}.
+\end{equation*}
+The restriction of \(K ^{\ast}\) to \(\mathfrak{h}_{\mathbb{R}}^{\ast}\) leads to the following surprising result.
+\begin{theorem}{Inner product on \(\mathfrak{h}_{\mathbb{R}}^{\ast}\)}{innerproduct_cartan_weyl}
+    Let restriction of the pseudo inner product \(K ^{\ast}\) to \(\mathfrak{h}_{\mathbb{R}}^{\ast}\) be the bilinear map
+    \begin{equation*}
+        \kappa : \mathfrak{h}_{\mathbb{R}}^{\ast} \times \mathfrak{h}_{\mathbb{R}}^{\ast} \linear \mathbb{R},
+    \end{equation*}
+    then \(\kappa\) is an inner product on \(\mathfrak{h}_{\mathbb{R}}^{\ast}.\)
+\end{theorem}
+
+With such a structure, we may define lengths and angles between elements of \(\mathfrak{h}_{\mathbb{R}}^{\ast}.\) Namely, we define the length of \(x \in \mathfrak{h}_{\mathbb{R}}^{\ast}\) as
+\begin{equation*}
+    \norm{\alpha} = \sqrt{\kappa(x, x)}
+\end{equation*}
+and the angle between \(x \neq 0\) and \(y \in \mathfrak{h}_{\mathbb{R}}^{\ast} \smallsetminus \set{0}\) as
+\begin{equation*}
+    \angle(x,y) = \cos^{-1}{\left(\frac{\kappa(x,y)}{\norm{x}\norm{y}}\right)}.
+\end{equation*}
+
+The last piece to classify simple Lie algebras is the \emph{Weyl group}, with which one may recover the set of roots of the Lie algebra from a set of fundamental roots.
+\begin{definition}{Weyl group}{weyl_group}
+    For any \(\lambda \in \Phi\), the map
+    \begin{align*}
+        s_{\lambda} : \mathfrak{h}_{\mathbb{R}}^{\ast} &\linear \mathfrak{h}_{\mathbb{R}}^{\ast}\\
+                                                     x &\mapsto x - 2\frac{\kappa(\lambda, x)}{\kappa(\lambda, \lambda)}\lambda
+    \end{align*}
+    is called a \emph{Weyl transformation}. The set of all Weyl transformations
+    \begin{equation*}
+        W = \set{s_{\lambda} : \lambda \in \Phi}
+    \end{equation*}
+    is a group under the composition of maps, called the \emph{Weyl group}.
+\end{definition}
+
+\begin{theorem}{Weyl groups properties}{}
+    The Weyl group is \emph{generated} by that fundamental roots in \(\Pi\), that is,
+    \begin{equation*}
+        \forall w \in W, \exists \pi_1, \dots, \pi_r \in \Pi: w = s_{\pi_1 \circ \dots \circ \pi_r}.
+    \end{equation*}
+    Every root \(\lambda \in \Phi\) can be produced from a fundamental root \(\pi \in \Pi\) by action of the Weyl group, that is,
+    \begin{equation*}
+        \forall \lambda \in \Phi, \exists w \in W, \pi \in \Pi : \lambda = w(\pi).
+    \end{equation*}
+    The Weyl group merely permutes the roots, that is,
+    \begin{equation*}
+        \forall w \in W, \forall \lambda \in \Phi : w(\lambda) \in \Phi.
+    \end{equation*}
+\end{theorem}
+
+\subsection{Dynkin diagrams}
+
+Consider \(\pi_i, \pi_j \in \Pi\), then
+\begin{equation*}
+    s_{\pi_i}(\pi_j) = \pi_j - 2 \frac{\kappa(\pi_i, \pi_j)}{\kappa(\pi_i, \pi_i)}\pi_i.
+\end{equation*}
+Since \(s_{\pi_i}(\pi_j) \in \Phi\), there exists \(n_i \in \mathbb{N}\) such that
+\begin{equation*}
+    s_{\pi_i}(\pi_j) = \epsilon \sum_{k=1}^{m}n_k \pi_k,
+\end{equation*}
+for \(\epsilon \in \set {-1, 1}\). Then, for \(i \neq j\)
+\begin{equation*}
+    -2 \frac{\kappa(\pi_i, \pi_j)}{\kappa(\pi_i, \pi_i)} \in \mathbb{N}.
+\end{equation*}
+
+We define the \emph{Cartan matrix} \(C_{ij} \in \mathbb{Z}\),
+\begin{equation*}
+    C_{ij} = 2 \frac{\kappa(\pi_i, \pi_j)}{\kappa(\pi_i, \pi_i)}
+\end{equation*}
+for \(i,j \in \set{1,\dots, m}\). With the Cartan matrix, we may define a matrix whose elements are called \emph{bond numbers}, given by
+\begin{equation*}
+    n_{ij} = C_{ij} C_{ji},
+\end{equation*}
+for all \(i, j \in \set{1, \dots, m}\).
+
+Note that \(n_{ij}\) is related to the angle between two fundamental roots. Indeed, for \(\pi_i, \pi_j \in \Pi\), we have
+\begin{align*}
+    n_{ij} &= \left(2 \frac{\kappa(\pi_i, \pi_j)}{\kappa(\pi_i, \pi_i)}\right)\cdot\left(2\frac{\kappa(\pi_j, \pi_i)}{\kappa(\pi_j, \pi_j)}\right)\\
+           &= 4 \frac{\kappa(\pi_i, \pi_j)^2}{\norm{\pi_i}^2 \norm{\pi_j}^2}\\
+           &= 4 \cos^2{\left(\angle{(\pi_i, \pi_j)}\right)}.
+\end{align*}
+From the linear independence of \(\Pi\), it follows that \(0 \leq \cos^2\left(\angle(\pi_i, \pi_j)\right) < 1\) for \(i \neq j\), therefore \(n_{ij} \in \set{0,1,2,3}\). Since \(C_{ij}\) is a negative integer for \(i \neq j\), the only possible combinations are given in the following table.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{c c c}
+            \toprule
+            \(C_{ij}\) & \(C_{ji}\) & \(n_{ij}\)\\
+            \midrule
+            0 & 0 & 0\\
+            -1 & -1 & 1\\
+            -1 & -2 & 2\\
+            -2 & -1 & 2\\
+            -3 & -1 & 3\\
+            -1 & -3 & 3\\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
+
+Let us consider the cases where \(C_{ij} \neq C_{ji}.\) If \(C_{ij} < C_{ji}\), then
+\begin{equation*}
+    \frac{\kappa(\pi_i, \pi_j)}{\norm{\pi_i}^2} < \frac{\kappa(\pi_j, \pi_i)}{\norm{\pi_j}^2} \implies \left(\norm{\pi_j}^2 - \norm{\pi_i}^2\right)\kappa(\pi_i, \pi_j) < 0,
+\end{equation*}
+which implies \(\norm{\pi_j} > \norm{\pi_i},\) since \(\kappa(\pi_i, \pi_j) < 0.\) Analogously, if \(C_{ij} > C_{ji},\) then \(\norm{\pi_j} < \norm{\pi_i}.\) If \(C_{ij} = C_{ji},\) then either the fundamental roots have the same length or they are orthogonal with respect to the inner product \(\kappa.\)
+
+\begin{definition}{Dynkin diagrams}{dynkin}
+    A \emph{Dynkin diagram} associated to a Cartan matrix is constructed by the following rules:
+    \begin{enumerate}[label=(\alph*)]
+        \item For every fundamental root draw a circle.
+        \item If two different circles represent \(\pi_i, \pi_j \in \Pi\), draw \(n_{ij}\) lines between them.
+        \item If \(n_{ij} > 1, \) draw an arrow on the lines from the largest root to the shorter one.
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}{(Killing, Cartan) Root systems of simple Lie algebras}{simple_classification}
+    Any finite-dimensional simple complex Lie algebra can be reconstructed from its set \(\Pi\) of fundamental roots and the latter only come in the following forms:
+    \begin{enumerate}[label=(\alph*)]
+        \item Four infinite families, named the classical Lie algebras,
+            \begin{itemize}
+                \item \(A_m\), with \(m \geq 1\), represented by \dynkin A{};
+                \item \(B_m\), with \(m \geq 2\), represented by \dynkin B{};
+                \item \(C_m\), with \(m \geq 3\), represented by \dynkin C{};
+                \item \(D_m\), with \(m \geq 4\), represented by \dynkin D{};
+            \end{itemize}
+            where the restrictions on \(m\) are given to avoid repetition of diagrams, e.g. \(C_2\) would be equivalent to \(B_2\), and to ensure it represents a simple Lie algebra, e.g. \(D_2\) would be semisimple.
+        \item The five exceptional Lie algebras,
+            \begin{itemize}
+                \item \(E_6\) represented by \dynkin E6;
+                \item \(E_7\) represented by \dynkin E7;
+                \item \(E_8\) represented by \dynkin E8;
+                \item \(F_4\) represented by \dynkin F4;
+                \item \(G_2\) represented by \dynkin G2.
+            \end{itemize}
+    \end{enumerate}
+\end{theorem}

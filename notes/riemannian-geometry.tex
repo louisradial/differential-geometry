@@ -27,6 +27,7 @@
 % Images
 \usepackage{tikz}
 \usetikzlibrary{cd}
+\usepackage[root-radius=0.1cm,edge-length=0.8cm]{dynkin-diagrams}
 \usepackage{graphicx, caption, subcaption}
 \usepackage{float}
 
@@ -47,16 +48,20 @@
     outer-Rdelim = \right|,
     sub-nudge=0 mu
 }
+\newcommand\todo{{\color{Red} TODO!}}
 \DeclareMathOperator\sgn{sgn}
 \DeclareMathOperator\End{End}
+\DeclareMathOperator\tr{tr}
 \DeclareMathOperator\sech{sech}
-\DeclareMathOperator\preimage{preim}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiterX\inner[2]{\langle}{\rangle}{#1,\mathopen{}#2}
 \DeclarePairedDelimiter\set{\{}{\}}
-\newcommand\todo{{\color{Red} TODO!}}
-\newcommand\preim[2]{\preimage_{#1}{\left(#2\right)}}
+
+\newenvironment{smallpmatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)}
+\newcommand\ad[1]{\operatorname{ad}_{#1}}
+\newcommand\preim[2]{\operatorname{preim}_{#1}{\left(#2\right)}}
+\newcommand\id[1]{\operatorname{id}_{#1}}
 \newcommand\colorunderline[2]{{\color{#1}\underline{{\color{black}{#2}}}}}
 \newcommand\Hom[2][]{\ensuremath{\operatorname{Hom}_{#1}{\left(#2\right)}}}
 \newcommand\bundle[3]{\ensuremath{#1 \xrightarrow{#2} #3}}
@@ -167,8 +172,11 @@
 \chapter{Differentiable Manifolds}
 \input{chapter02/differentiable-manifolds}
 
-\chapter{Lie Groups and Algebras}
-\input{chapter03/lie-groups-and-algebras}
+\chapter{Lie Groups and Lie Algebras}
+\input{chapter03/s1-lie-groups}
+\input{chapter03/s2-classification-of-lie-algebras}
+\input{chapter03/s3-example-sl2c}
+\input{chapter03/s4-representation-theory}
 
 \printbibliography
 \end{document}

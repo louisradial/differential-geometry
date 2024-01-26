@@ -1,0 +1,523 @@
+\section{The Lie group \texorpdfstring{\(\mathrm{SL}(2, \mathbb{C})\)}{\mathrm{SL}(2,C)} and its Lie algebra \texorpdfstring{\(\mathfrak{sl}(2,\mathbb{C})\)}{sl(2,C)}}
+
+As an example, we study the \emph{special linear} group \(\mathrm{SL}(2, \mathbb{C})\) given by the set
+\begin{equation*}
+    \mathrm{SL}(2, \mathbb{C}) = \set*{\begin{pmatrix}
+            a && b\\ c && d
+    \end{pmatrix} \in \mathbb{C}^4 : ad - bc = 1},
+\end{equation*}
+with group operation \(\bullet\) defined by matrix multiplication, that is,
+\begin{align*}
+    \bullet : \mathrm{SL}(2,\mathbb{C})\times \mathrm{SL}(2, \mathbb{C}) &\to \mathrm{SL}(2, \mathbb{C})\\
+    \left(\begin{pmatrix} a && b\\c&&d \end{pmatrix},\begin{pmatrix} e&&f\\g&&h \end{pmatrix} \right) &\mapsto \begin{pmatrix} ae+bg && af + bh\\ ce+dg && cf+dh \end{pmatrix}.
+\end{align*}
+It is straightforward to show, albeit tedious, that \(\mathrm{SL}(2, \mathbb{C})\) is indeed a group, that is,
+\begin{enumerate}[label=(\alph*)]
+    \item \(\bullet\) is associative,
+    \item the element \(I = \begin{pmatrix} 1 && 0\\ 0 && 1 \end{pmatrix}\) is the identity element,
+    \item for each \(\begin{pmatrix} a && b \\ c && d\end{pmatrix} \in \mathrm{SL}(2, \mathbb{C})\) there exists the inverse element given by \[\begin{pmatrix} a && b \\ c && d\end{pmatrix}^{-1} = \frac{1}{ad - bc}\begin{pmatrix}
+            d && -b\\-c && a
+        \end{pmatrix} \in \mathrm{SL}(2, \mathbb{C}).\]
+\end{enumerate}
+
+\subsection{The topology of \texorpdfstring{\(\mathrm{SL}(2,\mathbb{C})\)}{\mathrm{SL}(2,C)}}
+We may identify \(\mathbb{C}^4\) with \(\mathbb{R}^8\) and equip \(\mathbb{C}^4\) with the analogous standard topology. We may define its topology \(\mathcal{O}\) as the subspace topology of the standard topology in \(\mathbb{C}^4.\)
+
+First we show the properties of \((\mathrm{SL}(2,\mathbb{C}), \mathcal{O})\) as a topological space.
+\begin{proposition}{The topological space \((\mathrm{SL}(2,\mathbb{C}), \mathcal{O})\)}{sl2c_topology}
+    The topological space \((\mathrm{SL}(2, \mathbb{C}), \mathcal{O})\) is a paracompact, second countable, connected, Hausdorff space.
+\end{proposition}
+\begin{proof}
+    BIG \todo
+\end{proof}
+
+Now we construct an atlas for this topological space, to show it is locally Euclidean, and thus a topological manifold.
+\begin{proposition}{\((\mathrm{SL}(2,\mathbb{C}), \mathcal{O})\) is a topological manifold}{sl2c_manifold}
+    The set \(\mathrm{SL}(2,\mathbb{C})\) equipped with the topology \(\mathcal{O}\) is a 3-dimensional complex topological manifold.
+\end{proposition}
+\begin{proof}
+    Consider the subset \(U \subset \mathrm{SL}(2, \mathbb{C})\) defined by
+    \begin{equation*}
+        U = \set*{\begin{pmatrix}
+                a && b\\c&&d
+        \end{pmatrix} \in \mathrm{SL}(2, \mathbb{C}) : a \neq 0}.
+    \end{equation*}
+    Clearly \(U\) is open in \(\mathcal{O}\), since it is the intersection of the open subset \(\mathbb{C}^{\ast} \times \mathbb{C}^3\) of \(\mathbb{C}^4\) with \(\mathrm{SL}(2, \mathbb{C}).\) We define the homeomorphism
+    \begin{align*}
+        x : U &\to x(U) \subset \mathbb{C}^{\ast}\times \mathbb{C} \times \mathbb{C}\\
+            \begin{pmatrix}
+                a && b\\c&&d
+            \end{pmatrix}  &\mapsto (a,b,c),
+    \end{align*}
+    with inverse
+    \begin{align*}
+        x^{-1} : x(U) &\to U\\
+              (\xi^1,\xi^2,\xi^3) &\mapsto \begin{pmatrix}
+                          \xi^1 && \xi^2\\\xi^3&& \frac{1 + \xi^2\xi^3}{\xi^1}
+                      \end{pmatrix}.
+    \end{align*}
+
+    Similarly, we consider the open subset \(V \subset \mathrm{SL}(2, \mathbb{C})\)
+    \begin{equation*}
+        V = \set*{\begin{pmatrix}
+                a && b\\c&&d
+        \end{pmatrix} \in \mathrm{SL}(2, \mathbb{C}) : b \neq 0},
+    \end{equation*}
+    where we define the homeomorphism
+    \begin{align*}
+        y : V &\to y(V) \subset \mathbb{C}\times \mathbb{C}^{\ast} \times \mathbb{C}\\
+            \begin{pmatrix}
+                a && b\\c&&d
+            \end{pmatrix}  &\mapsto (a,b,d),
+    \end{align*}
+    with inverse
+    \begin{align*}
+        y^{-1} : y(V) &\to V\\
+              (\xi^1,\xi^2, \xi^3) &\mapsto \begin{pmatrix}
+                  \xi^1 && \xi^2\\\frac{\xi^1 \xi^3 - 1}{\xi^2} && \xi^3
+                      \end{pmatrix}.
+    \end{align*}
+
+    Note that \(U \cup V = \mathrm{SL}(2, \mathbb{C}),\) since
+    \begin{equation*}
+        a = 0 \land b = 0 \implies \begin{pmatrix}
+            a && b\\c&&d
+        \end{pmatrix} \notin \mathrm{SL}(2, \mathbb{C}).
+    \end{equation*}
+    Therefore, \(\mathscr{A}_{\mathrm{top}} = \set{(U, x), (V, y)}\) is a topological atlas for \((\mathrm{SL}(2, \mathbb{C}), \mathcal{O}).\) Thus, \(\mathrm{SL}(2, \mathbb{C})\) is a topological manifold whose open subsets are homeomorphic to \(\mathbb{C}^3.\)
+\end{proof}
+
+\subsection{The differentiable structure of \texorpdfstring{\(\mathrm{SL}(2,\mathbb{C})\)}{\mathrm{SL}(2,C)}}
+We may now extend the topological atlas constructed to a differentiable atlas.
+
+\begin{proposition}{\(\mathrm{SL}(2, \mathbb{C})\) is a complex differentiable manifold}{sl2c_cf_manifold}
+    The set \(\mathrm{SL}(2, \mathbb{C})\) is a complex differentiable manifold.
+\end{proposition}
+\begin{proof}
+    We consider the intersection \(U \cap V\) and we check the differentiable compatibility of the chart transition maps. The chart transition maps are
+    \begin{align*}
+        y \circ x^{-1} : x(U\cap V) \subset \mathbb{C}^{\ast}\times \mathbb{C}^{\ast} \times \mathbb{C} &\to y(U\cap V) \subset \mathbb{C}^{\ast} \times \mathbb{C}^{\ast} \times \mathbb{C}\\
+        (\xi^1, \xi^2, \xi^3) &\mapsto \left(\xi^1, \xi^2,\frac{1 +  \xi^2 \xi^3}{\xi^1}\right)
+    \end{align*}
+    and
+    \begin{align*}
+        x \circ y^{-1} : y(U\cap V) \subset \mathbb{C}^{\ast}\times \mathbb{C}^{\ast} \times \mathbb{C} &\to x(U\cap V) \subset \mathbb{C}^{\ast} \times \mathbb{C}^{\ast} \times \mathbb{C}\\
+        (\xi^1, \xi^2, \xi^3) &\mapsto \left(\xi^1, \xi^2,\frac{\xi^1 \xi^3-1}{\xi^2}\right),
+    \end{align*}
+    which are holomorphic in the open domains \(x(U\cap V)\) and \(y(U\cap V)\), respectively. We may then define \(\mathscr{A}\) as the maximal complex differentiable atlas containing \(\mathscr{A}_{\mathrm{top}}\), therefore \((\mathrm{SL}(2,\mathbb{C}), \mathcal{O}, \mathscr{A})\) is a complex differentiable manifold.
+\end{proof}
+
+From now own, we will denote this differentiable manifold simply by \(\mathrm{SL}(2, \mathbb{C})\). We may now check that \(\mathrm{SL}(2, \mathbb{C})\) is a Lie group.
+
+\begin{proposition}{\(\mathrm{SL}(2, \mathbb{C})\) is a Lie group}{sl2c_lie_group}
+    The maps
+    \begin{align*}
+        i : \mathrm{SL}(2, \mathbb{C}) &\to \mathrm{SL}(2, \mathbb{C})\\
+                            g &\mapsto g^{-1}
+    \end{align*}
+    and
+    \begin{align*}
+        \mu : \mathrm{SL}(2, \mathbb{C}) \times \mathrm{SL}(2, \mathbb{C}) &\to \mathrm{SL}(2, \mathbb{C})\\
+                                                   (g,h) &\mapsto gh
+    \end{align*}
+    are  complex differentiable, that is, \(\mathrm{SL}(2, \mathbb{C})\) is a Lie group.
+\end{proposition}
+\begin{proof}
+    % Let \(G = \begin{pmatrix}
+    %     a&&b\\c&&d
+    % \end{pmatrix} \in \mathrm{SL}(2, \mathbb{C})\).
+    From the definition of the inverse element, it is clear that \(i(U) = W\) and \(i(W) = U\), where \(U\) is defined as before and
+    \begin{equation*}
+        W = \set*{\begin{pmatrix}
+                a && b\\c&&d
+        \end{pmatrix} \in \mathrm{SL}(2, \mathbb{C}) : d \neq 0}
+    \end{equation*}
+    is an open subset of \(\mathrm{SL}(2, \mathbb{C}).\) Similarly, \(i(V) = V\) and analogously for the other entry. Then, we must check differentiability of \(i\) with respect to elements in \(U\) and \(V\), since \(U \cup V\) covers \(\mathrm{SL}(2, \mathbb{C}) \).
+
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            U \subset \mathrm{SL}(2, \mathbb{C}) \arrow{r}{i} \arrow{d}{x}& W \subset \mathrm{SL}(2,\mathbb{C}) \arrow{d}{z}\\
+            x(U) \arrow{r}{z \circ i \circ x^{-1}} & z(W)
+        \end{tikzcd}
+    \end{equation*}
+
+    Consider the chart \((U,x)\), defined as before, and \((W, z)\in \mathscr{A}\), where the homeomorphism \(z\) is defined by
+    \begin{align*}
+        z : W &\to z(W) \subset \mathbb{C} \times \mathbb{C} \times \mathbb{C}^{\ast}\\
+        \begin{pmatrix} a && b\\c&&d \end{pmatrix}
+              &\mapsto (b,c,d),
+    \end{align*}
+    with inverse
+    \begin{align*}
+        z^{-1} : z(W) &\to W\\
+        (\xi^1, \xi^2, \xi^3) &\mapsto \begin{pmatrix} \frac{1 + \xi^1\xi^2}{\xi^3} && \xi^1\\\xi^2&&\xi^3 \end{pmatrix}.
+    \end{align*}
+    In these charts, the local expression of \(i\) from \(U\) to \(W\) is given by
+    \begin{align*}
+        z \circ i \circ x^{-1} : x(U) &\to z(W)\\
+        (\xi^1, \xi^2, \xi^3) &\mapsto \left(-\xi^2, -\xi^3, \xi^1\right),
+    \end{align*}
+    which is obviously holomorphic in \(x(U)\). Similarly, the local expression of \(i\) from \(V\) to \(V\) is given by
+    \begin{align*}
+        y \circ i \circ y^{-1} : y(V) &\to y(V)\\
+        (\xi^1, \xi^2, \xi^3) &\mapsto \left(\xi^3,-\xi^2, \xi^1\right),
+    \end{align*}
+    which is holomorphic in \(y(V)\). This shows the map \(i : \mathrm{SL}(2,\mathbb{C}) \to \mathrm{SL}(2, \mathbb{C})\) is a diffeomorphism.
+
+    We may equip \(\mathrm{SL}(2, \mathbb{C}) \times \mathrm{SL}(2, \mathbb{C})\) with a differentiable atlas by virtue of the differentiable atlas \(\mathscr{A}\) on \(\mathrm{SL}(2, \mathbb{C})\). With this, we may show that the map \(\mu\) is differentiable. \todo
+\end{proof}
+
+\subsection{The Lie algebra \texorpdfstring{\(\mathfrak{sl}(2, \mathbb{C})\)}{sl(2,C)} of the Lie group \texorpdfstring{\(\mathrm{SL}(2,\mathbb{C})\)}{\mathrm{SL}(2,C)}}
+The set of left invariant vector fields on \(\mathrm{SL}(2,\mathbb{C})\) is the Lie algebra \(\mathfrak{sl}(2, \mathbb{C})\). Recall that \(\mathfrak{sl}(2,\mathbb{C})\) is isomorphic to the Lie algebra of the tangent space \(T_I\mathrm{SL}(2, \mathbb{C})\) equipped with the Lie bracket
+\begin{align*}
+    [ \cdot, \cdot] : T_I\mathrm{SL}(2,\mathbb{C}) \times T_I\mathrm{SL}(2,\mathbb{C}) &\to T_I\mathrm{SL}(2,\mathbb{C})\\
+    (A,B) &\mapsto j^{-1}\left([j(A), j(B)]\right),
+\end{align*}
+where \(j : T_I\mathrm{SL}(2,\mathbb{C}) \to \mathfrak{sl}(2,\mathbb{C})\) was the vector space isomorphism defined by the pushforward of the left translations, namely
+\begin{align*}
+    j : T_I\mathrm{SL}(2,\mathbb{C}) &\to \mathfrak{sl}(2,\mathbb{C})\\
+                          A &\mapsto j(A),
+\end{align*}
+where \(j(A)_g = \pf[I]{\ell_g}A\) for all \(g \in \mathrm{SL}(2,\mathbb{C})\) and \(j^{-1}(X) = X_I\).
+
+We would like to determine explicitly the Lie bracket on the tangent space at the identity element. For this task, we employ the \((U,x)\) chart, since \(I \in U\), therefore we may express any element \(A\) in \(T_I\mathrm{SL}(2,\mathbb{C})\) as
+\begin{equation*}
+    A = A^i \bvec{x^i}{I},
+\end{equation*}
+for coefficients \(A^i \in \mathbb{C}.\) Since \(j\) is linear, we may consider each basis vector individually. For any \(f \in \smooth{\mathrm{SL}(2, \mathbb{C})}\) and \(g \in \mathrm{SL}(2,\mathbb{C})\), we have
+\begin{equation*}
+    \left[\pf{\ell_g}\bvec{x^i}{I}\right]_{g}f = \bvec[{f \circ \ell_g}]{x^i}{I} = \partial_i \left(f \circ \ell_g \circ x^{-1}\right) (x(I)),
+\end{equation*}
+where \(f \circ \ell_g \circ x^{-1} : x(U) \to \mathbb{C}\) is a smooth map. Let \((\tilde{U}, \tilde{x}) \in \mathscr{A}\) be a chart, where \(\tilde{U}\) is a neighborhood of \(g\). By the chain rule,
+\begin{align*}
+    \left[\pf{\ell_g}\bvec{x^i}{I}\right]_{g}f  &= \partial_i \left(f \circ \tilde{x}^{-1} \circ\tilde{x} \circ \ell_g \circ x^{-1}\right) (x(I))\\
+                                                &= \partial_m \left(f \circ \tilde{x}^{-1}\right)(\tilde{x}(g))\cdot \partial_i\left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(x(I))\\
+                                                &= \partial_i \left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right) (x(I))\cdot \bvec[f]{\tilde{x}^m}{g},
+\end{align*}
+that is,
+\begin{equation*}
+    j\left(\bvec{x^i}{I}\right)_g = \partial_i \left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(x(I)) \cdot \bvec{\tilde{x}^m}{g}.
+\end{equation*}
+
+Let \(g = \begin{smallpmatrix}
+    a && b\\
+    c && d
+\end{smallpmatrix}\in \mathrm{SL}(2,\mathbb{C})\) and \(\left(\xi^1,\xi^2,\xi^3\right) \in x(U) \subset \mathbb{C}^{\ast}\times \mathbb{C}\times \mathbb{C}\). Then,
+\begin{equation*}
+    \left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(\xi^1, \xi^2, \xi^3) = \tilde{x}^m\begin{pmatrix}
+        a\xi^1 + b\xi^3 && a\xi^2 + b\frac{1 + \xi^2\xi^3}{\xi^1}\\
+        c\xi^1 + d\xi^3 && c\xi^2 + d\frac{1 + \xi^2\xi^3}{\xi^1}\\
+    \end{pmatrix}
+\end{equation*}
+
+We first consider the case \(\tilde{U} = U\). Then \(\tilde{x} = x\), and
+\begin{equation*}
+        \left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(\xi^1,\xi^2,\xi^3) = \left(a\xi^1 + b\xi^3 , a\xi^2 + b\frac{1 + \xi^2\xi^3}{\xi^1}, c\xi^1 + d\xi^3\right)^m.
+\end{equation*}
+We may now compute the partial derivatives and evaluate them at \(x(I) = (1,0,0),\)
+\begin{equation*}
+    {D_{U}(g)}\indices{^m_i} = \partial_i\left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(x(I)) = \begin{bmatrix}
+    a && 0 && b\\
+    -b && a && 0\\
+    c && 0 && d
+\end{bmatrix}\indices{^m_i}.
+\end{equation*}
+This allows to compute \(j\left(\bvec{x^i}{I}\right)_g = {D_{U}}(g)\indices{^m_i}\bvec{x^m}{g}\) for all \(g \in U\), namely
+\begin{equation*}
+    \begin{aligned}
+        j\left(\bvec{x^1}{I}\right)_g &= a \bvec{x^1}{g} &- b \bvec{x^2}{g} &+ c \bvec{x^3}{g},\\
+        j\left(\bvec{x^2}{I}\right)_g &=                 & a \bvec{x^2}{g}  &,\\
+        j\left(\bvec{x^3}{I}\right)_g &= b \bvec{x^1}{g} &                  &+ d\bvec{x^3}{g}.
+    \end{aligned}
+\end{equation*}
+
+Since \(U\cup V\) covers \(\mathrm{SL}(2,\mathbb{C})\), the other case is when \(\tilde{U} = V\). In this case, \(\tilde{x} = y\) and
+\begin{equation*}
+    \left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(\xi^1,\xi^2,\xi^3) = \left(a\xi^1 + b\xi^3 , a\xi^2 + b\frac{1 + \xi^2\xi^3}{\xi^1}, c\xi^2 + d\frac{1 + \xi^2\xi^3}{\xi^1}\right)^m.
+\end{equation*}
+Computing the partial derivatives at \(x(I)\) yields
+\begin{equation*}
+    {D_V}(g)\indices{^m_i} = \partial_i\left(\tilde{x}^m \circ \ell_g \circ x^{-1}\right)(x(I)) = \begin{bmatrix}
+    a && 0 && b\\
+    -b && a && 0\\
+    -d && c && 0
+\end{bmatrix}\indices{^m_i}.
+\end{equation*}
+This allows to compute \(j\left(\bvec{x^i}{I}\right)_g = {D_V}(g)\indices{^m_i}\bvec{y^m}{g}\) for all \(g \in V\), namely
+\begin{equation*}
+    \begin{aligned}
+        j\left(\bvec{x^1}{I}\right)_g &= a \bvec{y^1}{g} &- b \bvec{y^2}{g} &- d \bvec{y^3}{g},\\
+        j\left(\bvec{x^2}{I}\right)_g &=                 & a \bvec{y^2}{g}  &+ c \bvec{y^3}{g},\\
+        j\left(\bvec{x^3}{I}\right)_g &= b \bvec{y^1}{g}.&                  &
+    \end{aligned}
+\end{equation*}
+
+These two expressions for \(j\left(\bvec{x^i}{I}\right)_g\) must coincide for \(g \in U \cap V\). Recall the change of basis
+\begin{equation*}
+    \bvec{x^i}{g} = \bvec[y^j]{x^i}{g} \bvec{y^j}{g} = \partial_i\left(y^j \circ x^{-1}\right)(x(g))\bvec{y^j}{g}.
+\end{equation*}
+We compute the partial derivatives: let \((\xi^1, \xi^2, \xi^3) \in x(U\cap V)\), then
+\begin{align*}
+    \partial_i\left(y^j \circ x^{-1}\right)(\xi^1, \xi^2, \xi^3) &= \partial_i\left(\xi^1, \xi^2, \frac{1+\xi^2\xi^3}{\xi^1}\right)^j(\xi^1, \xi^2, \xi^3)\\
+                                                                 &= \begin{bmatrix}
+                                                                     1 && 0 && 0\\
+                                                                     0 && 1 && 0\\
+                                                                     -\frac{1 +\xi^2\xi^3}{\left(\xi^1\right)^2} && \frac{\xi^3}{\xi^1} && \frac{\xi^2}{\xi^1}
+                                                                 \end{bmatrix}\indices{^j_i}.
+\end{align*}
+The coefficients of the change of basis linear map at \(g\) is
+\begin{equation*}
+    \bvec[y^j]{x^i}{g} = \begin{bmatrix}
+        1 && 0 && 0\\
+        0 && 1 && 0\\
+        -\frac{d}{a} && \frac{c}{a} && \frac{b}{a}
+    \end{bmatrix}\indices{^j_i},
+\end{equation*}
+since \(ad - bc = 1\) and \(a \neq 0\) for \(g \in U\cap V\). It's straightforward to verify that
+\begin{equation*}
+    {D_U}(g)\indices{^k_i}\bvec[y^j]{x^k}{g} = {D_V}(g)\indices{^j_i},
+\end{equation*}
+then
+\begin{align*}
+    j\left(\bvec{x^i}{I}\right)_g &= D_U(g)\indices{^k_i} \bvec{x^k}{g}\\
+                                  &= D_U(g)\indices{^k_i} \bvec[y^j]{x^k}{g} \bvec{y^j}{g}\\
+                                  &= D_V(g)\indices{^j_i}\bvec{y^j}{g},
+\end{align*}
+as desired. We denote the vector field by
+\begin{equation*}
+    j\left(\bvec{x^i}{I}\right) = D\indices{^j_i}\bfield{\tilde{x}^j},
+\end{equation*}
+meaning to take the appropriate expression in each chart.
+
+Let \(f \in \smooth{\mathrm{SL}(2,\mathbb{C})}\). Since vector fields are derivations, we have from the Leibniz rule
+\begin{align*}
+    \bfield{\tilde{x}^j}\left(D\indices{^k_m}\bfield{\tilde{x}^k}f\right) &= \left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) + D\indices{^k_m} \bfield{\tilde{x}^j}\left(\bfield{\tilde{x}^k}f\right)\\
+                                                                          &=\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) + D\indices{^k_m} \bfield{\tilde{x}^j}\left(\partial_k(f \circ \tilde{x}^{-1}) \circ \tilde{x}\right)\\
+                                                                          &=\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) + D\indices{^k_m} \partial_j\left(\partial_k(f \circ \tilde{x}^{-1}) \circ \tilde{x} \circ \tilde{x}^{-1}\right) \circ \tilde{x}\\
+                                                                          &=\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) + D\indices{^k_m} \partial_j\partial_k\left(f \circ \tilde{x}^{-1}\right) \circ \tilde{x}.
+\end{align*}
+Similarly, we have
+\begin{align*}
+    \bfield{\tilde{x}^k}\left(D\indices{^j_i}\bfield{\tilde{x}^j}f\right) &=\left(\bfield{\tilde{x}^k}D\indices{^j_i}\right)\left(\bfield{\tilde{x}^j}f\right) + D\indices{^j_i} \partial_k\partial_j\left(f \circ \tilde{x}^{-1}\right) \circ \tilde{x}\\
+    &=\left(\bfield{\tilde{x}^k}D\indices{^j_i}\right)\left(\bfield{\tilde{x}^j}f\right) + D\indices{^j_i} \partial_j\partial_k\left(f \circ \tilde{x}^{-1}\right) \circ \tilde{x},
+\end{align*}
+from Schwartz's theorem. It follows that
+\begin{align*}
+    \left[j\left(\bvec{x^i}{I}\right), j\left(\bvec{x^m}{I}\right)\right]f &= D\indices{^j_i} \bfield{\tilde{x}^j}\left(D\indices{^k_m}\bfield{\tilde{x}^k}f\right) - D\indices{^k_m} \bfield{\tilde{x}^k}\left(D\indices{^j_i}\bfield{\tilde{x}^j}f\right)\\
+                                                                          &=D\indices{^j_i}\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) + D\indices{^j_i}D\indices{^k_m} \partial_j\partial_k\left(f \circ \tilde{x}^{-1}\right) \circ \tilde{x}\\
+                                                                          &-D\indices{^k_m}\left(\bfield{\tilde{x}^k}D\indices{^j_i}\right)\left(\bfield{\tilde{x}^j}f\right) - D\indices{^k_m}D\indices{^j_i} \partial_j\partial_k\left(f \circ \tilde{x}^{-1}\right) \circ \tilde{x}\\
+                                                                          &= D\indices{^j_i}\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right)\left(\bfield{\tilde{x}^k}f\right) - D\indices{^k_m}\left(\bfield{\tilde{x}^k}D\indices{^j_i}\right)\left(\bfield{\tilde{x}^j}f\right)\\
+                                                                          &= \left(D\indices{^j_i}\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right) - D\indices{^j_m}\left(\bfield{\tilde{x}^j}D\indices{^k_i}\right)\right)\bfield{\tilde{x}^k}f,
+\end{align*}
+where we have relabeled dummy indices in the last step. Since \(f\) is arbitrary,
+\begin{equation*}
+     \left[j\left(\bvec{x^i}{I}\right), j\left(\bvec{x^m}{I}\right)\right] = \left(D\indices{^j_i}\left(\bfield{\tilde{x}^j}D\indices{^k_m}\right) - D\indices{^j_m}\left(\bfield{\tilde{x}^j}D\indices{^k_i}\right)\right)\bfield{\tilde{x}^k}
+\end{equation*}
+is the commutator of left invariant vector fields. Evaluating at the identity element yields the structure coefficients of the Lie algebra \(T_I\mathrm{SL}(2,\mathbb{C}) \cong \mathfrak{sl}(2,\mathbb{C}).\) At the identity, we have
+\begin{align*}
+    \left[\bvec{x^i}{I}, \bvec{x^m}{I}\right] &= \left(D\indices{^j_i}(I)\left(\bvec{x^j}{I}D\indices{^k_m}\right) - D\indices{^j_m}(I)\left(\bvec{x^j}{I}D\indices{^k_i}\right)\right)\bvec{x^k}{I}\\
+                                              &= \left(\delta\indices{^j_i}\left(\bvec{x^j}{I}D\indices{^k_m}\right) - \delta\indices{^j_m}\left(\bvec{x^j}{I}D\indices{^k_i}\right)\right)\bvec{x^k}{I}\\
+                                              &= \left(\bvec{x^i}{I}D\indices{^k_m} - \bvec{x^m}{I}D\indices{^k_i}\right)\bvec{x^k}{I},
+\end{align*}
+where we have used that \(D\indices{^i_j}(I) = \delta\indices{^i_j}.\) Recall that
+\begin{equation*}
+    D\indices{^i_j}\circ x^{-1} (\xi^1,\xi^2,\xi^3) = \begin{bmatrix}
+        \xi^1 && 0 && \xi^2\\
+        -\xi^2 && \xi^1 && 0\\
+        \xi^3 && 0 && \frac{1+\xi^2\xi^3}{\xi^1}
+    \end{bmatrix}\indices{^i_j},
+\end{equation*}
+then
+\begin{equation*}
+    \bvec{x^1}{I}D\indices{^i_j} = \partial_1\left(D\indices{^i_j}\circ x^{-1}\right)(x(I)) = \begin{bmatrix}
+        1 && 0 && 0\\
+        0 && 1 && 0\\
+        0 && 0 && -1
+    \end{bmatrix}\indices{^i_j},
+\end{equation*}
+\begin{equation*}
+    \bvec{x^2}{I}D\indices{^i_j} = \partial_2\left(D\indices{^i_j}\circ x^{-1}\right)(x(I)) = \begin{bmatrix}
+        0 && 0 && 1\\
+        -1 && 0 && 0\\
+        0 && 0 && 0
+    \end{bmatrix}\indices{^i_j},
+\end{equation*}
+and
+\begin{equation*}
+    \bvec{x^3}{I}D\indices{^i_j} = \partial_3\left(D\indices{^i_j}\circ x^{-1}\right)(x(I)) = \begin{bmatrix}
+        0 && 0 && 0\\
+        0 && 0 && 0\\
+        1 && 0 && 0
+    \end{bmatrix}\indices{^i_j}.
+\end{equation*}
+
+Finally, we have
+\begin{equation*}
+    \begin{aligned}
+        \left[\bvec{x^1}{I}, \bvec{x^2}{I}\right] &= &&2\bvec{x^2}{I},&&\\
+        \left[\bvec{x^1}{I}, \bvec{x^3}{I}\right] &= && &&-2\bvec{x^3}{I},\\
+        \left[\bvec{x^2}{I}, \bvec{x^3}{I}\right] &= \bvec{x^1}{I},&&&&.
+    \end{aligned}
+\end{equation*}
+
+\subsection{The simple Lie algebra \texorpdfstring{\(\mathfrak{sl}(2,\mathbb{C})\)}{sl(2,C)}}
+
+Let \(X_i = j\left(\bvec{x^i}{I}\right)\), then \(\set{X_1, X_2, X_3}\) is a basis for \(\mathfrak{sl}(2,\mathbb{C})\) and the structure coefficients are
+\begin{equation*}
+    \begin{aligned}
+        C\indices{^2_{12}} = 2,&& C\indices{^3_{13}} = -2,&& C\indices{^1_{23}}=1,
+    \end{aligned}
+\end{equation*}
+and the other coefficients are either zero or obtained by antisymmetry in the lower indices.
+
+\begin{proposition}{\(\mathfrak{sl}(2,\mathbb{C})\) is semisimple}{sl2c_semisimple}
+    The Lie algebra \(\mathfrak{sl}(2,\mathbb{C})\) is semisimple.
+\end{proposition}
+\begin{proof}
+    We may compute the components of the Killing form
+    \begin{equation*}
+        K_{ij} = C\indices{^m_{in}}C\indices{^n_{jm}}
+    \end{equation*}
+    from the structure coefficients. For \(i = j = 1\), we have
+    \begin{align*}
+        K_{11} &= C\indices{^m_{1n}}C\indices{^n_{1m}}\\
+               &= C\indices{^1_{1n}}C\indices{^n_{11}} + C\indices{^2_{1n}}C\indices{^n_{12}} + C\indices{^3_{1n}}C\indices{^n_{13}}\\
+               &= C\indices{^2_{12}}C\indices{^2_{12}} + C\indices{^3_{13}}C\indices{^3_{13}}\\
+               &= 8.
+    \end{align*}
+    We repeat the same computation for \(i \geq j\) and use the symmetric property of the Killing form, yielding
+    \begin{equation*}
+        K\indices{_{ij}} = \begin{bmatrix}
+            8 && 0 && 0\\
+            0 && 0 && 4\\
+            0 && 4 && 0
+        \end{bmatrix}_{ij}.
+    \end{equation*}
+    This shows \(K\) is non-degenerate, thus \(\mathfrak{sl}(2,\mathbb{C})\) is semisimple.
+\end{proof}
+
+We have shown that
+\begin{equation*}
+    \begin{aligned}
+        K(X_1, X_1) = 8, && K(X_2, X_2) = 0, && K(X_3, X_3) = 0.
+    \end{aligned}
+\end{equation*}
+From this we see \(K\) is an indefinite form, so \(\mathrm{SL}(2,\mathbb{C})\) is not a compact Lie group.
+
+\begin{proposition}{\(\mathfrak{sl}(2,\mathbb{C})\) is simple}{sl2c_simple}
+    The Lie algebra \(\mathfrak{sl}(2,\mathbb{C})\) is simple.
+\end{proposition}
+\begin{proof}
+    Let \(\mathfrak{I}\) be an ideal of \(\mathfrak{sl}(2,\mathbb{C})\). Let \(\alpha, \beta, \gamma \in \mathbb{C}\) such that
+    \begin{equation*}
+        Y = \alpha X_1 + \beta X_2 + \gamma X_3 \in \mathfrak{I}.
+    \end{equation*}
+    We have
+    \begin{equation*}
+        \begin{aligned}
+            [Y, X_1] &= &&-2 \beta X_2 &&+ 2 \gamma X_3\\
+            [Y, X_2] &= -\gamma X_1 &&+ 2 \alpha X_2&&\\
+            [Y, X_3] &= \beta X_1&&  &&- 2 \alpha X_3
+        \end{aligned}
+    \end{equation*}
+    and all of them lie in \(\mathfrak{I}.\)
+    \todo
+\end{proof}
+
+\subsection{Roots and fundamental roots of \texorpdfstring{\(\mathfrak{sl}(2,\mathbb{C})\)}{sl(2,C)}}
+
+Notice the structure coefficient equations may be expressed with the adjoint map as
+\begin{equation*}
+    \begin{aligned}
+        \ad{X_1}X_2 = 2 X_2, && \ad{X_1}X_3 = -2 X_3, && \ad{X_2}X_3 = X_1.
+    \end{aligned}
+\end{equation*}
+In particular, we notice \(X_2\) and \(X_3\) are eigenvectors of the linear map \(\ad{X_1},\) and no other basis vector is an eigenvector of the other adjoint maps, so \(\mathfrak{h} = \mathrm{span}_{\mathbb{C}}\set{X_1}\) is a Cartan subalgebra of \(\mathfrak{sl}(2,\mathbb{C})\). Therefore \(\set{X_1, X_2, X_3}\) is a Cartan-Weyl basis and we have the roots \(\lambda_2, \lambda_3 \in \mathfrak{h}^{\ast}\) defined by \(\lambda_2(X) = 2 \epsilon^1(X)\) and \(\lambda_3(X) = -2 \epsilon^1(X)\) for all \(X \in \mathfrak{sl}(2,\mathbb{C})\), and \(\set{\epsilon^1,\epsilon^2,\epsilon^3}\) is the dual basis.
+
+Since the root space is just \(\Phi = \set{\lambda_2, \lambda_3}\) and \(\lambda_3 = -\lambda_2\), it's easy to see one choice of set of fundamental roots is \(\Pi = \set{\lambda_2}\). Therefore, the Dynkin diagram of \(\mathfrak{sl}(2,\mathbb{C})\) is \(A_1,\) \dynkin A1.
+
+\section{Reconstruction of of the Lie algebra from the Dynkin diagram \texorpdfstring{\(A_2\)}{A2}}
+In the previous example we have constructed the Lie algebra associated to the Lie group \(\mathrm{SL}(2,\mathbb{C})\) and we have arrived at the simplest possible Dynkin diagram, \(A_1\). In this section, we consider the Dynkin diagram \(A_2\)
+\begin{equation*}
+    \dynkin A2
+\end{equation*}
+and aim to reconstruct the Lie algebra \(\mathfrak{g}\) from this diagram.
+
+From the diagram, we have the set of fundamental roots \(\Pi = \set{\pi^1, \pi^2} \in \mathfrak{h}^{\ast} \subset \mathfrak{g}^{\ast}\) and bond number \(n_{12} = 1.\) Therefore, the Cartan matrix is given by
+\begin{equation*}
+    C_{ij} = \begin{bmatrix}
+        2 && -1\\
+        -1 && 2
+    \end{bmatrix}_{ij},
+\end{equation*}
+since \(-C_{ij} \in \mathbb{N}\) for \(i \neq j\) and \(C_{12} C_{21} = n_{12}.\) We recall the bond number is related to the angle between the fundamental roots,
+\begin{equation*}
+    n_{ij} = \left(2 \cos{\angle(\pi_i, \pi_j)}\right)^2.
+\end{equation*}
+Since \(-C_{ij} \in \mathbb{N},\) we have \(\angle(\pi_i,\pi_j) \in \left[\frac{\pi}{2}, \frac{3\pi}{2}\right]\), and we obtain \(\angle(\pi^1, \pi^2) = \frac{2\pi}{3}.\) We also know \(\norm{\pi^1} = \norm{\pi^2}\) because the Cartan matrix is symmetric in this case.
+
+Since \(\mathfrak{h}_{\mathbb{R}}^{\ast}\) has an inner product, we may define an orthonormal basis \(\set{\epsilon^1, \epsilon^2}\) obtained by the Gram-Schmidt process on \(\Pi.\) Since \(\mathrm{span}_{\mathbb{C}}\Pi = \mathfrak{h}^{\ast}\), it is clear that \(\mathrm{span}_{\mathbb{C}}\set{\epsilon^1, \epsilon^2} = \mathfrak{h}^{\ast}.\) In this frame, \(\pi^1 = \epsilon_1\) and \(\pi^2 = -\frac{1}{2}\epsilon^1 + \frac{\sqrt{3}}{2}\epsilon^2\).
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (-2,0) -- (2,0);
+        \draw[->] (0,-2) -- (0,2);
+        \draw[->, Mauve, very thick] (0,0) -- (1,0) node[right, above]{\(\pi^1\)};
+        \draw[->, Peach, very thick] (0,0) -- ({cos(120)},{sin(120)}) node[above]{\(\pi^2\)};
+    \end{tikzpicture}
+    \caption{Fundamental roots in \(\mathfrak{h}_{\mathbb{R}}^{\ast}\) found from Dynkin diagram \(A_2\)}
+\end{figure}
+
+In order to find the other roots, we repeatedly apply the Weyl transformations,
+\begin{equation*}
+    s_{\lambda}(\pi_j) = \pi_j - 2 \frac{\kappa(\lambda,\pi_j)}{\kappa(\lambda, \lambda)} \lambda,
+\end{equation*}
+for all \(\lambda \in \Phi,\) the root space. Since \(\Pi \subset \Phi\), we begin with \(s_{\pi_i}(\pi_j),\)
+\begin{align*}
+    s_{\pi_i}(\pi_j) &= \pi_j - 2\frac{\kappa(\pi_i, \pi_j)}{\kappa(\pi_i, \pi_i)}\pi_i\\
+                     &= \pi_j - C_{ij} \pi_i,
+\end{align*}
+that is, \(\set{\pi^1, -\pi^1, \pi^2, -\pi^2, \pi^1 + \pi^2} \subset \Phi\). Since \(\lambda \in \Phi \implies -\lambda \in \Phi,\) we have \(-\pi^1 - \pi^2 \in \Phi.\) It is easy to verify the roots found are all the roots, that is, the root space is
+\begin{equation*}
+    \Phi = \set{-\pi^1, \pi^1, -\pi^2, \pi^2, -\pi^1-\pi^2, \pi^1+\pi^2}.
+\end{equation*}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (-2,0) -- (2,0);
+        \draw[->] (0,-2) -- (0,2);
+        \draw[->, Mauve, very thick] (0,0) -- (1,0) node[right, above]{\(\pi^1\)};
+        \draw[->, Lavender, very thick] (0,0) -- (-1,0) node[right, above]{\(-\pi^1\)};
+        \draw[->, Peach, very thick] (0,0) -- ({cos(120)},{sin(120)}) node[above]{\(\pi^2\)};
+        \draw[->, Yellow, very thick] (0,0) -- ({-cos(120)},{-sin(120)}) node[below]{\(-\pi^2\)};
+        \draw[->, Pink, very thick] (0,0) -- ({1+cos(120)},{sin(120)}) node[right]{\(\pi^1+\pi^2\)};
+        \draw[->, Rosewater, very thick] (0,0) -- ({-1-cos(120)},{-sin(120)}) node[left]{\(-\pi^1-\pi^2\)};
+    \end{tikzpicture}
+    \caption{Roots recovered from Dynkin diagram \(A_2\)}
+\end{figure}
+
+Since there are six roots and the Cartan subalgebra has a basis with two elements, we may conclude the Lie algebra \(\mathfrak{g}\) with Dynkin diagram \(A_2\) is eight-dimensional. To further investigate this Lie algebra, we must compute the structure coefficients \(C\indices{^k_{ij}}\), with \(i,j,k \in \set{1,\dots, 8}\).
+
+Let \(\set{e_1, \dots, e_8}\) be a Cartan-Weyl basis for \(\mathfrak{g}\), where \(\set{e_1, e_2} \subset \mathfrak{h}\) is the dual basis to \(\set{\epsilon^1, \epsilon^2}.\) We have \([e_1,e_2] = 0,\) since \(\mathfrak{g}\) is simple and
+\begin{equation*}
+    \ad{e_i}e_j = \lambda_{j}(e_i) e_j,
+\end{equation*}
+for \(i \in \set{1,2}\), \(j \in \set{3,4,5,6,7,8}\) and \(\lambda_j\) is the \((j-2)\)-th element of \(\Phi\). From this, we have twelve unique non-zero structure coefficients, given by
+\begin{equation*}
+    C\indices{^j_{ij}} = \lambda_{j}(e_i),
+\end{equation*}
+where no summation is implied and \(i,j\) range over the aforementioned values, which in total yield 24 non-zero coefficients, by antisymmetry. In this construction, \(\lambda_j(e_i)\) is the coefficient that appears in front of \(\epsilon^i\) of \(\lambda_j,\) for example, \(\pi_2(e_i) = -\frac{1}{2} \delta^1_i + \frac{\sqrt{3}}{2}\delta^2_i.\)
+
+It remains to compute \(C\indices{^{k}_{ij}}\) for \(i,j \in \set{3,4,5,6,7,8}\) and \(k \in \set{1,\dots,8}\). For this, we use the Jacobi identity with the Lie brackets we have already computed. That is, for \(\alpha \in \set{1,2},\)
+\begin{align*}
+    \ad{e_{\alpha}}[e_i, e_j] &= - \ad{e_i}[e_j, e_{\alpha}] - \ad{e_j}[e_{\alpha}, e_i]\\
+                              &= \lambda_j(e_{\alpha})\ad{e_i}e_j - \lambda_i(e_{\alpha})\ad{e_j}e_i\\
+                              &= \left((\lambda_i + \lambda_j)(e_{\alpha})\right)[e_i, e_j],
+\end{align*}
+where no summation is implied.
+
+If \(\lambda_i + \lambda_j \in \Phi\), then there exists \(k \in \set{3,4,5,6,7,8}\) such that \(\lambda_k = \lambda_i + \lambda_j\) and \([e_i, e_j] = e_k.\) If \(\lambda_i + \lambda_j = 0\), all we may conclude is that \([e_i,e_j] \in \mathfrak{h}\). The only other case is when \(\lambda_i + \lambda_j \notin \Phi \cup \set{0}\), which allows us to conclude \([e_i,e_j]=0.\)
+
+Prove this \todo
+
+Also, not clear what to do when \([e_i, e_j] \in \mathfrak{h}.\) \todo

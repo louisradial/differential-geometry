@@ -1,0 +1,294 @@
+\begin{definition}{Lie group}{lie_group}
+    A \emph{Lie group} is a group \((G, \bullet)\), where \(G\) is a smooth manifold and the maps
+    \begin{align*}
+        \mu : G \times G &\to G\\
+             (g_1, g_2)  &\mapsto g_1 \bullet g_2
+    \end{align*}
+    and
+    \begin{align*}
+        i : G &\to G\\
+        g &\mapsto g^{-1}
+    \end{align*}
+    are smooth. If the group \((G, \bullet)\) is commutative, then it is called a
+\end{definition}
+\begin{remark}
+    Usually the group operation will be simply denoted by \(g_1 g_2 = g_1\bullet g_2.\)
+\end{remark}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item The \emph{\(n\)-dimensional translation group} \((\mathbb{R}^n, +)\) is a commutative Lie group.
+        \item The 1-sphere \(S^1 = \set{z \in \mathbb{C} : |z| = 1}\)  is a commutative Lie group under complex multiplication, called \(U(1).\)
+        \item The set of invertible linear endomorphisms \(GL(n, \mathbb{R}) = \set{\phi \in \End(\mathbb{R}^n) : \det \phi \neq 0}\) is a Lie group under composition, called the \emph{general linear group}.
+        \item Let \(V\) be a \(d\)-dimensional \(\mathbb{R}\)-vector space, equipped with a \emph{pseudo inner product} \((\cdot, \cdot) : V \times V \linear \mathbb{R}\) satisfying
+            \begin{itemize}
+                \item bilinearity
+                \item symmetry: \(\forall v, w \in V : (v, w) = (w, v)\)
+                \item non-degeneracy: \(\forall w \in V : (v, w) = 0 \implies v = 0,\)
+            \end{itemize}
+            then there are (up to isomorphism) only as many pseudo inner products on \(V\) as there are different signatures. The signature \((p,q)\) of a pseudo inner product is the number of positive \(p\) numbers and negative \(n\) numbers on the main diagonal of the diagonalization of the matrix representation of the pseudo inner product. The set
+            \begin{equation*}
+                O(p,q) = \set*{ \phi \in \End(V) : (\phi(v), \phi(w)) = (v, w), \forall v,w \in V} \subset GL(p+q, \mathbb{R})
+            \end{equation*}
+            is a Lie group under composition, called the \emph{orthogonal group} with respect to the pseudo inner product \((\cdot, \cdot)\).
+    \end{enumerate}
+\end{example}
+
+\section{The Lie algebra of a Lie group}
+For any \(g \in G\) there is a map
+\begin{align*}
+    \ell_g : G &\to G\\
+          h &\mapsto \ell_g(h),
+\end{align*}
+where \(\ell_g(h) = gh\), called the \emph{left translation} with respect to \(g\). One could define \emph{right translations} similarly, and the following results would follow analogously.
+
+\begin{proposition}{Left translations are diffeomorphisms}{left_translation}
+    Let \(g \in G\). The left translation \(\ell_g\) with respect to \(g\) is a diffeomorphism.
+\end{proposition}
+\begin{proof}
+    We check \(\ell_g\) is an isomorphism. Let \(h, h' \in G\) such that \(\ell_gh = \ell_g h'\). Then, applying \(\ell_{g^{-1}}\) to both sides, we get \(h = h',\) that is, \(\ell_g\) is injective. Let \(f \in G,\) and consider \(\ell_{g^{-1}}f = g^{-1} f\). Then, \(\ell_g(g^{-1} f) = \id{G}f = f,\) that is, \(\ell_{g}\) is surjective. Note \(\ell_g \circ \ell_{g^{-1}} = \id{G}\) and \(\ell_{g^{-1}}\circ \ell_g = \id{G}\).
+
+    Recall \(\mu : G \times G \to G\) is a smooth map from \(G \times G\) to \(G\). Then \(\ell_g\) is the restriction of \(\mu\) to \(\set{g} \times G,\) therefore it is smooth.
+\end{proof}
+
+\begin{remark}
+    A group isomorphism is a map that preserves the group operation. Let \(h_1, h_2 \in G\), then
+    \begin{equation*}
+        \ell_g (h_1h_2) = gh_1h_2
+    \end{equation*}
+    which is not generically equal to \(\left(\ell_gh_1\right)\left(\ell_gh_2\right)\), that is, \(\ell_g\) is not necessarily a group isomorphism.
+\end{remark}
+
+Recall we could extend the pullback at a point of covectors to differential forms without problems. However, the same cannot be said to the pushforward, unless the underlying smooth map is a diffeomorphism. Indeed, let \(h : M \to N\) be a smooth map between smooth manifolds \(M\) and \(N\). Then \(h(M) \subset N\) and to each point \(p \in M\) it is assigned a point \(h(p) \in N\). As such, we defined the pullback at \(p\) by taking the differential form at \(h(p)\), thus defining a differential form throughout \(M\). This is not the case for the pushforward, since \(h(M)\) may be a proper subset of \(N,\) and therefore it is not possible to have a vector field throughout \(N\). Even worse, \(h\) may not be injective, so two points in \(M\) may me mapped to the same point in \(N,\) and an attempt at establishing the pushforward of a vector field would be ill-defined.
+
+Since the left translations are diffeomorphisms, it is possible to define the pushforward of vector fields in \(G\). Namely, given \(g \in G\), it is the map
+\begin{align*}
+    \pf{\ell_g} : \sections{TG} &\to \sections{TG}\\
+                                 X &\mapsto \pf{\ell_g}X
+\end{align*}
+where
+\begin{align*}
+    \pf{\ell_g}X : G &\to TG\\
+                      h &\mapsto (\pf{\ell_g}X)(h)
+\end{align*}
+and \(T_{h}G \ni \left(\pf{\ell_g}X\right)(h) = \pf[g^{-1}h]{\ell_g}\left(X(g^{-1}h)\right) \in T_{g^{-1}h}G\). Since \(\ell_g\) is an isomorphism, a point \(h' \in G\) may always be expressed as \(h' = gh\) for some \(h \in G\), and we may rewrite this last definition to
+\begin{equation*}
+    \left(\pf{\ell_g}X\right)(gh) = \pf[h]{\ell_g}(X(h)).
+\end{equation*}
+
+As an attempt to make the notation less busy, we note the points at which the vector field and the pushforward are evaluated must coincide, so we denote last equation as
+\begin{equation*}
+    \left(\pf{\ell_g}X\right)_{gh} = \pf{\ell_g}(X_h),
+\end{equation*}
+where the subscript after a vector field denotes \(X_h = X(h).\)
+
+Considering vector fields as derivations, we have
+\begin{equation*}
+    \left(\pf{\ell_g}X\right)\varphi = X(\varphi\circ \ell_g),
+\end{equation*}
+for all \(\varphi \in \smooth{G}\). Since \(\varphi\) and \(\ell_g\) are smooth, it follows that \(\pf{\ell_g}X\) is a smooth vector field.
+
+\begin{lemma}{Composition of left translation pushforwards}{left_translation_composition}
+    Let \(g, h \in G.\) Then \(\pf{\ell_g} \circ \pf{\ell_h} = \pf{\ell_{gh}}\).
+\end{lemma}
+\begin{proof}
+    Let \(X \in \sections{TG}\) be a smooth vector field and let \(\varphi \in \smooth{G}\) be a smooth map. Then, by the definition of the pushforward, we have
+    \begin{align*}
+        \left(\pf{\ell_g} \circ \pf{\ell_h} X\right)\varphi &= (\pf{\ell_h}X) \left(\varphi \circ \ell_g\right)\\
+                                                                  &= X\left(\varphi \circ \ell_g \circ \ell_h\right)\\
+                                                                  &= X\left(\varphi \circ \ell_{gh}\right)\\
+                                                                  &= (\pf{\ell_{gh}}X)\varphi,
+    \end{align*}
+    which proves the statement.
+\end{proof}
+
+\begin{definition}{Left invariant vector field}{left_invariant}
+    A vector field is \emph{left invariant} if the vector field is invariant by the pushforward of a left translation. Precisely, a vector field \(X : M \to TM\) is left invariant if
+    \begin{equation*}
+        \pf{\ell_g}X = X,
+    \end{equation*}
+    for any \(g \in G.\)
+\end{definition}
+
+\begin{lemma}{Left invariant vector fields are smooth}{left_invariant_smooth}
+    Let \(X : G \to TG\) be a vector field. If \(X\) is left invariant, then \(X\) is smooth.
+\end{lemma}
+\begin{proof}
+    Let \(\varphi \in \smooth{G}\) be a smooth map and let \(\gamma : (-\varepsilon, \varepsilon) \to G\) be a smooth curve such that \(\gamma(0) = e\) and that its tangent vector at \(e\) is \(X_e.\) Then, at a point \(g \in G\), we have
+    \begin{align*}
+        X_g\varphi &= \pf{\ell_g}(X_e)\varphi\\
+             &= X_e(\varphi \circ \ell_g)\\
+             &= (\varphi \circ \ell_g \circ \gamma)'(0),
+    \end{align*}
+    thus \(X_g\varphi\) depends smoothly on \(g\), so \(X \in \sections{TG}.\)
+\end{proof}
+The set of all left invariant vector fields on the Lie group \(G\) is denoted by \(\mathfrak{g} \subset \sections{G}.\)
+
+\begin{proposition}{Equivalent definitions of left invariance}{left_invariant}
+    Let \(X \in \sections{TG}\) be a vector field. The following statements are equivalent
+    \begin{enumerate}[label=(\alph*)]
+        \item \(X\) is left invariant.
+        \item \(\pf{\ell_g}(X_h) = X_{gh}\) for all \(g,h \in G.\)
+        \item \(X(\varphi \circ \ell_g) = (X\varphi) \circ \ell_g,\) for all \(\varphi \in \smooth{G}\) and \(g \in G.\)
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(X\) is left invariant, that is, \(\pf{\ell_g}X = X\) for all \(g \in G\). Then, by the definition of pushforward of a vector field by a diffeomorphism, at \(h \in G\) we have
+    \begin{align*}
+        \pf{\ell_g}(X_h) &= (\pf{\ell_g}X)_{gh}\\
+                            &= X_{gh}.
+    \end{align*}
+    Since \(h\) is arbitrary, (a) \(\iff\) (b).
+
+    Suppose \(X\) satisfies (b), then for all \(g, h \in G\) and any smooth map \(\varphi \in \smooth{G}\)
+    \begin{align*}
+        \pf{\ell_g}(X_h)\varphi &= X_h (\varphi \circ \ell_g)\\
+                             &= [X(\varphi\circ \ell_g)](h),
+    \end{align*}
+    by the definition of pushforward at a point. Note that
+    \begin{equation*}
+        X_{gh}\varphi = (X\varphi)(gh) = (X \varphi)\circ \ell_g (h),
+    \end{equation*}
+    then we may rewrite (b) as
+    \begin{equation*}
+        [X(\varphi\circ \ell_g)](h) = (X\varphi)\circ \ell_g(h).
+    \end{equation*}
+    Since \(h\) is arbitrary, (b) \(\iff\) (c).
+\end{proof}
+
+Restricting the \(\mathbb{R}\)-vector space operations of \(\sections{TG}\) to \(\mathfrak{g}\) we may check that \(\mathfrak{g}\) is a \(\mathbb{R}\)-vector subspace of \(\sections{TG}.\) Indeed, let \(X, Y \in \mathfrak{g}\) and \(\alpha, \beta \in \mathbb{R},\) then
+\begin{align*}
+    \pf{\ell_g}(\alpha X + \beta Y)_{gh} &= \pf{\ell_g}(\alpha X_h + \beta Y_h)\\
+                                            &= \alpha \pf{\ell_g}(X_h) + \beta \pf{\ell_g(Y_h)}\\
+                                            &= \alpha X_{gh} + \beta Y_{gh}
+\end{align*}
+for all \(g, h \in G.\) That is, \(\alpha X + \beta Y \in \mathfrak{g}\). Even though the \(\mathbb{R}\)-vector space of smooth vector fields may be infinite dimensional, this is not the case for \(\mathfrak{g}\), as will be shown.
+
+\begin{definition}{Abstract Lie algebra}{abstract_lie_algebra}
+    An \emph{abstract Lie algebra} \(\left(L, +, \cdot, [\cdot, \cdot]\right)\) is a \(\mathbb{K}\)-vector space \((L, + , \cdot)\) equipped with an abstract \emph{Lie bracket} \([\cdot, \cdot] : L \times L \to L\) that satisfies
+    \begin{enumerate}[label=(\alph*)]
+        \item antisymmetry: \([x, y] = -[y, x],\) for all \(x, y \in L\).
+        \item \(\mathbb{K}\)-bilinearity: \([\alpha x + \beta y, z] = \alpha[x,z] + \beta[y,z],\) for all \(x,y,z \in L\) and \(\alpha,\beta \in \mathbb{K}.\)
+        \item Jacobi identity: \([x,[y,z]] + [y,[z,x]] + [z, [x,y]] = 0.\)
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item We recall the commutator of two smooth vector fields satisfies these properties, so the \(\mathbb{R}\)-vector space of smooth vector fields is an infinite-dimensional Lie algebra.
+        \item The three dimensional Euclidean space equipped with the vector product is a Lie algebra.
+        \item The endomorphisms on a vector space equipped with the bracket defined by
+            \begin{equation*}
+                [\phi,\psi] = \phi\circ\psi - \psi\circ\phi
+            \end{equation*}
+        is a Lie algebra.
+    \end{enumerate}
+\end{example}
+
+A Lie subalgebra is a vector subspace of a Lie algebra that is closed under the Lie bracket.
+\begin{theorem}{The vector space of left invariant vector fields is a Lie subalgebra}{left_invariant_lie}
+    The \(\mathbb{R}\)-vector space \((\mathfrak{g}, [\cdot, \cdot])\) is a Lie subalgebra of \((\sections{G}, [\cdot, \cdot])\).
+\end{theorem}
+\begin{proof}
+    As noted, \(\mathfrak{g} \subset \sections{TG},\) so it remains to be shown that the Lie bracket of left invariant vector fields is also left invariant. Let \(X, Y \in \mathfrak{g}\) be left invariant vector fields. Then, for any \(g \in G\) and \(\varphi \in \smooth{G}\),
+    \begin{align*}
+        [X,Y](\varphi \circ \ell_g) &= X(Y(\varphi \circ \ell_g)) - Y(X(\varphi \circ \ell_g))\\
+                                       &= X(Y\varphi \circ \ell_g) - Y(X\varphi \circ \ell_g)\\
+                                       &= X(Y\varphi)\circ \ell_g - Y(X\varphi) \circ \ell_g\\
+                                       &= [X,Y]\varphi \circ \ell_g,
+    \end{align*}
+    that is, \([X,Y]\) is a left invariant vector field.
+\end{proof}
+\begin{remark}
+    The Lie algebra \(\mathfrak{g}\) is called the \emph{associated Lie algebra to the Lie group \(G\)}.
+\end{remark}
+
+\begin{definition}{Lie algebra homomorphism}{lie_algebra_homomorphism}
+    Let \(\mathfrak{g}_1\) and \(\mathfrak{g}_2\) be Lie algebras over the same field \(\mathbb{K}.\) The vector space homomorphism \(\phi : \mathfrak{g}_1 \linear \mathfrak{g}_2\) is a \emph{Lie algebra homomorphism} if
+    \begin{equation*}
+        \phi([x,y]) = [\phi(x), \phi(y)]
+    \end{equation*}
+    for all \(x,y \in \mathfrak{g}_1.\) If \(\phi\) is a bijection, then it is a \emph{Lie algebra isomorphism}.
+\end{definition}
+
+With a Lie algebra isomorphism, it would be possible to avoid dealing with left invariant vector fields by identifying another, possibly less complicated, Lie algebra with \(\mathfrak{g}.\) We now construct such an isomorphism with the tangent space at the identity.
+
+\begin{theorem}{Left invariant vector fields are isomorphic to a tangent space}{left_invariant_tangent_space}
+    The vector space of left invariant vector fields is isomorphic to the tangent space \(T_eG.\)
+\end{theorem}
+\begin{proof}
+    Consider the map
+    \begin{align*}
+        j : T_eG &\linear \mathfrak{g}\\
+               A &\mapsto j(A)
+    \end{align*}
+    where \(j(A)_g = \pf[e]{\ell_g}A\) for all \(g \in G\). It follows from the \(\mathbb{R}\)-linearity of the pushforward at a point that \(j\) is indeed a linear map.
+
+    We verify the vector field \(j(A)\) is indeed smooth. Let \(\varphi \in \smooth{G}\) be a smooth map, then for all \(g \in G,\)
+    \begin{align*}
+        j(A)_g\varphi &= (\pf[e]{\ell_g}A)\varphi\\
+                      &= A(\varphi \circ \ell_g)\\
+                      &= (\varphi \circ \ell_g \circ \gamma)'(0),
+    \end{align*}
+    where \(\gamma : \mathbb{R} \to G\) is a smooth curve with \(\gamma(0) = e\) and with tangent vector \(A\) at \(e\). We consider the map
+    \begin{align*}
+        \psi : \mathbb{R} \times G &\to \mathbb{R}\\
+                             (t,g) &\mapsto \varphi\circ \ell_g \circ \gamma(t),
+    \end{align*}
+    which is smooth, as a composition of smooth maps. Then, \(j(A)_g\varphi = (\partial_1\psi)(0, g)\), which depends smoothly on \(g\), hence \(j(A)\varphi\) is a smooth function and as a consequence, \(j(A) \in \sections{TG}\).
+
+    To show \(j(A)\) is left invariant, consider
+    \begin{equation*}
+        \pf{\ell_g}\left(j(A)_h\right) = \pf{\ell_g}\left(\pf[e]{\ell_h}A\right).
+    \end{equation*}
+    By \cref{lem:left_translation_composition}, we have
+    \begin{align*}
+        \pf{\ell_g}\left(j(A)_h\right) &= \pf[e]{\ell_{gh}}A\\
+                                          &= j(A)_{gh}.
+    \end{align*}
+    By \cref{prop:left_invariant}, \(j(A) \in \mathfrak{g}\).
+
+    Let \(A, B \in T_eG\) such that \(j(A) = j(B).\) That is, for every \(g \in G,\) \(j(A)_g = j(B)_g.\) In particular, \(j(A)_e = j(B)_e\), which by definition is equivalent to \(\pf{\ell_e}A = \pf{\ell_e}B\). The left translation by the identity element is the identity map, thus \(A = B,\) so \(j\) is injective.
+
+    Let \(X \in \mathfrak{g}\) and consider \(X_e \in T_eG.\) We have
+    \begin{equation*}
+        j(X_e)_g = \pf{\ell_g}(X_e) = X_{ge} = X_g,
+    \end{equation*}
+    therefore \(j(X_e) = X.\) Thus, \(j\) is surjective.
+\end{proof}
+
+\begin{corollary}
+    The dimension of the vector space of left invariant vector fields is the same as the dimension of the manifold \(G\).
+\end{corollary}
+\begin{remark}
+    This shows \(\mathfrak{g}\) is a finite-dimensional \(\mathbb{R}\)-vector subspace of the infinite-dimensional \(\mathbb{R}\)-vector space \sections{TG}.
+\end{remark}
+
+Since \(T_eG\) is isomorphic to \(\mathfrak{g},\) we would like to equip \(T_eG\) with a Lie bracket such that
+\begin{equation*}
+    j([A,B]) = [j(A), j(B)],
+\end{equation*}
+in which case the isomorphism would not only identify uniquely elements from both vector spaces, but also preserve the Lie algebra structure of \(\mathfrak{g}\). We verify the map
+\begin{align*}
+    [\cdot, \cdot] : T_eG \times T_eG &\to T_eG\\
+                                (A,B) &\mapsto j^{-1}\left([j(A), j(B)]\right)
+\end{align*}
+is indeed a Lie bracket.
+Let \(X, Y \in T_eG,\) then
+\begin{align*}
+    [Y,X] &= j^{-1}\left([j(Y), j(X)]\right)\\
+          &= j^{-1}(-[j(X), j(Y)])\\
+          &= - j^{-1}([j(X),j(Y)])\\
+          &= -[X,Y],
+\end{align*}
+that is, this map is antisymmetric. Let \(Z \in T_eG\) and \(\alpha,\beta \in \mathbb{R}\), then
+\begin{align*}
+    [\alpha X + \beta Y, Z] &= j^{-1}([j\left(\alpha X + \beta Y\right), j(Z)])\\
+                            &= j^{-1}([j(\alpha X), j(Z)] + [j(\beta Y), j(Z)])\\
+                            &= j^{-1}(\alpha[j(X), j(Z)] + \beta[j(Y), j(Z)])\\
+                            &= \alpha j^{-1}([j(X), j(Z)]) + \beta j^{-1}(j(Y), j(Z))\\
+                            &= \alpha [X, Z] + \beta [Y, Z],
+\end{align*}
+thus the map is bilinear. Since \(j^{-1}\) is linear, the Jacobi identity follows from the property of the Lie bracket in \(\mathfrak{g}\). This has shown the map \(j\) establishes a Lie algebra isomorphism between \(T_eG\) and \(\mathfrak{g}\).
+% \begin{equation*}
+%     [X,[Y,Z]]  + [Y,[Z,X]]  + [Z,[X,Y]]  = j^{-1}\left([j(X), j([Y,Z])] + [j(Y), j([Z,X])] + [j(Z), j([X,Y])]\right),
+% \end{equation*}
+
