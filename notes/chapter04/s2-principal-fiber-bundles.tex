@@ -1,0 +1,68 @@
+\section{Principal fiber bundles}
+A \emph{smooth bundle} \bundle{E}{\pi}{M} is a bundle where \(E\) and \(M\) are smooth manifolds and the projection \(\pi : E \to M\) is smooth. Two smooth bundles \bundle{E}{\pi}{M} and \bundle{E'}{\pi'}{M'} are \todo[isomorphic] if there exists diffeomorphisms \(u : E \to E'\) and \(f : M \to M'\) such that the diagram
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        E \arrow{r}{u} \arrow{d}{\pi} & E' \arrow{d}{\pi'}\\
+        M \arrow{r}{f} & M'
+    \end{tikzcd}
+\end{equation*}
+commutes. In this section, bundles are assumed to be smooth.
+
+\begin{definition}{Principal fiber bundle}{principal_fiber_bundle}
+    Let \(G\) be a Lie group. A bundle \bundle{E}{\pi}{M} is a \emph{principal \(G\)-bundle} if
+    \begin{enumerate}[label=(\alph*)]
+        \item \(E\) is a \emph{right \(G\)-space}, that is, \(E\) is equipped with a right \(G\)-action \(\ract : E \times G \to E\);
+        \item \(\ract : E \times G \to E\) is free;
+        \item there exists a bundle \todo[isomorphism] between \bundle{E}{\pi}{M} and \bundle{E}{\phi}{E/G}, where the smooth map \(\phi : E \to E/G\) is the \emph{quotient map} that maps \(p \mapsto [p]\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Note that \(\phi^{-1}([p]) = G_p,\) for all \(p \in E\). Since \(\ract\) is free, it follows from \cref{prop:orbit_free} that \(\phi^{-1}([p])\) is diffeomorphic to \(G\) for all \(p \in E.\) In particular, the fiber \(\phi^{-1}([p])\) is homeomorphic to \(G\) for all \(p \in E\), so the bundle \bundle{E}{\phi}{E/G} is a fiber bundle.
+\end{remark}
+
+As an example to a principal fiber bundle, we define an object that is of utmost importance in differential geometry.
+\begin{definition}{Frame bundle}{frame_bundle}
+    Let \(M\) be an \(n\)-dimensional smooth manifold. Let \(x \in M\), we define the set
+    \begin{equation*}
+        L_xM = \set*{\left(e_1, \dots, e_n\right) \in (T_xM)^n | \set*{e_1, \dots, e_n} \text{ is a basis for } T_xM}
+    \end{equation*}
+    of all ordered basis of \(T_xM\). The disjoint union
+    \begin{equation*}
+        LM = \bigcupdot_{x \in M} L_xM,
+    \end{equation*}
+    equipped with a smooth atlas inherited from \(M\) is called the \emph{frame bundle} on \(M\).
+\end{definition}
+\begin{remark}
+    Every \(L_xM\) is isomorphic to \(\mathrm{GL(\mathbb{R}^n)}\), since every automorphism defines a new (ordered) basis.
+\end{remark}
+\begin{remark}
+    The smooth atlas is constructed from the smooth atlas on \(M\) analogously to what was done with the tangent bundle. Then, it is easy to see \(LM\) is an \((n^2 + n)\)-dimensional smooth manifold. The disjoint union allows for a trivial projection \(\pi : LM \to M\), which is smooth. Then \bundle{LM}{\pi}{M} is a smooth bundle.
+\end{remark}
+
+\begin{lemma}{Frame bundle is a right \(\mathrm{GL}(\mathbb{R}^n)\)-space}{frame_bundle_right}
+    Let \bundle{LM}{\pi}{M} be a frame bundle on an \(n\)-dimensional smooth manifold \(M\). Then the map
+    \begin{align*}
+        \ract : LM \times \mathrm{GL}(\mathbb{R}^n) &\to LM\\
+                           \left((e_1,\dots,e_n),g\right) &\mapsto (g\indices{^m_1}e_m, \dots, g\indices{^m_n}e_m)
+    \end{align*}
+    is a free right action.
+\end{lemma}
+\begin{proof}
+    \todo
+\end{proof}
+
+\begin{theorem}{Frame bundle is a principal \(\mathrm{GL}(\mathbb{R}^n)\)-bundle}{frame_bundle_principal}
+    Let \(M\) be an \(n\)-dimensional smooth manifold. Then, the frame bundle \bundle{LM}{\pi}{M} is a principal \(\mathrm{GL}(\mathbb{R}^n)\)-bundle.
+\end{theorem}
+\begin{proof}
+    From \cref{lem:frame_bundle_right}, it remains to show there exists diffeomorphisms \(u : LM \to LM\) and \(f : M \to LM/\mathrm{GL}(\mathbb{R}^n)\) such that the diagram
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            LM \arrow{r}{u} \arrow{d}{\pi} & LM \arrow{d}{\phi}\\
+            M \arrow{r}{f} & LM/\mathrm{GL}(\mathbb{R}^n)
+        \end{tikzcd}
+    \end{equation*}
+    commutes, where \(\phi : LM \to LM/\mathrm{GL}(\mathbb{R}^n)\) is the quotient map. \todo
+\end{proof}
+
+%1:23

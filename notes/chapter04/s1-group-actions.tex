@@ -1,0 +1,235 @@
+The rough idea of a \emph{principal fiber bundle} is a fiber bundle whose fiber is a Lie group. Principal fiber bundles are so immensely important, because they allow to understand any fiber bundle with a fiber \(F\) on which the Lie group \(G\) acts, called the \emph{associated bundles}. In Physics, principal fiber bundles are ubiquitous:
+\begin{enumerate}[label=(\alph*)]
+    \item In General Relativity, the fiber of a principal fiber bundle is given by either \(\mathrm{SO}(1,3)\) or \(\mathrm{SL}(2,\mathbb{C})\);
+    \item In Yang-Mills theory or non-abelian gauge theories, the fiber is given by either \(\mathrm{SU}(2)\) or \(\mathrm{SU}(3).\)
+\end{enumerate}
+
+\section{Lie group actions on a manifold}
+In the following definitions, one may relax the smooth requirements, obtaining equivalent definitions between groups and sets, instead of groups and manifolds.
+
+\begin{definition}{Left and right Lie group actions}{left_action}
+    Let \((G, \bullet)\) be a Lie group and let \(M\) be a smooth manifold. Then a smooth map
+    \begin{align*}
+        \lact : G \times M &\to M\\
+                     (g,p) &\mapsto g \lact p
+    \end{align*}
+    satisfying
+    \begin{enumerate}[label=(\alph*)]
+        \item \(e \lact p = p\) for all \(p \in M\), and
+        \item \(g \lact h \lact p = g \bullet h \lact p\)
+    \end{enumerate}
+    is called a \emph{left \(G\)-action on \(M\)}.
+
+    Similarly, a smooth map
+    \begin{align*}
+        \ract : M \times G &\to M\\
+                     (p,g) &\mapsto p \ract g
+    \end{align*}
+    satisfying
+    \begin{enumerate}[label=(\alph*)]
+        \item \(p \ract g = p\) for all \(p \in M\), and
+        \item \(p \ract g \ract h = p \ract g \bullet h\)
+    \end{enumerate}
+    is called a \emph{right \(G\)-action on \(M\)}.
+\end{definition}
+\begin{remark}
+    The key difference of right and left actions is the order in which the product \(g \bullet h\) acts on \(p\): on a left action, the element \(h\) acts first, while on a right action, the element \(g\) does. Thus, the following definitions will consider only left actions, and analogous definitions may be applied to right actions.
+\end{remark}
+\begin{example}
+    Representations of a Lie group are a special case of left actions. Indeed, let \(G\) be a Lie group and \(M = V\) a representation space of \(G\) with a representation
+    \begin{equation*}
+        R : G \to \mathrm{GL}(V).
+    \end{equation*}
+    We may define a left action \(\lact : G \times V \to V\) given by \((g,v) \mapsto R(g)v\).
+\end{example}
+
+\begin{proposition}{Left action induces a right action}{left_to_right}
+    Let \(\lact : G \times M \to M\) be a left \(G\)-action on \(M\), then
+    \begin{align*}
+        \ract : M \times G &\to M\\
+                      (p,g)&\mapsto g^{-1} \lact p
+    \end{align*}
+    is a right \(G\)-action on \(M.\)
+\end{proposition}
+\begin{proof}
+    Since the map \(g \mapsto g^{-1}\) is smooth, it is clear that \(\ract\) is a smooth map. It is clear that \(p \ract e = p\) since \(e^{-1} = e\) and \(\lact\) is a left action. Let \(g_1, g_2 \in G\), then
+    \begin{align*}
+        p \ract g_1 \ract g_2 &= \left(g_1^{-1} \lact p\right) \ract g_2\\
+                              &= g_2^{-1} \lact g_1^{-1} \lact p\\
+                              &= g_2^{-1}\bullet g_1^{-1} \lact p\\
+                              &= \left(g_1\bullet g_2\right)^{-1} \lact p\\
+                              &= p \ract g_1 \bullet g_2,
+    \end{align*}
+    hence \(\ract\) is a right action.
+\end{proof}
+\begin{remark}
+    Once expressed in terms of principal fiber bundles and associated bundles, we will see that the "recipe" of labeling a basis \(\set{e_1, \dots, e_n}\) of \(T_pM\) by lower indices and the components of \(X \in T_pM\) by upper indices and having the corresponding transformation behavior
+    \begin{equation*}
+        \tilde{e}_a = A\indices{^m_a}e_m\text{ and }\tilde{X}^a = (A^{-1})\indices{^a_m}X^m
+    \end{equation*}
+    will be understood as a right action of \(\mathrm{GL}(n)\) on the basis and a left action of the \(\mathrm{GL}(n)\) on the components.
+\end{remark}
+
+\begin{definition}{Equivariant maps}{equivariant_map}
+    Let \(\phi : G \to H\) be a Lie group homomorphism, let \(\lact : G \times M \to M\) be a left \(G\)-action on a smooth manifold \(M\), and let \(\lactalt : H \times N \to N\) be left \(H\)-action on a smooth manifold \(N\). The smooth map \(f : M \to N\) is \emph{\(\phi\)-equivariant} if the diagram
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            G\times M \arrow{r}{\phi \times f} \arrow{d}{\lact} & H \times N\arrow{d}{\lactalt}\\
+            M \arrow{r}{f} & N
+        \end{tikzcd}
+    \end{equation*}
+    commutes, that is, if \(f(g \lact p) = \phi(g) \lactalt f(p)\) for all \(g\in G\) and \(p \in M.\)
+\end{definition}
+
+\begin{definition}{Orbit}{orbit}
+    Let \(\lact : G \times M \to M\) be a left action. The \emph{orbit of \(p \in M\) under the action of the set \(G\)} is the set
+    \begin{equation*}
+        G_p = \set{q \in M : \exists g \in G : q =  g \lact p }.
+    \end{equation*}
+\end{definition}
+\begin{example}
+    Let \(M = \mathbb{R}^2\) and \(G = \mathrm{SO}(2)\) and let
+    \begin{equation*}
+        g \lact p = R(g)p \doteq \begin{pmatrix}
+            \cos \varphi && \sin \varphi\\
+            -\sin \varphi && \cos \varphi
+            \end{pmatrix} \begin{bmatrix}
+            p_1 \\ p_2
+        \end{bmatrix}
+    \end{equation*}
+    be a left action, then the orbit of a point \(p \in M\) is the circle centered at the origin that contains \(p\). It is clear that any two points in the same circle have the same orbit.
+\end{example}
+
+\begin{proposition}{Orbit defines an equivalence relation}{orbit_relation}
+    Let \(\lact : G \times M \to M\) be a left action. The relation
+    \begin{equation*}
+        p \sim q \iff \exists g \in G : q = g \lact p
+    \end{equation*}
+    is an equivalence relation on \(M\), whose equivalence classes are the orbits.
+\end{proposition}
+\begin{proof}
+    Let \(p, q, r \in M\). Then, \(\sim\) is
+    \begin{enumerate}[label=(\alph*)]
+        \item Reflexive: \(p \sim p\) since \(e \lact p = p\);
+        \item Symmetric: \(p \sim q \iff q \sim p\) since \(q = g\lact p \iff p = g^{-1} \lact q\); and
+        \item Transitive: \((p\sim q \land q \sim r) \implies p \sim r\) since
+            \begin{align*}
+                (p \sim q \land q \sim r) &\implies \exists g,h \in G: q = g\lact p\text{ and }r = h \lact q\\
+                                          &\implies \exists g,h \in G : r = h\lact g\lact p\\
+                                          &\implies \exists g,h \in G : r = hg \lact p\\
+                                          &\implies \exists g' \in G : r = g' \lact p.
+            \end{align*}
+    \end{enumerate}
+    Then, \(\sim\) is an equivalence relation on \(M\). The equivalence classes of \(\sim\) are, by definition,
+    \begin{align*}
+        [p] &= \set{ q \in M : p \sim q}\\
+            &= \set {q \in M : \exists g \in G : q = g \lact p}\\
+            &= G_p,
+    \end{align*}
+    as desired.
+\end{proof}
+
+\begin{definition}{Orbit space}{orbit_space}
+    Let \(\lact : G \times M \to M\) be a left action. The \emph{orbit space of \(M\)} is the quotient
+    \begin{equation*}
+        M/G = M/\sim = \set{G_p : p \in M}.
+    \end{equation*}
+\end{definition}
+\begin{example}
+    In the previous example, the orbit space is the set
+    \begin{equation*}
+        \mathbb{R}^2 / \mathrm{SO}(2) = \set{rS^1 \subset \mathbb{R}^2 : r \geq 0},
+    \end{equation*}
+    that is, the set consisting of the origin and the concentric circles around the origin.
+\end{example}
+
+\begin{definition}{Stabilizer of a point}{stabilizer}
+    Let \(\lact : G \times M \to M\) be a left action. The stabilizer of \(p \in M\) is the subgroup \(S_p \subset G\) defined by
+    \begin{equation*}
+        S_p = \set{g \in G : g \lact p = p},
+    \end{equation*}
+    that is, \(p\) is a \emph{fixed point} under the action of the subgroup \(S_p\).
+\end{definition}
+\begin{remark}
+    We prove the claim that \(S_p\) is a subgroup. Note that \(e \in S_p\) for all \(p \in M\), so \(S_p\) is not an empty set. Moreover, if \(g\in S_p\), then \(g^{-1} \in S_p,\) since
+    \begin{equation*}
+        g^{-1} \lact p = g^{-1} \lact g \lact p = p.
+    \end{equation*}
+    Similarly, if \(g, h \in S_p\) we have \(gh \in S_p\), because
+    \begin{equation*}
+        gh \lact p = g \lact h \lact p = g \lact p = p.
+    \end{equation*}
+    Therefore, \(S_p\) is a subgroup of \(G\), for all \(p \in M\).
+\end{remark}
+\begin{example}
+    In the previous example, \(S_p = \set{\id{\mathbb{R}^2}}\) for \(p \in M \smallsetminus \set{0}\) and \(S_0 = G\).
+\end{example}
+
+\begin{definition}{Effective action}{effective_action}
+    A left action \(\lact : G \times M \to M\) is \emph{effective} if
+    \begin{equation*}
+        \forall g \in G : \left[\forall p \in M : g \lact p = p \implies g = e\right],
+    \end{equation*}
+    that is, the identity is only element in \(G\) for which every point in \(M\) is a fixed point under the action.
+\end{definition}
+\begin{example}
+    In the previous example, the action is effective, since there exists no \(g \in G \smallsetminus {e} \in S_p\) for all \(p \in M\).
+\end{example}
+
+\begin{definition}{Free action}{free_action}
+    A left action \(\lact : G \times M \to M\) is \emph{free} if
+    \begin{equation*}
+        \forall g \in G : \left[\exists p \in M : g \lact p = p \implies g = e\right],
+    \end{equation*}
+    that is, the identity is the only element in \(G\) that has fixed points under the left action.
+\end{definition}
+\begin{remark}
+    A free action is "free of fixed points." Also, it is clear that every free action is faithful.
+\end{remark}
+\begin{example}
+    In the previous example, the left action is not free. More generally, the left action \(\lactalt : G \times V \to V\) induced by a linear representation \(R : G \to \mathrm{GL}(V)\) is never a free action since \(S_0 = G.\)
+\end{example}
+Notice that if \(\lact : G \times M \to M\) is a free action, then
+\begin{equation*}
+    g \lact p = h \lact p \implies g = h,
+\end{equation*}
+for all \(p \in M\). Indeed, we have
+\begin{align*}
+    g \lact p = h \lact p &\implies h^{-1} \lact g \lact p = e \lact p\\
+                          &\implies h^{-1}g \lact p = p\\
+                          &\implies h^{-1}g = e,
+\end{align*}
+which proves our claim.
+
+\begin{proposition}{Stabilizers of a free action are trivial}{stabilizer_free}
+    The left action \(\lact : G \times M \to M\) is free if and only if all stabilizers are trivial.
+\end{proposition}
+\begin{proof}
+    Suppose \(\lact\) is free. Let \(p \in M,\) then \(S_p = \set{g \in G : g \lact p = p}\). If \(g \in S_p,\) then \(p\) is a fixed point of \(g\), so \(g = e.\)
+
+    Suppose all stabilizers are trivial. Let \(g \in G\), then for all \(p \in M\) one has \(g \lact p = p \implies g = e\).
+\end{proof}
+
+\begin{proposition}{Orbits of a free action are diffeomorphic to the group}{orbit_free}
+    If \(\lact : G \times M \to M\) is a free action, then each orbit is diffeomorphic to the group.
+\end{proposition}
+\begin{example}
+    Similar to the previous example, but \(M = \mathbb{R}^2 \smallsetminus \set{0}\). The action defined similarly is free, because the zero vector is removed from the representation space. Moreover, each orbit is a circle, and \(S^1\) is the underlying smooth manifold of \(\mathrm{SO}(2).\)
+\end{example}
+\begin{proof}
+    \todo
+\end{proof}
+
+\begin{definition}{Transitive action}{transitive_action}
+    A left action \(\lact : G \times M \to M\) is \emph{transitive} if
+    \begin{equation*}
+        \exists p \in M : G_p = M.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    If there exists one element \(p \in M\) such that \(G_p = M\), it follows that \(\forall m \in M : G_m = M\) from \cref{prop:orbit_relation}.
+\end{remark}
+\begin{example}
+    The action \(\lactalt : T \times \mathbb{R}^n \to \mathbb{R}^n\), where \(T\) is the translation group on \(\mathbb{R}^n\) is transitive.
+\end{example}
+

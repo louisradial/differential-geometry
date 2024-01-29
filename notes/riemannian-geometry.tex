@@ -59,13 +59,17 @@
 \DeclarePairedDelimiter\set{\{}{\}}
 
 \newenvironment{smallpmatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)}
+\newcommand\ract{\mathbin{\vartriangleleft}}
+\newcommand\ractalt{\mathbin{\blacktriangleleft}}
+\newcommand\lact{\mathbin{\vartriangleright}}
+\newcommand\lactalt{\mathbin{\blacktriangleright}}
 \newcommand\ad[1]{\operatorname{ad}_{#1}}
 \newcommand\Ad[1]{\operatorname{Ad}_{#1}}
 \newcommand\preim[2]{\operatorname{preim}_{#1}{\left(#2\right)}}
 \newcommand\id[1]{\operatorname{id}_{#1}}
 \newcommand\colorunderline[2]{{\color{#1}\underline{{\color{black}{#2}}}}}
 \newcommand\Hom[2][]{\ensuremath{\operatorname{Hom}_{#1}{\left(#2\right)}}}
-\newcommand\bundle[3]{\ensuremath{#1 \xrightarrow{#2} #3}}
+\newcommand\bundle[3]{\ensuremath{#1 \mathrel{\overset{#2}{\to}} #3}}
 \newcommand\smooth[1]{\ensuremath{\mathcal{C}^\infty(#1)}}
 \newcommand\sections[1]{\ensuremath{\Gamma\left(#1\right)}}
 \newcommand\forms[2][]{\ensuremath{\Lambda^{#1}{\left({#2}\right)}}}
@@ -189,6 +193,10 @@
 \input{chapter03/s3-example-sl2c}
 \input{chapter03/s4-representation-theory}
 \input{chapter03/s5-reconstruction-lie-group}
+
+\chapter{Principal Fiber Bundles}
+\input{chapter04/s1-group-actions}
+\input{chapter04/s2-principal-fiber-bundles}
 
 \printbibliography
 \end{document}
