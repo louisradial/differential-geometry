@@ -1,0 +1,170 @@
+\section{The exponential map}
+We introduced Lie algebras with the construction from a Lie group via the left invariant vector fields on the Lie group. Moreover, we identified the Lie algebra with the tangent space at the identity of the Lie group. It is possible to recover a neighborhood of the identity from the Lie algebra due to the exponential map.
+
+Recall a complete vector field is a smooth vector field and at every point in the manifold there exists a maximal integral curve whose domain is the entire real line.
+\begin{theorem}{Left invariant vector fields are complete}{left_invariant_complete}
+    Every left invariant vector field on a Lie group is complete.
+\end{theorem}
+\begin{proof}
+    Let \(G\) be a Lie group and let \(\mathfrak{g}\) be the set of left invariant vector fields on \(G\). Let \(X \in \mathfrak{g}\), then there exists a maximal integral curve \(\gamma : I\to G\) for \(X\) with initial condition \(e \in G\), where \(I\subset \mathbb{R}\) is an open interval with \(0 \in I\). Recall that \(\gamma\) satisfies \(\gamma(0) = e\) and \(\dot{\gamma} = X\circ\gamma.\)
+
+    Suppose by contradiction the maximal interval is a proper subset of \(\mathbb{R},\) that is, there exists \(a, b \in \mathbb{R}\) such that \(I = (a,b).\) Notice \(\ell_g \circ \gamma\) is a smooth curve passing through \(g \in G\) at parameter zero and that
+    \begin{equation*}
+        \pf{\ell_g}(\dot{\gamma}(\lambda)) = X_{g \gamma(\lambda)} = X_{(\ell_g \circ \gamma)(\lambda)}
+    \end{equation*}
+    for all \(\lambda \in I\), since \(X\) is left invariant. That is, \(\ell_g \circ \gamma\) is an integral curve for \(X\) with initial condition \(g\), whose domain is clearly \(I\). Taking \(g = \gamma(b - \varepsilon)\) or \(g = \gamma(a + \varepsilon)\) for some small \(\varepsilon > 0\) allows to define an extended maximal interval for the integral curve \(\gamma\). This contradiction shows that \(I = \mathbb{R}\), hence \(X\) is a complete vector field.
+\end{proof}
+
+Let \(G\) be a Lie group and let \(\mathfrak{g}\) be its associated Lie algebra, that is, \(\mathfrak{g}\) is the set of left invariant vector fields. Recall the isomorphism \(j : T_eG \linear \mathfrak{g}\) defined by
+\begin{align*}
+    j : T_eG &\linear \mathfrak{g}\\
+           A &\mapsto j(A),
+\end{align*}
+where \(j(A)_g = \pf{\ell_g}A.\) That is, for every \(A \in T_eG\) there exists a unique left invariant vector field \(X^A = j(A) \in \mathfrak{g}\), and therefore a maximal integral curve \(\gamma^A : \mathbb{R} \to G\) through \(e\).
+
+\begin{definition}{Exponential map}{exponential_map}
+    Let \(G\) be a Lie group. The \emph{exponential map} is defined by
+    \begin{align*}
+        \exp : T_eG &\to G\\
+                  A &\mapsto \exp(A),
+    \end{align*}
+    where \(\exp(A) = \gamma^A(1),\) and \(\gamma^A : \mathbb{R} \to G\) is the maximal integral curve through \(e\) with respect to the left invariant vector field associated with \(A.\)
+\end{definition}
+\begin{remark}
+    It follows from the chain rule that \(\exp(\lambda A) = \gamma^A(\lambda)\) for all \(\lambda \in \mathbb{R}\). \todo[not clear to me]
+\end{remark}
+
+%what was this supposed to be?
+% Let \(X \in T_eG\) and let
+% \begin{equation*}
+% a
+% \end{equation*}
+
+\begin{theorem}{Exponential map is a local diffeomorphism around the zero vector}{exp_local_diffeo}
+    The exponential map is a \emph{local diffeomorphism} around \(0 \in T_eG\), that is, there exists a neighborhood \(V \subset T_eG\) of \(0\) such that \(\restrict{\exp}{V} : V \to \exp(V) \subset G\) is a diffeomorphism.
+\end{theorem}
+\begin{proof}
+    \todo[inverse map theorem]
+\end{proof}
+
+Since the exponential map is constructed with smooth curves, the image \(\exp(T_eG)\) is path-connected, that is \(\exp(T_eG) \subset G^0\), the identity component of \(G\). From the previous theorem, the exponential map allows to reconstruct some neighborhood of \(e\) of \(G^0\) solely from the Lie algebra \(\mathfrak{g}.\)
+\begin{theorem}{Surjectivity of the exponential map}{exp_surjective}
+    If \(G\) is compact and connected, then \(\exp(T_eG) = G,\) that is, \(\exp\) is surjective.
+\end{theorem}
+\begin{remark}
+    Compactness is not a necessary condition for the surjectivity of the exponential map on a connected Lie group.
+\end{remark}
+\begin{example}
+    Let \(V\) be a vector space equipped with a pseudo inner product \(B\), then the \emph{orthogonal group of \(V\) with relation to \(B\)} is the subgroup \(\mathrm{O}(V) \subset \mathrm{GL}(V)\) given by the automorphisms that preserve the inner pseudo product, that is, the set
+    \begin{equation*}
+        \mathrm{O}(V) = \set*{\phi \in \mathrm{Aut}(V) : B\left(\phi(u), \phi(v)\right) = B(u,v), \forall u,v \in V}
+    \end{equation*}
+    is a group under composition. It is easy to show that \(\det(\mathrm{O}(V)) = \set{-1,1}\), therefore \(\mathrm{O}(V)\) is disconnected, since the determinant is a continuous map. In particular, the identity component of \(\mathrm{O}(V)\) is the special orthogonal group,
+    \begin{equation*}
+        \mathrm{SO}(V) = \set*{\phi \in \mathrm{O}(V) : \det \phi = 1},
+    \end{equation*}
+    which can be shown to be compact \todo[if \(B\) is a proper inner product?]. Then, by the above theorem one has
+    \begin{equation*}
+        \exp\left(\mathfrak{so}(V)\right) = \mathrm{SO}(V) = \exp\left(\mathfrak{o}(V)\right).
+    \end{equation*}
+\end{example}
+\begin{example}
+    A basis \(\set{A_1, \dots, A_n}\) of \(T_eG\) provides a convenient system of coordinates of the Lie group in a neighborhood of \(e\). Consider the Lorentz group
+    \begin{equation*}
+        \mathrm{O}(1,3) = \set*{\Lambda \in \mathrm{GL}(\mathbb{R}^4) : \eta\left(\Lambda(x), \Lambda(y)\right) = \eta(x,y), \forall x, y \in \mathbb{R}^4},
+    \end{equation*}
+    where \(\eta : \mathbb{R}^4 \times \mathbb{R}^4 \to \mathbb{R}\) is the pseudo inner product with components
+    \begin{equation*}
+        \eta_{\mu\nu} = \begin{bmatrix}
+            -1 && 0 && 0 && 0 \\
+            0 && 1 && 0 && 0 \\
+            0 && 0 && 1 && 0 \\
+            0 && 0 && 0 && 1 \\
+        \end{bmatrix}_{\mu\nu}.
+    \end{equation*}
+    The identity component of the Lorentz group is called the \emph{restricted Lorentz group}, denoted by \(\mathrm{SO}^+(1,3),\) consisting of proper orthochronous Lorentz transformations, that is, automorphisms that preserve both the time orientation (orthochronous) and the space orientation (proper). \todo[is this compact? do I need it to be?]
+
+    The Lorentz group is 6 dimensional, and we consider an antisymmetric generating set, that is,
+    \begin{equation*}
+        \set{M^{\mu \nu} \in \mathfrak{o}(1,3): 0 \leq \mu, \nu \leq 3 },
+    \end{equation*}
+    where \(M^{\mu \nu} = - M^{\nu \mu},\)
+    \begin{equation*}
+        [M^{\mu\nu}, M^{\rho\sigma}] = \eta^{\nu\sigma} M^{\mu\rho} + \eta^{\mu\rho} M^{\nu\sigma} - \eta^{\nu\rho} M^{\mu\sigma} - \eta^{\mu\sigma} M^{\nu\rho}.
+    \end{equation*}
+
+    As a generating set, for every \(\lambda \in \mathfrak{o}(1,3)\), there exists an antisymmetric set of real numbers \(\omega_{\mu\nu}\) such that
+    \begin{equation*}
+        \lambda = \frac12\omega_{\mu\nu}M^{\mu\nu},
+    \end{equation*}
+    then
+    \begin{equation*}
+        \Lambda = \exp(\lambda) \in \mathrm{SO}^+(1,3).
+    \end{equation*}
+    The generating set \(\set{M^{\mu\nu}}\) provides a convenient system of coordinates for \(\mathrm{SO}^+{1,3}\), indeed, if
+    \begin{equation*}
+        \omega_{\mu\nu} = \begin{pmatrix}
+            0       && \psi_1       && \psi_2       && \psi_3\\
+            -\psi_1 && 0            && \varphi_1    && -\varphi_2\\
+            -\psi_2 && -\varphi_1   && 0            && \varphi_3\\
+            -\psi_3 && \varphi_2    && \varphi_3    && 0\\
+        \end{pmatrix}_{\mu\nu}
+    \end{equation*}
+    then \(\exp\left(\frac12 \omega_{\mu\nu}M^{\mu\nu}\right)\) is understood as a boost in the \((\psi_1, \psi_2, \psi_3)\) spatial direction and rotation by \((\varphi_1, \varphi_2, \varphi_3)\).
+
+    %not sure on this one, chief
+    A representation of \(\rho : \mathfrak{so}^+(1,3) \linear \End(\mathbb{R}^4)\) is given by
+    \begin{equation*}
+        \rho\left(M^{\mu\nu}\right)\indices{^\alpha_{\beta}} = \eta^{\nu \alpha}\delta^\mu_{\beta} - \eta^{\nu \alpha}\delta^\nu_{\beta}.
+    \end{equation*}
+    With this, we get a group representation
+    \begin{align*}
+        R : \mathrm{SO}^+(3,1) &\to \mathrm{GL}(\mathbb{R}^4)\\
+                       \Lambda &\mapsto \exp\left(\rho(\Lambda)\right),
+    \end{align*}
+    where the usual matrix exponentiation is understood.
+\end{example}
+
+\begin{corollary}
+    If \(G\) is compact and connected, \(\exp\) is not injective.
+\end{corollary}
+\begin{proof}
+    Were \(\exp\) injective, then there would be a diffeomorphism from a non-compact topological space \(T_eG\) to a compact topological space \(G\). But diffeomorphisms are a particular case of homeomorphisms, which preserve compactness.
+\end{proof}
+
+%
+
+\begin{definition}{One-parameter subgroup}{one_parameter}
+    A \emph{one-parameter subgroup} of a Lie group \(G\) is a Lie group homomorphism from \((\mathbb{R}, +)\) to \((G, \bullet)\), that is, a smooth map \(\xi : \mathbb{R} \to G\) such that \(\xi(\lambda_1 + \lambda_2) = \xi(\lambda_1)\bullet\xi(\lambda_2)\).
+\end{definition}
+\begin{example}
+    Let \(M\) be a smooth manifold and let \(Y \in \sections{TM}\) be a complete vector field. Recall flow of \(Y\) is the smooth map
+    \begin{align*}
+        \Phi : \mathbb{R} \times M &\to M\\
+                       (\lambda,p) &\mapsto \Phi_{\lambda}(p),
+    \end{align*}
+    where \(\Phi_{\lambda}(p) = \gamma_p(\lambda)\) and \(\gamma_p : \mathbb{R} \to M\) is the maximal integral curve of \(Y\) with initial condition \(p\). Fixing \(\lambda,\) the map \(\Phi_{\lambda} : M \to M\) is a diffeomorphism, that is, the map
+    \begin{align*}
+        \xi : \mathbb{R} &\to \mathrm{Diff}(M)\\
+                 \lambda &\mapsto \Phi_{\lambda}
+    \end{align*}
+    is a one-parameter subgroup of \(\mathrm{Diff}(M)\), the group of diffeomorphisms \(M \to M\) under composition.
+\end{example}
+
+\begin{theorem}{Exponential map is a one-parameter subgroup}{exp_one_parameter}
+    For any \(A \in T_eG,\) the map \(\xi^A(\lambda) = \exp(\lambda A)\) is a one-parameter subgroup of \(G.\) Every one-parameter subgroup of \(G\) is of this form.
+\end{theorem}
+\begin{proof}
+    \todo
+\end{proof}
+
+\begin{theorem}{}{}
+    Let \(f : G \to H\) be a Lie group homomorphism, then the diagram
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            G \arrow{r}{f} & H\\
+            T_eG \arrow{u}{\exp} \arrow{r}{\pf{f}} & T_eH \arrow[swap]{u}{\exp}
+        \end{tikzcd}
+    \end{equation*}
+    commutes, that is \(\exp\circ f = \pf{f} \circ \exp.\)
+\end{theorem}

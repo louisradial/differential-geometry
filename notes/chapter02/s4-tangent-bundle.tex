@@ -29,7 +29,6 @@ The previous definition makes it clear that
 \end{equation*}
 is a \emph{set bundle}. We wish to add structure to \(TM\) such that this is a bundle on smooth manifolds.
 
-
 Let \((U, x) \in \mathscr{A}_M\) be a chart. We define the map
 \begin{align*}
     \xi : \pi^{-1}(U) &\to \xi\left(\pi^{-1}(U)\right) \subset \mathbb{R}^{2n}\\
@@ -500,3 +499,37 @@ We may regard the Lie bracket as a product of vector fields. We now present prop
     \end{equation*}
     It is easy to see that the sum of the last three equations yields the Jacobi identity.
 \end{proof}
+
+\subsection{Integral curves and local flows}
+Given a vector field, it's possible to define a curve whose velocity at any point is given by the vector field at that point.
+
+\begin{definition}{Integral curve}{integral_curve}
+    Let \(M\) be a smooth manifold and let \(Y \in \sections{TM}\) be a smooth vector field. A smooth curve \(\gamma : (-\varepsilon, \varepsilon) \to M\) is an \emph{integral curve for \(Y\) with initial condition \(p \in M\)} if \(\gamma(0) = p\) and
+    \begin{equation*}
+        X_{\gamma, \gamma(\lambda)} = Y_{\gamma(\lambda)},
+    \end{equation*}
+    for all \(\lambda \in (-\varepsilon, \varepsilon)\).
+\end{definition}
+
+Let \((U, x) \in \mathscr{A}_M\) be a chart, where \(U\) is a neighborhood of \(p \in M\), and let \(Y^i\) be the components of \(Y\) in the chart induced basis, then a smooth curve \(\gamma : (-\varepsilon, \varepsilon)\) is an integral curve of \(Y\) if and only if \(\gamma(0) = p\) and
+\begin{equation*}
+    \diff{\left(x^i \circ \gamma\right)}{t}[t=\lambda] = Y^i \circ \gamma (\lambda),
+\end{equation*}
+for all \(\lambda \in I\).
+
+From the local existence and uniqueness of solutions to ordinary differential equations, it is clear that there is a locally unique integral curve of a smooth vector field through each point of the manifold. By local uniqueness, it is understood that if \(\gamma_I : I \to M\) and \(\gamma_J : J \to M\) are two integral curves of \(Y\) with initial condition \(p\), then \(\gamma_I = \gamma_J\) in the intersection \(I \cap J,\) and as a consequence, \(\gamma_{I \cup J} : I \cup J \to M\) is an integral curve of \(Y\).
+
+\begin{definition}{Maximal integral curve}{maximal_integral_curve}
+    An integral curve is \emph{maximal} if its domain cannot be extended to a larger interval. In this case, the domain is called the \emph{maximal interval}.
+\end{definition}
+
+It may be possible to extend the interval of an integral curve to the entire real line, however it may not be possible to do this for every initial condition.
+\begin{definition}{Complete vector field}{complete_vector_field}
+    A smooth vector field is \emph{complete} if at every point in the manifold there exists an integral curve whose maximal interval is \(\mathbb{R}.\)
+\end{definition}
+\begin{remark}
+    On a compact manifold, every vector field is complete. As an example, recall there's no smooth non-vanishing vector field on the sphere \(S^2\). At a point \(p\) where a smooth vector field vanishes, the integral curve must be the constant curve, which is trivially extended to the entire real line. On a neighborhood of \(p,\) the integral curves can be extended to the entire real line, since \(S^2\) is compact, which would mean the integral curves would asymptotically approach \(p\).
+\end{remark}
+
+\todo[local flows]
+\todo[Lie derivative]

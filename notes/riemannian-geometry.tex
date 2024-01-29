@@ -48,7 +48,7 @@
     outer-Rdelim = \right|,
     sub-nudge=0 mu
 }
-\newcommand\todo{{\color{Red} TODO!}}
+\newcommand\todo[1][!]{{\color{Red} TODO {#1}}}
 \DeclareMathOperator\sgn{sgn}
 \DeclareMathOperator\End{End}
 \DeclareMathOperator\tr{tr}
@@ -60,6 +60,7 @@
 
 \newenvironment{smallpmatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)}
 \newcommand\ad[1]{\operatorname{ad}_{#1}}
+\newcommand\Ad[1]{\operatorname{Ad}_{#1}}
 \newcommand\preim[2]{\operatorname{preim}_{#1}{\left(#2\right)}}
 \newcommand\id[1]{\operatorname{id}_{#1}}
 \newcommand\colorunderline[2]{{\color{#1}\underline{{\color{black}{#2}}}}}
@@ -167,16 +168,27 @@
 \tableofcontents
 
 \chapter{Topological Manifolds}
-\input{chapter01/topological-manifolds}
+\input{chapter01/s1-topology}
+\input{chapter01/s2-convergence}
+\input{chapter01/s3-homeomorphisms}
+\input{chapter01/s4-compactness}
+\input{chapter01/s5-connectedness}
+\input{chapter01/s6-fundamental-group}
+\input{chapter01/s7-topological-manifolds}
 
 \chapter{Differentiable Manifolds}
-\input{chapter02/differentiable-manifolds}
+\input{chapter02/s1-smooth-atlas}
+\input{chapter02/s2-linear-algebra}
+\input{chapter02/s3-tangent-space}
+\input{chapter02/s4-tangent-bundle}
+\input{chapter02/s5-differential-forms}
 
-\chapter{Lie Groups and Lie Algebras}
+\chapter{Lie Theory}
 \input{chapter03/s1-lie-groups}
 \input{chapter03/s2-classification-of-lie-algebras}
 \input{chapter03/s3-example-sl2c}
 \input{chapter03/s4-representation-theory}
+\input{chapter03/s5-reconstruction-lie-group}
 
 \printbibliography
 \end{document}

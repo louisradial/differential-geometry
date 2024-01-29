@@ -1,1 +1,266 @@
-\section{Representation theory of Lie groups and Lie algebras}
+\section{Representation theory of Lie algebras and Lie groups}
+In the previous sections, a Lie group was a manifold equipped with smooth group operations and its associated Lie algebra was the set of left invariant vector fields. However, it is common to encounter Lie groups and Lie algebras in their representations, to the extent where they are often defined by their representations.
+
+\subsection{Representations of Lie algebras}
+We will concern ourselves with finite dimensional Lie algebras over either \(\mathbb{C}\) or \(\mathbb{R}.\)
+
+\begin{definition}{Representation of a Lie algebra}{lie_algebra_representation}
+    Let \(\mathfrak{g}\) be a finite dimensional Lie algebra and \(V\) a finite dimensional vector space. A \emph{representation of \(\mathfrak{g}\)} is a Lie algebra homomorphism \(\rho\) between \(\mathfrak{g}\) and \(\End(V)\). That is,
+    \begin{align*}
+        \rho : \mathfrak{g} &\linear \End(V)\\
+                          x &\mapsto \rho(x),
+    \end{align*}
+    such that
+    \begin{equation*}
+        \rho([x,y]) = [\rho(x), \rho(x)] = \rho(x) \circ \rho(y) - \rho(y) \circ \rho(x).
+    \end{equation*}
+    The vector space \(V\) is called a \emph{representation space} and the \emph{dimension of the representation \(\rho\)} is defined as \(\dim V\).
+\end{definition}
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item Recall the basis \(\set{X_1, X_2, X_3}\) for \(\mathfrak{sl}(2, \mathbb{C})\) satisfying
+            \begin{equation*}
+                [X_1, X_2] = 2X_2, [X_1, X_3] = -2X_3,\text{ and }[X_2, X_3] = X_1.
+            \end{equation*}
+            A representation of \(\mathfrak{sl}(2,\mathbb{C})\) is the map
+            \begin{align*}
+                \rho : \mathfrak{sl}(2,\mathbb{C}) &\linear \End(\mathbb{C}^2)\\
+                                                 X &\mapsto \rho(X),
+            \end{align*}
+            where the components of \(\rho(X)\) are
+            \begin{equation*}
+                \rho(X)\indices{^i_j} = \begin{bmatrix}
+                    \alpha && \beta\\
+                    \gamma && -\alpha
+                \end{bmatrix}\indices{^i_j},
+            \end{equation*}
+            where \(X = \alpha X_1 + \beta X_2 + \gamma X_3\) for some \(\alpha,\beta,\gamma \in \mathbb{C}\). Due to this representation, the Lie algebra \(\mathfrak{sl}(2,\mathbb{C})\) is commonly defined as the set of traceless \(2\times2\) complex matrices.
+        \item Consider a basis \(\set{J_1,J_2,J_3}\) of a three dimensional real Lie algebra with
+            \begin{equation*}
+                [J_i, J_j] = C\indices{^k_{ij}}J_k.
+            \end{equation*}
+            If \(K_{ab} = C\indices{^m_{an}}C\indices{^n_{bm}}\) are the coefficients of the Killing form, we define the symbols
+            \begin{equation*}
+                C_{kij} = K_{km}C\indices{^m_{ij}}.
+            \end{equation*}
+            The Lie algebra \(\mathfrak{so}(3, \mathbb{R})\) may be defined by having \(C_{kij} = \epsilon_{ijk}\), where
+            \begin{equation*}
+                \epsilon_{ijk} = \begin{cases}
+                    1 & \text{if } (ijk)\text{ is an even permutation of (123).}\\
+                    -1 & \text{if } (ijk)\text{ is an odd permutation of (123).}\\
+                    0 & \text{otherwise}
+                \end{cases}
+            \end{equation*}
+            is the Levi-Civita symbol.
+
+            A representation of \(\mathfrak{so}(3,\mathbb{C})\) is the map
+            \begin{align*}
+                \rho_{\mathrm{vec}} : \mathfrak{so}(3,\mathbb{R}) &\linear \End(\mathbb{R}^3)\\
+                                                                J &\mapsto \rho_{\mathrm{vec}}(J),
+            \end{align*}
+            where the components of \(\rho_{\mathrm{vec}}(J)\) are
+            \begin{equation*}
+                \rho_{\mathrm{vec}}(J)\indices{^i_j} = \begin{bmatrix}
+                    0 && -\alpha && \beta\\
+                    \alpha && 0 && -\gamma\\
+                    -\beta && \gamma && 0\\
+                \end{bmatrix}\indices{^i_j},
+            \end{equation*}
+            where \(J = \alpha J_1 + \beta J_2 + \gamma J_3\) for some \(\alpha,\beta,\gamma \in \mathbb{R}\). Due to this representation, the Lie algebra \(\mathfrak{so}(3,\mathbb{R})\) is commonly defined as the set of antisymmetric matrices.
+
+            Another representation of this Lie algebra is the map
+            \begin{align*}
+                \rho_{\mathrm{spin}} : \mathfrak{so}(3,\mathbb{R}) &\linear \End(\mathbb{C}^2)\\
+                X &\mapsto \rho_{\mathrm{spin}}(X),
+            \end{align*}
+            where \(\rho_{\mathrm{spin}}(J_k) = \frac{1}{2i} \sigma_k\) and each \(\sigma_k\) has components given by the Pauli matrices
+            \begin{equation*}
+                \begin{aligned}
+                    \sigma_1 = \begin{smallpmatrix}
+                        0 && 1\\
+                        1 && 0
+                        \end{smallpmatrix}, &&\sigma_2 = \begin{smallpmatrix}
+                        0 && -i\\
+                        i && 0
+                        \end{smallpmatrix}, &&\sigma_3 = \begin{smallpmatrix}
+                        1 && 0\\
+                        0 && -1
+                    \end{smallpmatrix}.
+                \end{aligned}
+            \end{equation*}
+        \item There is always the trivial representation on any vector space as the representation space, namely
+            \begin{align*}
+                \rho_{\mathrm{trivial}} : \mathfrak{g} &\linear \End(V)\\
+                                  X &\mapsto 0.
+            \end{align*}
+            This is trivially a Lie algebra homomorphism.
+        \item Recall every Lie algebra \(\mathfrak{g}\) has natural a Lie algebra homomorphism with its set of endomorphisms
+            \begin{align*}
+                \mathrm{ad} : \mathfrak{g} &\linear \End(\mathfrak{g})\\
+                X &\mapsto \ad{X},
+            \end{align*}
+            that is, every Lie algebra may be represented with itself as the representation space.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}{Reducible and irreducible representations}{rep_reducible}
+    A representation \(\rho : \mathfrak{g} \linear \End(V)\) is \emph{reducible} if there exists a nontrivial vector subspace \(U \subset V\) such that \(\rho(\mathfrak{g})(U) \subset U\), that is, \(\restrict{\rho}{U} : \mathfrak{g} \linear \End(U)\) is a representation. Otherwise, \(\rho\) is \emph{irreducible.}
+\end{definition}
+\begin{example}
+    Consider the representations \(\rho_{\mathrm{vec}}\) and \(\rho_{\mathrm{spin}}\) of \(\mathfrak{so}(3,\mathbb{R})\). We may construct a map
+        \begin{align*}
+            \rho : \mathfrak{so}(3, \mathbb{R}) &\to \End(\mathbb{R}^3 \oplus \mathbb{C}^2)\\
+                                              X &\mapsto \begin{pmatrix}
+                                                    \rho_{\mathrm{vec}}(X) && 0\\
+                                                    0 && \rho_{\mathrm{spin}}(X)
+                                                \end{pmatrix}
+        \end{align*}
+        which is a reducible representation.
+\end{example}
+
+\begin{definition}{Faithful representations}{rep_faithful}
+    A representation \(\rho : \mathfrak{g} \linear \End(V)\) is \emph{faithful} if it is injective.
+\end{definition}
+\begin{remark}
+    The irreducible representations of \(\mathfrak{so}(3,\mathbb{R})\) and \(\mathfrak{sl}(2,\mathbb{C})\) given in the examples are faithful.
+
+    The \emph{center} of a Lie algebra \(\mathfrak{g}\) is the vector subspace \(\set{x \in \mathfrak{g} : \ad{x} = 0}\). We consider the adjoint representation \(\mathrm{ad} : \mathfrak{g} \to \End(\mathfrak{g})\), then for \(x, y \in \mathfrak{g}\)
+    \begin{equation*}
+        \ad{x} = \ad{y} \implies \forall z \in \mathfrak{g} : \ad{z}(x-y) = 0,
+    \end{equation*}
+    that is, \(\mathrm{ad}\) is faithful if the center of \(\mathfrak{g}\) is trivial.
+\end{remark}
+
+\subsubsection{Casimir operator}
+Given a representation, a linear operator on the representation may be constructed, called the Casimir operator. We turn our attention to the special case of semisimple finite-dimensional complex Lie algebras and faithful representations.
+
+\begin{definition}{\(\rho\)-Killing form}{rkilling}
+    Let \(\mathfrak{g}\) be a \(n\)-dimensional semisimple complex Lie algebra and let \(\rho : \mathfrak{g} \linear \End(V)\) be a faithful representation over a complex representation space \(V\). The \emph{\(\rho\)-Killing form on \(\mathfrak{g}\)} is the bilinear map
+    \begin{align*}
+        K_{\rho} : \mathfrak{g} \times \mathfrak{g} &\linear \mathbb{C}\\
+                                              (X,Y) &\mapsto \tr(\rho(X) \circ \rho(Y)).
+    \end{align*}
+\end{definition}
+
+Similar to what was seen before, if \(\mathfrak{g}\) is semisimple and \(\rho\) is faithful, the \(\rho\)-Killing form \(K_\rho\) is a pseudo inner product on \(\mathfrak{g}\). This bilinear map defines an isomorphism \(\psi : \mathfrak{g} \to \mathfrak{g}^{\ast}\) with \(\psi(X) = K_\rho(X, \cdot)\).
+
+Let \(\set{X_1, \dots, X_n}\) be a basis for \(\mathfrak{g}\) and \(\set{\epsilon^1, \dots, \epsilon^n}\) be the dual basis, that is, \(\epsilon^i(X_j) = \delta^i_j\). Since \(\psi\) is an isomorphism, there is a unique basis \(\set{\xi_1, \dots, \xi_n}\) such that \(\psi(\xi_i) = \epsilon^i.\) Then, the pair of basis \(\set{X_1, \dots, X_n}\) and \(\set{\xi_1, \dots, \xi_n}\) satisfy
+\begin{equation*}
+    K_\rho (X_i, \xi_j) = \delta_{ij}
+\end{equation*}
+for \(i,j \in \set{1,\dots, n}\).
+
+\begin{definition}{Casimir operator}{casimir_operator}
+    Let \(\set{X_1, \dots, X_n}\) be a basis of \(\mathfrak{g}\) and let \(\set{\xi_1, \dots, \xi_n}\) be the basis of \(\mathfrak{g}\) such that \(K_\rho(X_i, \xi_j) = \delta_{ij}.\) The Casimir operator is the map \(\Omega_\rho: V \linear V\) defined by
+    \begin{equation*}
+        \Omega_\rho = \sum_{i = 1}^{n} \rho(X_i) \circ \rho(\xi_i).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The Casimir operator is independent of choice of basis. Indeed, \(\set{Y_1, \dots, Y_n}\) be another basis of \(\mathfrak{g}\), then there exists \(\phi \in \mathrm{Aut}(\mathfrak{g})\) such that \(Y_i = \phi\indices{^j_i}X_j.\) Let \(\set{\eta_1, \dots, \eta_n}\) be the basis of \(\mathfrak{g}\) such that \(K_\rho(Y_i, \eta_j) = \delta_{ij},\) that is, \(\psi(\eta_i) = (\phi^{-1})\indices{^i_j}\epsilon^j,\) with \(\phi\indices{^i_j}(\phi^{-1})\indices{^j_k} = \delta^i_k.\) We have
+    \begin{align*}
+        \sum_{i = 1}^n \rho(Y_i)\circ \rho(\eta_i) &= \sum_{i=1}^n \sum_{j=1}^n\sum_{k=1}^n \rho\left(\phi\indices{^j_i}X_j\right) \circ \rho\left(\psi^{-1}((\phi^{-1})\indices{^i_k}\epsilon^k)\right)\\
+                                                   &= \sum_{i=1}^n \sum_{j=1}^n \sum_{k=1}^n \phi\indices{^j_i} (\phi^{-1})\indices{^i_k} \rho(X_j) \circ \rho(\xi_k)\\
+                                                   &= \sum_{j=1}^n \sum_{k=1}^n \delta^j_k \rho(X_j)\circ \rho(\xi_k)\\
+                                                   &= \sum_{k=1}^n \rho(X_k) \circ \rho(\xi_k),
+    \end{align*}
+    as claimed.
+\end{remark}
+
+\begin{theorem}{Casimir operator commutes with every element in \(\rho(\mathfrak{g})\)}{casimir_center}
+    For all \(X \in \mathfrak{g},\) \([\Omega_\rho, \rho(X)] = 0\).
+\end{theorem}
+\begin{proof}
+    % https://drive.google.com/file/d/1nchF1fRGSY3R3rP1QmjUg7fe28tAS428/view 158
+    \todo
+\end{proof}
+
+\begin{lemma}{Schur's lemma}{schurs_lemma}
+    Let \(\rho : \mathfrak{g} \linear \End(V)\) be an irreducible representation and let \(S_\rho\) be an operator that commutes with every element in \(\rho(\mathfrak{g})\subset \End(V)\), then there exists \(c_\rho \in \mathbb{C}\) such that \(S_\rho = c_\rho \id{V}\).
+\end{lemma}
+
+We may use Schur's lemma to determine the constant \(c_\rho\) for the Casimir operator \(\Omega_\rho\).
+\begin{proposition}{Schur's lemma applied to Casimir operator}{schur_casimir}
+    Let \(\rho : \mathfrak{g} \to \End(V)\) be a faithful irreducible operator. Then the Casimir operator \(\Omega_\rho : V\to V\) is given by \(\Omega_\rho = c_\rho \id{V}\), where
+    \begin{equation*}
+        c_\rho = \frac{\dim{\mathfrak{g}}}{\dim V}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    By Schur's lemma, we have
+    \begin{equation*}
+        \tr(\Omega_\rho) = \tr(c_\rho \id{V}) = c_\rho \dim{V}.
+    \end{equation*}
+    By definition, we have
+    \begin{align*}
+        \tr(\Omega_\rho) &= \tr\left(\sum_{i = 1}^{\dim \mathfrak{g}} \rho(X_i)\circ\rho(\xi_i)\right)\\
+                         &= \sum_{i=1}^{\dim\mathfrak{g}} \tr\left(\rho(X_i)\circ\rho(\xi_i)\right)\\
+                         &= \sum_{i=1}^{\dim\mathfrak{g}} K(X_i, \xi_i)\\
+                         &= \dim\mathfrak{g},
+    \end{align*}
+    which proves our claim.
+\end{proof}
+\begin{example}
+    Consider the basis \(\set{J_1,J_2,J_3}\) for \(\mathfrak{so}(3,\mathbb{R})\) that satisfies \([J_i, J_j] = \epsilon_{ijk} J_k.\)
+    \begin{enumerate}[label=(\alph*)]
+        \item We first consider the representation \(\rho_{\mathrm{vec}} : \mathfrak{so}(3,\mathbb{R}) \to \End(\mathbb{R}^3)\). It is straightforward to verify that
+            \begin{equation*}
+                \left(K_{\rho_{\mathrm{vec}}}\right)_{ij} = -2\delta_{ij},
+            \end{equation*}
+            then the basis used in the construction of the Casimir operator must be \(\set*{-\frac{1}{2}J_1, -\frac{1}{2}J_2, -\frac{1}{2}J_3}.\) In this case, it is easy to verify the Casimir operator \(\Omega_{\rho_{\mathrm{vec}}}\) is
+            \begin{align*}
+                \Omega_{\rho_{\mathrm{vec}}} &= -\frac{1}{2} \sum_{i = 1}^3 \rho_{\mathrm{vec}}(J_i)\circ\rho_{\mathrm{vec}}(J_i)\\
+                                             &= \id{\mathbb{R}^3},
+            \end{align*}
+            in accordance with our previous result.
+        \item We now consider the representation \(\rho_{\mathrm{spin}} : \mathfrak{so}(3,\mathbb{R}) \to \End(\mathbb{C}^2)\), where \(\rho_{\mathrm{spin}}(J_k) = \frac{1}{2i}\sigma_k\), and \(\sigma_k\) is a Pauli matrix, satisfying \(\sigma_k \circ \sigma_k = \id{\mathbb{C}^2}\). As before, we compute the \(\rho_{\mathrm{spin}}\)-Killing form, obtaining
+            \begin{equation*}
+                \left(K_{\rho_{\mathrm{spin}}}\right)_{ij} = -\delta_{ij},
+            \end{equation*}
+            then the basis used in the construction of the Casimir operator must be \(\set*{-J_1, -J_2, -J_3}.\) We may now compute the Casimir operator \(\Omega_{\rho_{\mathrm{spin}}}\),
+            \begin{align*}
+                \Omega_{\rho_{\mathrm{spin}}} &= -\sum_{i = 1}^3 \rho_{\mathrm{spin}}(J_i)\circ\rho_{\mathrm{spin}}(J_i)\\
+                                              &= \sum_{k=1}^3 \frac{1}{4} \sigma_k \circ \sigma_k\\
+                                              &= \frac{3}{4} \id{\mathbb{C}^2},
+            \end{align*}
+            which also agrees with our result, since \(\mathbb{C}^2\) is being considered a vector space over \(\mathbb{R}\).
+    \end{enumerate}
+\end{example}
+
+\subsection{Representations of Lie groups}
+
+Let \((G, \bullet)\) be a finite-dimensional Lie group and let \(\mathrm{GL}(V)\) denote the Lie group of automorphisms in the vector space \(V\).
+
+\begin{definition}{Representation of a Lie group}{lie_group_representation}
+    The \emph{representation of the Lie group \(G\)} is a group homomorphism \(R\) between \(G\) and \(\mathrm{GL}(V)\), for some representation space \(V\), that is
+    \begin{equation*}
+        R : G \to \mathrm{GL}(V)
+    \end{equation*}
+    satisfying \(R(g_1) \circ R(g_2) = R(g_1 \bullet g_2)\).
+\end{definition}
+\begin{example}
+    Consider the Lie group \(\mathrm{SO}(2).\) As a manifold, it is diffeomorphic to \(S^1\). Let \((U, \angle)\) be a chart in the manifold, with \(U \cup \set{p_0} = S^1\) and \(\angle\) the homeomorphism that associates to each point \(p \in S^1\) to the (positive) angle \(\angle(p) \in (0, 2\pi)\) in relation to \(p_0\). We may represent the submanifold \(U\) with the map
+    \begin{align*}
+        R : U &\to \mathrm{GL}(\mathbb{R}^2)\\
+            p &\mapsto \begin{smallpmatrix}
+                  \cos \angle(p) && \sin\angle(p)\\
+                  -\sin\angle(p) && \cos\angle(p)
+              \end{smallpmatrix}
+    \end{align*}
+    which satisfies \(R(p_1 p_2) = R(p_1)\circ R(p_2).\)
+\end{example}
+
+\begin{definition}{Adjoint map}{group_adjoint_map}
+    Given \(g \in G\), we define the \emph{adjoint map with respect to \(g\)}
+    \begin{align*}
+        \Ad{g} : G &\to G\\
+                 h &\mapsto ghg^{-1}.
+    \end{align*}
+\end{definition}
+
+Notice \(\Ad{g}(e) = e\) for all \(g \in G\). Then, the pushforward \(\pf[e]{\Ad{g}}\) is an automorphism, since it maps \(T_eG\) to \(T_{\Ad{g}(e)}G = T_eG\) and it is invertible. Hence
+\begin{align*}
+    \mathrm{Ad} : G &\to \mathrm{GL}(T_eG)\\
+                  g &\mapsto \pf[e]{\Ad{g}}
+\end{align*}
+is a representation, called the \emph{adjoint representation}.

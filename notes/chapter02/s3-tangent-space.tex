@@ -5,7 +5,7 @@ We suppress the notation of a smooth manifold \manifold{M} to simply its set \(M
 Let \(M\) be a smooth manifold. We equip the set of smooth functions from \(M\) to \(\mathbb{R}\) with point-wise addition and scalar multiplication, and we claim \((\smooth{M}, +, \cdot)\) is a vector space. That is, if \(f, g \in \smooth{M}\) and \(\lambda \in \mathbb{R}\), then \((f+g)(p) = f(p) + g(p)\) and \((\lambda f)(p) = \lambda\cdot f(p)\), where \(p \in M\).
 
 \begin{definition}{Directional derivative at a point along a curve}{tangent_vector}
-    Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an open interval, for some \(\varepsilon > 0\). Let \(\lambda : I \to M\) be a smooth curve through a point \(p \in M\) such that \(p = \gamma(0)\). The \emph{directional derivative operator at the point \(p\) along the curve \(\gamma\)} is the linear map
+    Let \(I = (-\varepsilon, \varepsilon) \subset \mathbb{R}\) be an open interval, for some \(\varepsilon > 0\). Let \(\gamma : I \to M\) be a smooth curve through a point \(p \in M\) such that \(p = \gamma(0)\). The \emph{directional derivative operator at the point \(p\) along the curve \(\gamma\)} is the linear map
     \begin{align*}
         X_{\gamma, p} : \smooth{M} &\linear \mathbb{R}\\
                                             f &\mapsto (f \circ \gamma)'(0).
