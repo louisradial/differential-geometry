@@ -1,12 +1,12 @@
 \section{Principal fiber bundles}
-A \emph{smooth bundle} \bundle{E}{\pi}{M} is a bundle where \(E\) and \(M\) are smooth manifolds and the projection \(\pi : E \to M\) is smooth. Two smooth bundles \bundle{E}{\pi}{M} and \bundle{E'}{\pi'}{M'} are \todo[isomorphic] if there exists diffeomorphisms \(u : E \to E'\) and \(f : M \to M'\) such that the diagram
+A \emph{smooth bundle} \bundle{E}{\pi}{M} is a bundle where \(E\) and \(M\) are smooth manifolds and the projection \(\pi : E \to M\) is smooth. Two smooth bundles \bundle{E}{\pi}{M} and \bundle{E'}{\pi'}{M'} are \todo[isomorphic] if there exists a pair of diffeomorphisms \((u, f)\) where \(u : E \to E'\) and \(f : M \to M'\) such that the diagram
 \begin{equation*}
     \begin{tikzcd}[column sep = normal, row sep = large]
         E \arrow{r}{u} \arrow{d}{\pi} & E' \arrow{d}{\pi'}\\
         M \arrow{r}{f} & M'
     \end{tikzcd}
 \end{equation*}
-commutes. In this section, bundles are assumed to be smooth.
+commutes, in that case, the pair \((u,f)\) is called a \emph{bundle isomorphism}. In this section, bundles are assumed to be smooth.
 
 \begin{definition}{Principal fiber bundle}{principal_fiber_bundle}
     Let \(G\) be a Lie group. A bundle \bundle{E}{\pi}{M} is a \emph{principal \(G\)-bundle} if
@@ -17,16 +17,16 @@ commutes. In this section, bundles are assumed to be smooth.
     \end{enumerate}
 \end{definition}
 \begin{remark}
-    Note that \(\phi^{-1}([p]) = G_p,\) for all \(p \in E\). Since \(\ract\) is free, it follows from \cref{prop:orbit_free} that \(\phi^{-1}([p])\) is diffeomorphic to \(G\) for all \(p \in E.\) In particular, the fiber \(\phi^{-1}([p])\) is homeomorphic to \(G\) for all \(p \in E\), so the bundle \bundle{E}{\phi}{E/G} is a fiber bundle.
+    Note that \(\phi^{-1}([p]) = \Orb(p),\) for all \(p \in E\). Since \(\ract\) is free, it follows from \cref{thm:orbit_free} that \(\phi^{-1}([p])\) is diffeomorphic to \(G\) for all \(p \in E.\) In particular, the fiber \(\phi^{-1}([p])\) is homeomorphic to \(G\) for all \(p \in E\), so the bundle \bundle{E}{\phi}{E/G} is a fiber bundle.
 \end{remark}
 
-As an example to a principal fiber bundle, we define an object that is of utmost importance in differential geometry.
+As an example to principal fiber bundles, we define an object that is of utmost importance in differential geometry.
 \begin{definition}{Frame bundle}{frame_bundle}
     Let \(M\) be an \(n\)-dimensional smooth manifold. Let \(x \in M\), we define the set
     \begin{equation*}
         L_xM = \set*{\left(e_1, \dots, e_n\right) \in (T_xM)^n | \set*{e_1, \dots, e_n} \text{ is a basis for } T_xM}
     \end{equation*}
-    of all ordered basis of \(T_xM\). The disjoint union
+    of all ordered basis, or \emph{frames}, of \(T_xM\). The disjoint union
     \begin{equation*}
         LM = \bigcupdot_{x \in M} L_xM,
     \end{equation*}
@@ -40,7 +40,7 @@ As an example to a principal fiber bundle, we define an object that is of utmost
 \end{remark}
 
 \begin{lemma}{Frame bundle is a right \(\mathrm{GL}(\mathbb{R}^n)\)-space}{frame_bundle_right}
-    Let \bundle{LM}{\pi}{M} be a frame bundle on an \(n\)-dimensional smooth manifold \(M\). Then the map
+    Let \bundle{LM}{\pi}{M} be a frame bundle on an \(n\)-dimensional smooth manifold \(M\). Then there is a natural free right \(\mathrm{GL}(\mathbb{R}^n)\)-action on \(LM\), namely the map
     \begin{align*}
         \ract : LM \times \mathrm{GL}(\mathbb{R}^n) &\to LM\\
                            \left((e_1,\dots,e_n),g\right) &\mapsto (g\indices{^m_1}e_m, \dots, g\indices{^m_n}e_m)
@@ -65,4 +65,146 @@ As an example to a principal fiber bundle, we define an object that is of utmost
     commutes, where \(\phi : LM \to LM/\mathrm{GL}(\mathbb{R}^n)\) is the quotient map. \todo
 \end{proof}
 
-%1:23
+We may now define a principal bundle morphism, which is a bundle morphism that preserves the right actions.
+\begin{definition}{Principal \(G\)-bundle morphism}{principal_Gbundle_morphism}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle with right action \(\ract : P \times G \to P\) and \bundle{P'}{\pi'}{M'} be another principal \(G\)-bundle with right action \(\ractalt : P' \times G \to P'\). A bundle morphism \((u,f)\) is a principal \(G\)-bundle morphism if the diagram
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P \arrow{r}{u} & P'\\
+            P \arrow[swap]{d}{\pi} \arrow{u}{\ract G} \arrow{r}{u} & P' \arrow[swap]{u}{\ractalt G} \arrow{d}{\pi'}\\
+            M \arrow{r}{f} & M'
+        \end{tikzcd}
+    \end{equation*}
+    commutes, that is, in addition to the bundle morphism condition \(f \circ \pi = \pi' \circ u\), there is the equivariance condition \(u(p \ract g) = u(p) \ractalt g\) for all \(p \in P\) and \(g \in G\).
+\end{definition}
+
+An important generalization of a principal \(G\)-bundle morphism is a bundle morphism that relates principal bundles with different fibers.
+\begin{definition}{Principal bundle morphism}{principal_bundle_morphism}
+    Let \(\rho : G \to G'\) be a Lie group homomorphism. Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle with right action \(\ract : P \times G \to P\) and \bundle{P'}{\pi'}{M'} be a principal \(G'\)-bundle with right action \(\ractalt : P' \times G' \to P'\). A bundle morphism \((u,f)\) is a principal bundle morphism if the diagram
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P \arrow{r}{u} & P'\\
+            P \arrow[swap]{d}{\pi} \arrow{u}{\ract G} \arrow{r}{u} & P' \arrow[swap]{u}{\ractalt G'} \arrow{d}{\pi'}\\
+            M \arrow{r}{f} & M'
+        \end{tikzcd}
+    \end{equation*}
+    commutes, that is, in addition to the bundle morphism condition \(f \circ \pi = \pi' \circ u\), there is the equivariance condition \(u(p \ract g) = u(p) \ractalt \rho(g)\) for all \(p \in P\) and \(g \in G\).
+\end{definition}
+\begin{remark}
+    An application in General Relativity of principal bundle morphisms arise when considering the frame bundle with its Lorentz transformations \(\mathrm{SO}(1,3)\) and the relation to the \emph{spin frame bundle} with \emph{spinors} \(\mathrm{SL}(2,\mathbb{C})\), with a Lie group homomorphism \(\rho : \mathrm{SL}(2,\mathbb{C}) \to \mathrm{SO}(1,3)\).
+\end{remark}
+
+\begin{lemma}{Principal \(G\)-bundle morphism between bundles over the same base space is a diffeomorphism}{}
+    Let \bundle{P}{\pi}{M} and \bundle{P'}{\pi'}{M} be two principal \(G\)-bundles over the same base manifold \(M\), equipped with right actions \(\ract : P \times G \to P\) and \(\ractalt : P' \times G \to P'\). If \((u, \id{M})\) is a principal bundle morphism, then \(u : P \to P'\) is a diffeomorphism.
+\end{lemma}
+\begin{proof}
+    As \((u, \id{M})\) is a principal bundle morphism, we have \(u\) smooth. It remains to show that it admits a smooth inverse map \(u^{-1}\).
+
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            & M &\\
+            P \arrow{ru}{\pi} \arrow[swap]{d}{\ract G} \arrow{rr}{u} && P' \arrow{d}{\ractalt G} \arrow[swap]{lu}{\pi'}\\
+            P \arrow{rr}{u} && P'
+        \end{tikzcd}
+    \end{equation*}
+
+    Suppose \(u(p_1) = u(p_2)\) for some \(p_1, p_2 \in P\). As a bundle morphism, we have
+    \begin{align*}
+        \pi(p_1) &= \pi' \circ u(p_1)\\
+                 &= \pi' \circ u(p_2)\\
+                 &= \pi(p_2),
+    \end{align*}
+    that is, \(p_1\) and \(p_2\) lie in the same fiber. % bundle isomorphism with the orbit space205
+    \todo[Since \(\ract\) is a free action,] there exists a unique \(g \in G\) such that \(p_1 = p_2 \ract g\). With the principal bundle morphism condition, we have
+    \begin{align*}
+        u(p_1) &= u(p_2 \ract g)\\
+               &= u(p_2) \ractalt g\\
+               &= u(p_1) \ractalt g
+    \end{align*}
+    and it follows that \(g = e\), since \(\ractalt\) is free. Hence, \(p_1 = p_2\), that is, \(u\) is injective.
+
+    Let \(p' \in P'\). Consider \(p \in \preim{\pi}{\set{\pi'(p')}}\), then
+    \begin{align*}
+        \pi'\circ u (p) &= \pi(p)\\
+                        &= \pi'(p'),
+    \end{align*}
+    since \((u, \id{M})\) is a bundle morphism. That is, \(u(p)\) and \(p'\) lie in the same fiber, therefore there exists a unique \(g \in G\) such that \(p' = u(p) \ractalt g\). As a principal bundle morphism, we have \(u(p) \ractalt g = u(p \ract g),\) hence \(p' = u(p \ract g).\) That is, \(u\) is surjective.
+
+    We have shown \(u\) is an isomorphism. \todo[Why diffeomorphism?]
+    % As \(u\) is an isomorphism, there exists an inverse map \(u^{-1} : P' \to P\). Note that for any \(x \in P\), we have the linear isomorphism \(\pf{u} : T_xP \linear T_{u(x)}P'\). Indeed, \(T_xP\) and \(T_{u(x)}P'\) have the same finite dimension and \(\pf{u}\) is injective, since \(u\) is invertible.
+\end{proof}
+
+\begin{definition}{Trivial principal \(G\)-bundle}{trivial_principal_bundle}
+    A principal \(G\)-bundle \bundle{P}{\pi}{M} is \emph{trivial} if it is diffeomorphic to the principal \(G\)-bundle \bundle{M\times G}{\pi_1}{M} equipped with the right action
+    \begin{align*}
+        \ractalt : M \times G \times G &\to M \times G\\
+                             (x,g,g') &\mapsto (x, g\bullet g')
+    \end{align*}
+    and projection
+    \begin{align*}
+        \pi_1 : M \times G &\to M\\
+                     (x,g) &\mapsto x
+    \end{align*}
+    that is, if there exists a principal bundle morphism \((u,\id{M})\).
+\end{definition}
+
+The next result formulates a necessary and sufficient condition for when a principal bundle is trivial.
+\begin{theorem}{A principal bundle is trivial is equivalent to the existence of a smooth section}{smooth_section_trivial}
+    A principal \(G\)-bundle \bundle{P}{\pi}{M} is trivial if and only if there exists a smooth section \(\sigma : M \to P\).
+\end{theorem}
+\begin{example}
+    We consider the frame bundle on a 2-sphere. A smooth section on the frame bundle would be a smooth 'frame field', in this case, a pair of smooth vector fields everywhere linearly independent. However, there are no non-vanishing smooth vector fields on the sphere, therefore there are no smooth sections on this frame bundle. From the theorem above, \bundle{LS^2}{\pi}{S^2} is not a trivial principal \(\mathrm{GL}(\mathbb{R}^2)\)-bundle.
+\end{example}
+\begin{proof}
+    Suppose the principal bundle is trivial, then there exists a smooth diffeomorphism \(u : P \to M \times G\) such that \((u, \id{M})\) is a principal bundle morphism. We consider the smooth map
+    \begin{align*}
+        \sigma : M &\to P\\
+                 x &\mapsto u^{-1}(x, e).
+    \end{align*}
+    Since \((u, \id{M})\) is a bundle morphism, we have \(\pi = \pi_1 \circ u\).
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P \arrow{r}{u} &M\times G\\
+            P \arrow{u}{\ract G} \arrow[swap]{d}{\pi} & M \times G \arrow[swap]{u}{\ractalt G}\arrow[swap]{l}{u^{-1}} \arrow{ld}{\pi_1}\\
+            M
+        \end{tikzcd}
+    \end{equation*}
+    As a result, \(\pi \circ \sigma = \id{M}\), that is, the smooth map \(\sigma\) is a section.
+
+    Suppose there exists a smooth section \(\sigma : M \to P\). For any \(p \in P\) we consider the point \(\sigma \circ \pi(p) \in P\). Since \(\sigma\) is a section, we have that \(\tilde{p}\) and \(p\) both lie in the same fiber. Then, there exists a unique \(\tilde{g} \in G\) such that \(\sigma \circ \pi (p) \ract \tilde{g} = p\). Clearly, this unique \(\tilde{g}\) depends on the choice of the smooth section \(\sigma\) and of the chosen point \(p\), and we denote this dependence with the map
+    \begin{align*}
+        \chi_\sigma : P &\to G\\
+                      p &\mapsto \chi_\sigma(p),
+    \end{align*}
+    where \(\chi_\sigma(p) = \tilde{g},\) and we may state \(\sigma \circ \pi (p) \ract \chi_\sigma(p) = p.\) Notice we have \(\pi(p \ract g) = \pi(p),\) for any \(p \in P\) and \(g \in G\), then
+    \begin{align*}
+        \sigma \circ \pi (p) \ract (\chi_\sigma(p) \bullet g)  &=\sigma \circ \pi (p) \ract \chi_\sigma(p) \ract g   \\
+                                                               &= p \ract g\\
+                                                               &= \sigma \circ \pi (p \ract g) \ract \chi_\sigma(p \ract g) \\
+                                                               &= \sigma \circ \pi (p) \ract \chi_\sigma(p \ract g).
+    \end{align*}
+    By \cref{lem:free_injective}, we have \(\chi_\sigma(p) \bullet g = \chi_\sigma(p \ract g)\) for all \(p \in P\) and \(g \in G\), since \(\ract\) is a free action.
+
+    We define the map
+    \begin{align*}
+        u_\sigma : P &\to M \times G\\
+                   p &\mapsto (\pi(p), \chi_\sigma(p)).
+    \end{align*}
+    Clearly, \(\pi_1 \circ u_\sigma = \pi\), so \((u_\sigma, \id{M})\) is a bundle morphism.
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P \arrow{r}{u_\sigma} &M\times G\\
+            P \arrow{u}{\ract G} \arrow[swap]{d}{\pi} \arrow{r}{u_\sigma} & M \times G \arrow[swap]{u}{\ractalt G} \arrow{ld}{\pi_1}\\
+            M
+        \end{tikzcd}
+    \end{equation*}
+    By construction, we have
+    \begin{align*}
+        u_\sigma(p \ract g) &= (\pi(p \ract g), \chi_\sigma(p \ract g))\\
+                            &= (\pi(p), \chi_\sigma(p) \bullet g)\\
+                            &= (\pi(p), \chi_\sigma(p)) \ractalt g\\
+                            &= u_\sigma(p) \ractalt g.
+    \end{align*}
+    hence \((u_\sigma, \id{M})\) is a principal bundle morphism.
+\end{proof}
+

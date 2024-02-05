@@ -1,0 +1,72 @@
+\section{Associated bundles}
+
+\begin{definition}{Associated bundle}{}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle with right \(G\)-action \(\ract : P \times G \to P\) and let \(\lact : G \times F \to F\) be a left \(G\)-action on a smooth manifold \(F\). The \emph{associated bundle} \bundle{P_F}{\pi_F}{M} is defined by
+    \begin{enumerate}[label=(\alph*)]
+        \item the total space \(P_F = (P \times F) / \sim_G\), where \(\sim_G\) is the relation on \(P \times F\) defined by \((p, f) \sim_G (p', f') \iff \exists g \in G : p' = p \ract g \land f' = g^{-1} \lact f\), and elements of \(P_F\) are denoted by \([p,f],\) where \(p \in P\) and \(f \in F\); and
+        \item the projection map
+            \begin{align*}
+                \pi_F : P_F &\to M\\
+                      [p,f] &\mapsto \pi(p).
+            \end{align*}
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    The projection map is well defined. Indeed, if \((p', f') \sim_G (p, f)\), then there exists \(g\in G\) such that \(p' = p \ract g\) and \(f' = g^{-1} \lact f\). We have
+    \begin{align*}
+        \pi_F([p', f']) &= \pi(p')\\
+                        &= \pi(p \ract g)\\
+                        &= \pi(p)
+                        &= \pi_F(p),
+    \end{align*}
+    as claimed.
+\end{remark}
+
+\begin{proposition}{Associated bundles are fiber bundles}{associated_fiber}
+    The associated bundle \bundle{P_F}{\pi_F}{M} is a fiber bundle with typical fiber \(F\).
+\end{proposition}
+\begin{proof}
+    \todo
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}[label=(\alph*)]
+        \item We formalize the notion that \enquote{a vector is an object that transforms like a vector}.
+
+            Let \(M\) be an \(n\)-dimensional smooth manifold. Recall the right \(\mathrm{GL}(\mathbb{R}^n)\)-action on the frame bundle \bundle{LM}{\pi}{M} defined by
+            \begin{align*}
+                \ract : \mathrm{GL}(\mathbb{R}^n) \times LM &\to LM\\
+                \left((e_1, \dots, e_n), g\right) &\mapsto \left(g\indices{^m_1}e_m, \dots, g\indices{^m_n}e_m\right).
+            \end{align*}
+            Take \(F = \mathbb{R}^n\) with left action
+            \begin{align*}
+                \lact : \mathrm{GL}(\mathbb{R}^n) \times F &\to F\\
+                                                     (f,g) &\mapsto g \lact f,
+            \end{align*}
+            where \((g\lact f)^a = g\indices{^a_b}f^b\). Then, \bundle{LM_{F}}{\pi_{F}}{M} is the associated bundle. In fact, this associated bundle is isomorphic to the usual tangent bundle provided by the bundle isomorphism \((u, \id{M})\), where
+            \begin{align*}
+                u : LM_F &\to TM\\
+                   [e,f] &\mapsto f^ae_a.
+            \end{align*}
+            To show well-definition of this map, we consider \(e,e' \in LM\) and \(f,f' \in F\) such that \([e, f]= [e', f']\). Then, there exists \(g \in \mathrm{GL}(\mathbb{R}^n)\) such that \(e' = e \ract g\) and \(f' = g^{-1} \lact f\) and we have
+            \begin{align*}
+                u([e', f']) &= f'^ae'_a\\
+                            &= (g^{-1})\indices{^i_j}f^j g\indices{^k_i}e_k\\
+                            &= \delta^k_j f^j e_k\\
+                            &= f^k e_k\\
+                            &= u([e,f]),
+            \end{align*}
+            as claimed.
+            \begin{equation*}
+                \begin{tikzcd}[column sep = normal, row sep = large]
+                    LM_{\pi_{\mathrm{GL}(\mathbb{R}^n)}} \arrow{r}{u} \arrow{d}{\pi_{\mathrm{GL}(\mathbb{R}^n)}} & TM \arrow{d}{\pi_{TM}}\\
+                    M \arrow{r}{\id{M}} & M
+                \end{tikzcd}
+            \end{equation*}
+
+            Moreover, the map \(u\) is invertible since for any \(X \in TM\) we can choose a frame \(e\) such that \(X = f^a e_a,\) and we have \(u^{-1}(X) = [e, f]\), which is independent of the chosen frame \(e\), due to the equivalence class.
+
+            We note while on the tangent bundle the transformation rule of vector components was deduced with linear algebra, on the associated bundle the transformation rule was arbitrary. In the tangent bundle, there is no auxiliary group structure to express this change of basis behavior, unlike to the associated bundle, where one may restrict the chosen group to a subgroup of \(\mathrm{GL}(\mathbb{R}^n)\), such as Lorentz transformations in General Relativity, where one would then refer to as a vector or tensor with respect to a certain group.
+        \item Tensors % 32:40
+    \end{enumerate}
+\end{example}

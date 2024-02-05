@@ -84,7 +84,7 @@ In the following definitions, one may relax the smooth requirements, obtaining e
 \begin{definition}{Orbit}{orbit}
     Let \(\lact : G \times M \to M\) be a left action. The \emph{orbit of \(p \in M\) under the action of the set \(G\)} is the set
     \begin{equation*}
-        G_p = \set{q \in M : \exists g \in G : q =  g \lact p }.
+        \Orb(p) = \set{q \in M : \exists g \in G : q =  g \lact p }.
     \end{equation*}
 \end{definition}
 \begin{example}
@@ -124,7 +124,7 @@ In the following definitions, one may relax the smooth requirements, obtaining e
     \begin{align*}
         [p] &= \set{ q \in M : p \sim q}\\
             &= \set {q \in M : \exists g \in G : q = g \lact p}\\
-            &= G_p,
+            &= \Orb(p),
     \end{align*}
     as desired.
 \end{proof}
@@ -132,7 +132,7 @@ In the following definitions, one may relax the smooth requirements, obtaining e
 \begin{definition}{Orbit space}{orbit_space}
     Let \(\lact : G \times M \to M\) be a left action. The \emph{orbit space of \(M\)} is the quotient
     \begin{equation*}
-        M/G = M/\sim = \set{G_p : p \in M}.
+        M/G = M/\sim = \set{\Orb(p) : p \in M}.
     \end{equation*}
 \end{definition}
 \begin{example}
@@ -144,25 +144,25 @@ In the following definitions, one may relax the smooth requirements, obtaining e
 \end{example}
 
 \begin{definition}{Stabilizer of a point}{stabilizer}
-    Let \(\lact : G \times M \to M\) be a left action. The stabilizer of \(p \in M\) is the subgroup \(S_p \subset G\) defined by
+    Let \(\lact : G \times M \to M\) be a left action. The stabilizer of \(p \in M\) is the subgroup \(\Stab(p) \subset G\) defined by
     \begin{equation*}
-        S_p = \set{g \in G : g \lact p = p},
+        \Stab(p) = \set{g \in G : g \lact p = p},
     \end{equation*}
-    that is, \(p\) is a \emph{fixed point} under the action of the subgroup \(S_p\).
+    that is, \(p\) is a \emph{fixed point} under the action of the subgroup \(\Stab(p)\).
 \end{definition}
 \begin{remark}
-    We prove the claim that \(S_p\) is a subgroup. Note that \(e \in S_p\) for all \(p \in M\), so \(S_p\) is not an empty set. Moreover, if \(g\in S_p\), then \(g^{-1} \in S_p,\) since
+    We prove the claim that \(\Stab(p)\) is a subgroup. Note that \(e \in \Stab(p)\) for all \(p \in M\), so \(\Stab(p)\) is not an empty set. Moreover, if \(g\in \Stab(p)\), then \(g^{-1} \in \Stab(p),\) since
     \begin{equation*}
         g^{-1} \lact p = g^{-1} \lact g \lact p = p.
     \end{equation*}
-    Similarly, if \(g, h \in S_p\) we have \(gh \in S_p\), because
+    Similarly, if \(g, h \in \Stab(p)\) we have \(gh \in \Stab(p)\), because
     \begin{equation*}
         gh \lact p = g \lact h \lact p = g \lact p = p.
     \end{equation*}
-    Therefore, \(S_p\) is a subgroup of \(G\), for all \(p \in M\).
+    Therefore, \(\Stab(p)\) is a subgroup of \(G\), for all \(p \in M\).
 \end{remark}
 \begin{example}
-    In the previous example, \(S_p = \set{\id{\mathbb{R}^2}}\) for \(p \in M \smallsetminus \set{0}\) and \(S_0 = G\).
+    In the previous example, \(\Stab(p) = \set{\id{\mathbb{R}^2}}\) for \(p \in M \smallsetminus \set{0}\) and \(\Stab(0) = G\).
 \end{example}
 
 \begin{definition}{Effective action}{effective_action}
@@ -173,7 +173,7 @@ In the following definitions, one may relax the smooth requirements, obtaining e
     that is, the identity is only element in \(G\) for which every point in \(M\) is a fixed point under the action.
 \end{definition}
 \begin{example}
-    In the previous example, the action is effective, since there exists no \(g \in G \smallsetminus {e} \in S_p\) for all \(p \in M\).
+    In the previous example, the action is effective, since there exists no \(g \in G \smallsetminus {e} \in \Stab(p)\) for all \(p \in M\).
 \end{example}
 
 \begin{definition}{Free action}{free_action}
@@ -187,47 +187,74 @@ In the following definitions, one may relax the smooth requirements, obtaining e
     A free action is "free of fixed points." Also, it is clear that every free action is faithful.
 \end{remark}
 \begin{example}
-    In the previous example, the left action is not free. More generally, the left action \(\lactalt : G \times V \to V\) induced by a linear representation \(R : G \to \mathrm{GL}(V)\) is never a free action since \(S_0 = G.\)
+    In the previous example, the left action is not free. More generally, the left action \(\lactalt : G \times V \to V\) induced by a linear representation \(R : G \to \mathrm{GL}(V)\) is never a free action since \(\Stab(0) = G.\)
 \end{example}
-Notice that if \(\lact : G \times M \to M\) is a free action, then
-\begin{equation*}
-    g \lact p = h \lact p \implies g = h,
-\end{equation*}
-for all \(p \in M\). Indeed, we have
-\begin{align*}
-    g \lact p = h \lact p &\implies h^{-1} \lact g \lact p = e \lact p\\
-                          &\implies h^{-1}g \lact p = p\\
-                          &\implies h^{-1}g = e,
-\end{align*}
-which proves our claim.
+
+\begin{lemma}{Free action induces an injective map}{free_injective}
+    Let \(p \in M\) and let \(\lact : G \times M \to M\) be a free action. Then,
+    \begin{equation*}
+        g \lact p = h \lact p \iff g = h
+    \end{equation*}
+    for all \(g, h \in G\). In other words, the map
+    \begin{align*}
+        \phi_p : G &\to M\\
+                 g &\mapsto g \lact p
+    \end{align*}
+    is injective.
+\end{lemma}
+\begin{proof}
+    It is clear that \(g = h \implies g \lact p = h \lact p\). To show the converse, we have
+    \begin{align*}
+        g \lact p = h \lact p &\implies h^{-1} \lact g \lact p = e \lact p\\
+                              &\implies h^{-1}g \lact p = p\\
+                              &\implies h^{-1}g = e,
+    \end{align*}
+    which proves our claim.
+\end{proof}
 
 \begin{proposition}{Stabilizers of a free action are trivial}{stabilizer_free}
     The left action \(\lact : G \times M \to M\) is free if and only if all stabilizers are trivial.
 \end{proposition}
 \begin{proof}
-    Suppose \(\lact\) is free. Let \(p \in M,\) then \(S_p = \set{g \in G : g \lact p = p}\). If \(g \in S_p,\) then \(p\) is a fixed point of \(g\), so \(g = e.\)
-
-    Suppose all stabilizers are trivial. Let \(g \in G\), then for all \(p \in M\) one has \(g \lact p = p \implies g = e\).
+    Suppose \(\lact\) is free. Let \(p \in M,\) then \(\Stab(p) = \set{g \in G : g \lact p = p}\). If \(g \in \Stab(p),\) then \(p\) is a fixed point of \(g\), so \(g = e.\) Suppose all stabilizers are trivial. Let \(g \in G\), then for all \(p \in M\) one has \(g \lact p = p \implies g = e\).
 \end{proof}
 
-\begin{proposition}{Orbits of a free action are diffeomorphic to the group}{orbit_free}
+\begin{theorem}{Orbits of a free action are diffeomorphic to the group}{orbit_free}
     If \(\lact : G \times M \to M\) is a free action, then each orbit is diffeomorphic to the group.
-\end{proposition}
+\end{theorem}
 \begin{example}
     Similar to the previous example, but \(M = \mathbb{R}^2 \smallsetminus \set{0}\). The action defined similarly is free, because the zero vector is removed from the representation space. Moreover, each orbit is a circle, and \(S^1\) is the underlying smooth manifold of \(\mathrm{SO}(2).\)
 \end{example}
 \begin{proof}
-    \todo
+    Let \(p \in M\) and consider the map
+    \begin{align*}
+        \psi_p : \Orb(p) \subset M &\to G\\
+                             q &\mapsto \psi_p(q),
+    \end{align*}
+    where \(q = \psi_p(q) \lact p\). First, we show well definition of this map. Existence follows from the definition of orbit: if \(q \in \Orb(p)\), then there exists \(g \in G\) such that \(q = g \lact p\), we set \(\psi_p(q) = g\). Uniqueness follows from the action being free: by \cref{lem:free_injective}, for all \(g, h \in G\),
+    \begin{equation*}
+        g \lact p = h \lact p \implies g = h,
+    \end{equation*}
+    therefore \(\psi_p(q)\) is unique.
+
+    Next, we show the map is an isomorphism. Suppose \(x,y \in \Orb(p)\) such that \(\psi_p(x) = \psi_p(y)\). Clearly, \(\psi_p(x) \lact p = \psi_p(y) \lact p\) which implies \(x = y\) from the definition of \(\psi_p\). Let \(h \in G\), and set \(q = h \lact p \in \Orb(p)\). Then, \(\psi_p(q) = h\), that is, the map is surjective. We have shown \(\psi_p\) is an isomorphism with inverse \(\phi_p = \psi_p^{-1}\)
+    \begin{align*}
+        \phi_p : G &\to \Orb(p)\\
+                 g &\mapsto g \lact p,
+    \end{align*}
+    which is the map defined in \cref{lem:free_injective} with its range restricted.
+
+    \todo[Finally, we show the maps \(\psi_p : \Orb(p) \to G\) and \(\phi_p : G \to \Orb(p)\) are smooth. What is the manifold structure of the orbit?]
 \end{proof}
 
 \begin{definition}{Transitive action}{transitive_action}
     A left action \(\lact : G \times M \to M\) is \emph{transitive} if
     \begin{equation*}
-        \exists p \in M : G_p = M.
+        \exists p \in M : \Orb(p) = M.
     \end{equation*}
 \end{definition}
 \begin{remark}
-    If there exists one element \(p \in M\) such that \(G_p = M\), it follows that \(\forall m \in M : G_m = M\) from \cref{prop:orbit_relation}.
+    If there exists one element \(p \in M\) such that \(\Orb(p) = M\), it follows that \(\forall m \in M : \Orb(m) = M\) from \cref{prop:orbit_relation}.
 \end{remark}
 \begin{example}
     The action \(\lactalt : T \times \mathbb{R}^n \to \mathbb{R}^n\), where \(T\) is the translation group on \(\mathbb{R}^n\) is transitive.

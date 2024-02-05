@@ -49,6 +49,8 @@
     sub-nudge=0 mu
 }
 \newcommand\todo[1][!]{{\color{Red} TODO {#1}}}
+\DeclareMathOperator\Orb{Orb}
+\DeclareMathOperator\Stab{Stab}
 \DeclareMathOperator\sgn{sgn}
 \DeclareMathOperator\End{End}
 \DeclareMathOperator\tr{tr}
@@ -61,6 +63,7 @@
 \newenvironment{smallpmatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)}
 \newcommand\ract{\mathbin{\vartriangleleft}}
 \newcommand\ractalt{\mathbin{\blacktriangleleft}}
+% \newcommand\ractalt{{\color{Mauve}\mathbin{\blacktriangleleft}}}
 \newcommand\lact{\mathbin{\vartriangleright}}
 \newcommand\lactalt{\mathbin{\blacktriangleright}}
 \newcommand\ad[1]{\operatorname{ad}_{#1}}
@@ -197,6 +200,7 @@
 \chapter{Principal Fiber Bundles}
 \input{chapter04/s1-group-actions}
 \input{chapter04/s2-principal-fiber-bundles}
+\input{chapter04/s3-associated-bundles}
 
 \printbibliography
 \end{document}
