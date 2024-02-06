@@ -208,3 +208,21 @@ The next result formulates a necessary and sufficient condition for when a princ
     hence \((u_\sigma, \id{M})\) is a principal bundle morphism.
 \end{proof}
 
+\begin{definition}{Extension and restriction of principal bundles}{}
+    Let \(G'\) be a closed subgroup of \(G\), \bundle{P}{\pi}{M} a principal \(G\)-bundle with right action \(\ract : P \times G \to P\), and \bundle{P'}{\pi'}{M} a principal \(G'\)-bundle with right action \(\ractalt : P' \times G' \to P'\). If there exists a bundle morphism \((u,f)\) satisfying \(u(p \ract g') = u(p) \ractalt g'\) for all \(p \in P\) and \(g' \in G'\), then the principal \(G\)-bundle \bundle{P}{\pi}{M} is called a \emph{\(G\)-extension} of the principal \(G'\)-bundle \bundle{P'}{\pi'}{M}, and the principal \(G'\)-bundle \bundle{P'}{\pi'}{M} is called a \emph{\(G'\)-restriction} of the principal \(G\)-bundle \bundle{P}{\pi}{M}.
+\end{definition}
+
+\begin{theorem}{Existence of restricted and extended principal bundles}{}
+    Let \(H \subset G\) be a closed subgroup of the Lie group \(G\), let \(\bundle{P'}{\pi'}{M}\) be a principal \(H\)-bundle, and let \(\bundle{P}{\pi}{M}\) be a principal \(G\)-bundle. Then,
+    \begin{enumerate}[label=(\alph*)]
+        \item There exists a \(G\)-extension of \bundle{P'}{\pi'}{M}; and
+        \item There exists a \(H\)-restriction of \bundle{P}{\pi}{M} if, and only if, the bundle \bundle{P/G}{\tilde{\pi}}{M} has a smooth section.
+    \end{enumerate}
+\end{theorem}
+\begin{remark}
+    This theorem is closely related to the existence of a Riemannian/Lorentzian metric in the case of the frame bundle and the restriction to (special) orthogonal groups.
+
+    More precisely, the frame bundle \bundle{LM}{\pi}{M} of an \(n\)-dimensional real manifold can be restricted to a principal \(\mathrm{O}(n)\)-bundle if and only if \(M\) admits a Riemannian metric, and in addition, this can be restricted to a principal \(\mathrm{SO}(n)\)-bundle if and only if \(M\) is also orientable. It turns out that every manifold admits a Riemannian metric, so the first restriction is always possible.
+
+    Similarly, the frame bundle can be restricted to a principal \(\mathrm{O}(1,n-1)\)-bundle if and only if \(M\) admits a Lorentzian metric, and in addition, this can be further restricted to \(\mathrm{SO}(1,n-1)\) if \(M\) is also orientable. Unlike Riemannian metrics, the existence of a Lorentzian metric is equivalent\cite{oneill_semi_riemannian} to the existence of a non-vanishing smooth vector field on \(M\).
+\end{remark}

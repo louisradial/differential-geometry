@@ -16,8 +16,7 @@
     \begin{align*}
         \pi_F([p', f']) &= \pi(p')\\
                         &= \pi(p \ract g)\\
-                        &= \pi(p)
-                        &= \pi_F(p),
+                        &= \pi(p),
     \end{align*}
     as claimed.
 \end{remark}
@@ -26,7 +25,27 @@
     The associated bundle \bundle{P_F}{\pi_F}{M} is a fiber bundle with typical fiber \(F\).
 \end{proposition}
 \begin{proof}
-    \todo
+    Let \(m \in M\) be a base point and consider its fiber
+    \begin{equation*}
+        U_m = \preim{\pi_F}{\set{m}} = \set{[p,f] \in P_F : \pi(p) = m}.
+    \end{equation*}
+    Choose \(p_m \in P\) such that \(\pi(p_m) = m\). Then, for any \(f \in F\), we have \(\pi_F([p_m, f]) = m\). We define the map
+    \begin{align*}
+        \phi_m : F &\to U_m\\
+                 f &\mapsto [p_m,f],
+    \end{align*}
+    which is continuous since it is the composition of the inclusion \(f \mapsto (p_m, f) \in \set{p_m} \times F\) and the quotient map \((p,f) \mapsto [p,f]\). \todo[Verify this. I don't know topology, man.]
+
+    Let \(f_1, f_2 \in F\) such that \(\phi_m(f_1) = \phi_m(f_2)\), then there exists \(g \in G\) such that \(p_m = p_m \ract g\) and \(f_2 = g^{-1} \lact f_1\). Since \(\ract\) is free, we have \(g = e\), hence \(f_1 = f_2\).
+
+    Let \([p, f] \in U_m\). Since \(P\) is a right \(G\)-space, there exists a diffeomorphism \(\psi_{p_m} : P \to G\) such that \(p' \ract \psi_{p_m}(p') = p_m\) for all \(p' \in P\) as shown in \cref{thm:orbit_free}. With this diffeomorphism, we have \([p,f] = [p_m, \psi_{p_m}(p) \lact f].\) Thus, \(\phi_m(\psi_{p_m}(p) \lact f) = [p,f],\) that is, the map is surjective.
+
+    We have shown the map \(\phi_m\) is a continuous bijection with inverse
+    \begin{align*}
+        \phi_m^{-1} : U_m &\to F\\
+                    [p,f] &\mapsto \psi_{p_m}(p) \lact f,
+    \end{align*}
+    which is continuous since \(\psi_{p_m}\) and \(\lact\) are smooth maps. Therefore, every fiber of the associated bundle is homeomorphic to \(F.\)
 \end{proof}
 
 \begin{example}
@@ -57,6 +76,9 @@
                             &= u([e,f]),
             \end{align*}
             as claimed.
+
+            Moreover, the map \(u\) is invertible since for any \(X \in TM\) we can choose a frame \(e\) such that \(X = f^a e_a,\) and we have \(u^{-1}(X) = [e, f]\), which is independent of the chosen frame \(e\), due to the equivalence class.
+
             \begin{equation*}
                 \begin{tikzcd}[column sep = normal, row sep = large]
                     LM_{\pi_{\mathrm{GL}(\mathbb{R}^n)}} \arrow{r}{u} \arrow{d}{\pi_{\mathrm{GL}(\mathbb{R}^n)}} & TM \arrow{d}{\pi_{TM}}\\
@@ -64,9 +86,96 @@
                 \end{tikzcd}
             \end{equation*}
 
-            Moreover, the map \(u\) is invertible since for any \(X \in TM\) we can choose a frame \(e\) such that \(X = f^a e_a,\) and we have \(u^{-1}(X) = [e, f]\), which is independent of the chosen frame \(e\), due to the equivalence class.
-
             We note while on the tangent bundle the transformation rule of vector components was deduced with linear algebra, on the associated bundle the transformation rule was arbitrary. In the tangent bundle, there is no auxiliary group structure to express this change of basis behavior, unlike to the associated bundle, where one may restrict the chosen group to a subgroup of \(\mathrm{GL}(\mathbb{R}^n)\), such as Lorentz transformations in General Relativity, where one would then refer to as a vector or tensor with respect to a certain group.
-        \item Tensors % 32:40
+        \item We now take \(F = \left(\mathbb{R}^n\right)^{\otimes p} \otimes \left({\mathbb{R}^n}^{\ast}\right)^{\otimes q}\) and define a left action
+            \begin{align*}
+                \lact : \mathrm{GL}(\mathbb{R}^n) \times F &\to F\\
+                                                     (g,f) &\mapsto g \lact f,
+            \end{align*}
+            where \((g \lact f)\indices{^{i_1\dots i_p}_{j_1\dots j_p}} = (g^{-1})\indices{^{b_1}_{j_1}}\dotsm (g^{-1})\indices{^{b_q}_{j_q}} g\indices{^{i_1}_{a_1}} \dotsm g\indices{^{i_p}_{a_p}}f\indices{^{a_1\dots a_p}_{b_1\dots b_q}}\). The associated bundle \bundle{LM_F}{\pi_F}{M} is isomorphic to the \((p,q)\)-tensor bundle.
+        \item We modify the left action of the previous example and state it as a definition.
     \end{enumerate}
 \end{example}
+
+\begin{definition}{Tensor densities}{tensor_densities}
+    Let \(M\) be an \(n\)-dimensional smooth manifold and let the principal \(\mathrm{GL}(\mathbb{R}^n)\)-bundle \bundle{LM}{\pi}{M} be its frame bundle. Let \(F = \left(\mathbb{R}^n\right)^{\otimes p} \otimes \left({\mathbb{R}^n}^{\ast}\right)^{\otimes q}\) be a left \(\mathrm{GL}(\mathbb{R}^n)\) space with action defined by
+    \begin{align*}
+        \lact : \mathrm{GL}(\mathbb{R}^n) \times F &\to F\\
+                                             (g,f) &\mapsto g \lact f,
+    \end{align*}
+    where \((g \lact f)\indices{^{i_1\dots i_p}_{j_1\dots j_p}} = \left(\det{g^{-1}}\right)^\omega(g^{-1})\indices{^{b_1}_{j_1}}\dotsm (g^{-1})\indices{^{b_q}_{j_q}} g\indices{^{i_1}_{a_1}} \dotsm g\indices{^{i_p}_{a_p}}f\indices{^{a_1\dots a_p}_{b_1\dots b_q}}\) for some \emph{weight} \(\omega \in \mathbb{Z}.\) Then the associated bundle \bundle{LM_F}{\pi_F}{M} is called the \emph{\((p,q)\)-tensor \(\omega\)-density bundle over \(M\).}
+\end{definition}
+\begin{remark}
+    \begin{enumerate}[label=(\alph*)]
+        \item A special case when \(F = \mathbb{R}\) and the action is simply
+            \begin{align*}
+                \lact : \mathrm{GL}(\mathbb{R}^n) \times \mathbb{R} &\to \mathbb{R}\\
+                                                              (g,f) &\mapsto (\det g^{-1})^\omega f,
+            \end{align*}
+            called the \emph{scalar \(\omega\)-density bundle over \(M\)}.
+        \item If \(\omega = 0\) we recover the example (b) above, which is isomorphic to \((p,q)\)-tensor bundles.
+        \item When the group has a constraint \(\det g = 1,\) tensor density bundles are indistinguishable to tensor bundles. This is the case, for example, in Special Relativity where one considers the Lorentz group, which is an orthogonal group with respect to the Minkowski pseudo-inner product.
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}{Associated bundle morphism}{associated_bundle_morphism}
+    Let \bundle{P}{\pi}{M} and \bundle{P'}{\pi'}{M'} be two principal \(G\)-bundles with right actions \(\ract : P \times G \to P\) and \(\ractalt : P' \times G \to P'\) and let the smooth manifold \(F\) be a left \(G\)-space, where we may consider the associated bundles \bundle{P_F}{\pi_F}{M} and \bundle{P'_F}{\pi'_F}{M'} with the same typical fiber \(F\). An \emph{associated bundle map} \((\tilde{u}, \tilde{h})\) is a bundle map
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P_F \arrow{r}{\tilde{u}} \arrow[swap]{d}{\pi_F} & P'_F \arrow{d}{\pi'_F}\\
+            M \arrow{r}{\tilde{h}} & M'
+        \end{tikzcd}
+    \end{equation*}
+    which is induced by principal bundle map \((u, h)\) between the underlying principal bundles
+    \begin{equation*}
+        \begin{tikzcd}[column sep = normal, row sep = large]
+            P \arrow{r}{u} & P'\\
+            P \arrow{u}{\ract G} \arrow{r}{u} \arrow[swap]{d}{\pi} & P' \arrow[swap]{u}{\ractalt G} \arrow{d}{\pi'}\\
+            M \arrow{r}{h} & M'
+        \end{tikzcd}
+    \end{equation*}
+    as \(\tilde{u}([p,f]) = [u(p), f]\) and \(\tilde{h}(m) = h(m)\), for all \(p \in P\), \(f \in F\), and \(m \in M\).
+\end{definition}
+\begin{remark}
+    Two \(F\)-fiber bundles may be isomorphic as bundles but may at the same time fail to be isomorphic as associated bundles.
+\end{remark}
+
+\begin{definition}{Trivial associated bundle}{trivial_associated_bundle}
+    An associated bundle is \emph{trivial} if the underlying principal bundle is trivial.
+\end{definition}
+
+\begin{theorem}{Trivial associated bundle is a trivial fiber bundle}{trivial_associated_bundle}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle with right action \(\ract : P \times G \to P\) and let the smooth manifold \(F\) be a left \(G\)-space. If the principal bundle \bundle{P}{\pi}{M} is a trivial principal bundle, then the trivial associated bundle \bundle{P_F}{\pi_F}{M} is a trivial fiber bundle.
+\end{theorem}
+\begin{proof}
+    Recall a \(F\)-fiber bundle \bundle{E}{\pi}{M} is trivial if there exists a bundle isomorphism \((\tilde{u}, \id{M})\) to the bundle \bundle{M \times F}{\pi_1}{M}
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        F \arrow{r}{} & E \arrow[swap]{d}{\pi} \arrow{r}{\tilde{u}} & M \times F \arrow{d}{\pi_1}\\
+                      & M \arrow{r}{\id{M}} & M
+    \end{tikzcd}
+\end{equation*}
+and a principal \(G\)-bundle \bundle{P}{\pi}{M} is trivial if there is a principal bundle morphism \((u, \id{M})\) to the principal \(G\)-bundle \bundle{M\times G}{\pi_1}{M}.
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        P \arrow{r}{u} & M \times G\\
+        P \arrow{u}{\ract G} \arrow{r}{u} \arrow[swap]{d}{\pi} & M\times G \arrow[swap]{u}{\ractalt G} \arrow{d}{\pi_1}\\
+        M \arrow{r}{\id{M}} & M
+    \end{tikzcd}
+\end{equation*}
+
+\todo[relate the trivial fiber bundle to the trivial principal bundle?]
+\end{proof}
+
+\begin{theorem}{Sections on an associated bundle are isomorphic to \(F\)-valued functions on the principal bundle}{sections_associated_bundle}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle, the smooth manifold \(F\) be a left \(G\)-space, and \(\sigma : M \to P_F\) be a section of the associated bundle \bundle{P_F}{\pi_F}{M}
+\end{theorem}
+\begin{proof}
+    \todo[sketch:] Given \(\phi : P \to F\), construct the section
+    \begin{align*}
+        \sigma_\phi : M &\to P_F\\
+                      m &\mapsto [p_m, \phi(p_m)],
+    \end{align*}
+    where \(p_m \in \preim{\pi}{\set{m}}\). \todo[Show well definition and provide an inverse.]
+\end{proof}
+
