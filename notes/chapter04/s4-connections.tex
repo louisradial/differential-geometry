@@ -1,0 +1,161 @@
+\section{Connections on a principal bundle}
+A \emph{connection} on a principal bundle is a choice of a \emph{smooth assignment} of a tangent vector subspace on the total space compatible with the action of the fiber. Later, this structure induces a \emph{parallel transport} on the principal bundle and on associated fiber bundles. In the special case where the associated fiber bundle is a vector bundle, it may define a \emph{covariant derivative.}
+
+Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle. Then each for each Lie algebra element \(A \in T_eG \cong \mathfrak{g}\) induces a vector field on \(P\). Indeed, let \(f \in \smooth{P}\), and set
+\begin{equation*}
+    X^A_p f = \diff*{f(p \ract \exp(tA))}{t}[t=0],
+\end{equation*}
+for all \(p \in P\). It is useful to encode this by the map
+\begin{align*}
+    i : T_eG &\to \sections{TP}\\
+           A &\mapsto X^A,
+\end{align*}
+which \todo[can be shown to be a Lie algebra homomorphism.]
+
+\begin{definition}{Vertical subspace}{vertical_subspace}
+    Let \(p \in P\). The \emph{vertical subspace} \(V_pP\) is the subspace of the tangent space \(T_pP\) defined by
+    \begin{equation*}
+        V_pP = \ker \pi_{{\ast}} = \set{X \in T_pP : \pf{\pi}{X} = 0}.
+    \end{equation*}
+\end{definition}
+
+More pictorially, if \(\gamma : (-\varepsilon, \varepsilon) \to P\) is a smooth curve with \(\gamma(0) = p\) is "tangent" to the fiber \(\preim{\pi}{\set{\pi(p)}}\), then \(X_{p,\gamma} \in V_pP.\)
+
+\begin{lemma}{Induced vector fields from the Lie algebra lie in the vertical bundle}{vertical_bundle}
+    Let \(A \in T_eG \cong \mathfrak{g}\), then for all \(p \in P\), \(i(A)_p \in V_pP.\)
+\end{lemma}
+\begin{proof}
+    Consider the smooth curve passing through \(p\) defined by
+    \begin{align*}
+        \gamma : (-\varepsilon,\varepsilon) &\to P\\
+                                          t &\mapsto p \ract \exp(tA),
+    \end{align*}
+    then the image of \(\gamma\) lies entirely in the fiber \(\preim{\pi}{\set{\pi(p)}}\). That is,
+    \begin{equation*}
+        \pi \circ \gamma (t) = \pi(p),
+    \end{equation*}
+    for all \(t \in (-\varepsilon,\varepsilon).\) Let \(f \in \smooth{P},\) then
+    \begin{align*}
+        \pf{\pi}{i(A)_p}f &= i(A)_p (f \circ \pi)\\
+                          &= \diff*{f \circ \pi \circ \gamma(t)}{t}[t=0]\\
+                          &= \diff*{f(\pi(p))}{t}[t=0]\\
+                          &= 0,
+    \end{align*}
+    that is, \(\pf{\pi}{i(A)_p} = 0\). Hence, \(i(A)_p \in V_pP.\)
+\end{proof}
+
+In particular, we have shown \(i(T_eG) = \sections{VP}\), where \(VP \subset TP\) is the \emph{vertical subbundle} of the tangent bundle, or that the corestricted map \(i : T_eG \to \sections{VP}\) is surjective. Hence, by \cref{lem:free_injective} and \cref{thm:exp_local_diffeo}, the map \(i : T_eG \to \sections{VP}\) is an isomorphism with inverse \(X^A \mapsto A\). We may consider, for each point \(p \in P\), a linear isomorphism
+\begin{align*}
+    i_p : T_eG &\linear V_pP\\
+             A &\mapsto X_p^A.
+\end{align*}
+
+The idea of a connection is to make a \emph{choice} of how to "connect" the individual points of "neighboring" fibers in a principal bundle, that is, a choice of subspace such that its direct sum with the vertical subspace spans the entire tangent space.
+\begin{definition}{Smooth distribution}{smooth_distribution}
+    Let \(M\) be a smooth manifold. Let \(\Delta\) be a family of vector subspaces \(\Delta_x\) of the tangent spaces \(T_xM\) indexed by points \(x \in M\). The family \(\Delta\) is a \emph{smooth distribution} if, for any \(x \in M\), there exists an open set \(U_x \subset M\) containing \(x\) and a set of smooth vector fields \(\set{X_1, \dots, X_k}\) defined in \(U_x\),called the \emph{local basis} of \(\Delta\), such that for any \(y \in U_x\), the set of \(k\) vectors \(\set{X_1(y), \dots, X_k(y)}\) is a basis for \(\Delta_y\).
+\end{definition}
+\begin{remark}
+    This concept is in no way related to distributions in analysis.
+\end{remark}
+\begin{definition}{Connection on a principal \(G\)-bundle}{connection}
+    A \emph{connection} on a principal \(G\)-bundle \bundle{P}{\pi}{M} is a smooth distribution \(HP\), whose vector subspaces \(H_pP\) at a point \(p \in P\) are called \emph{horizontal subspace} at \(p\), such that
+    \begin{enumerate}[label=(\alph*)]
+        \item for all \(p \in P\), \(H_pP \oplus V_pP = T_pP\);
+        \item for all \(p \in P\), the unique direct sum decomposition \(X_p = \hor(X_p) + \ver(X_p)\), where \(\hor(X_p) \in H_pP\) and \(\ver(X_p) \in V_pP\), induces for every smooth vector field \(X \in \sections{TP}\) two smooth vector fields \(\hor(X)\) and \(\ver(X)\); and
+        \item for all \(p \in P\) and \(g \in G\), \(\pf{(\ract g)}{(H_pP)} = H_{p\ract g}P\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Let \(p \in P\). Given a vector \(X_p \in T_pP\), \emph{both} \(\ver(X_p)\) and \(\hor(X_p)\) depend on the choice of the horizontal subspace \(H_pP\).
+\end{remark}
+\todo[Relate (b) to smooth distribution.]
+
+The choice of a horizontal subspace \(H_pP\) at each \(p \in P\) in order to provide a connection is conveniently encoded in the thus induced Lie algebra-valued one-form at each \(p \in P\)
+\begin{align*}
+    \omega_p : T_pP &\linear T_eG \cong \mathfrak{g}\\
+    X_p &\mapsto \omega_p(X_p) = i_p^{-1}(\ver(X_p)),
+\end{align*}
+called the \emph{connection one-form} with respect to the connection \(HP\). To motivate the name \enquote{one-form} of this object, we consider a principal bundle automorphism \((u,f)\)
+\begin{equation*}
+    \begin{tikzcd}[column sep = normal, row sep = large]
+        P \arrow{r}{u} & P\\
+        P \arrow[swap]{d}{\pi}\arrow{u}{\ract G} \arrow{r}{u} & P \arrow{u}{\ract G} \arrow{d}{\pi}\\
+        M \arrow{r}{f} & M
+    \end{tikzcd}
+\end{equation*}
+and we define the pullback \(\pb{u}{\omega}\) of a connection one-form \(\omega : \sections{TP} \to T_eG\) by
+\begin{equation*}
+    (\pb{u}{\omega})(X) = \omega(\pf{u}{X}).
+\end{equation*}
+
+\begin{proposition}{The kernel of the connection one-form}{ker_wp}
+    For any \(p \in P\), \(H_pP = \ker\omega_p\).
+\end{proposition}
+\begin{proof}
+    Let \(p \in P\), then
+    \begin{align*}
+        \ker\omega_p &= \set{X \in T_pP : \omega_p(X_p) = 0}\\
+                       &= \set{X \in T_pP : i_p^{-1}(\ver(X_p)) = 0}\\
+                       &= \set{X \in T_pP : \ver(X_p) = 0}\\
+                       &= H_pP,
+    \end{align*}
+    from the fact \(i_p : T_eG \linear V_pP\) is a linear isomorphism.
+\end{proof}
+
+\begin{theorem}{Connection one-form properties}{connection_one_form_properties}
+    A connection one-form \(\omega\) with respect to a connection \(HP\) has the properties
+    \begin{enumerate}[label=(\alph*)]
+        \item \(\omega_p \circ i_p = \id{T_eG}\);
+        \item \(\omega\) is smooth; and
+        \item \(\left(\pb{(\ract g)}{\omega}\right)_p (X_p) = \Ad{g^{-1}}(\omega_p (X_p))\)
+    \end{enumerate}
+    for all \(p \in P\).
+\end{theorem}
+\begin{proof}
+    From \cref{lem:vertical_bundle}, it is clear that \(\ver\circ i_p = i_p,\) then
+    \begin{equation*}
+        \omega_p \circ i_p (A) = i^{-1}_p(\ver \circ i_p(A)) = A
+    \end{equation*}
+    for all \(A \in T_eG\) and \(p \in P\). Since \(i\) is defined with the right action and the exponential map, it is smooth. Hence, \(\omega = i^{-1} \circ \ver\) is smooth.
+
+    If \(X_p \in T_pP,\) then there exists a unique decomposition \(X_p = \hor(X_p) + \ver(X_p)\). Note the property defined in (c) is linear with respect to the tangent vector, therefore we may consider two separate cases: \(X_p \in H_pP\) and \(X_p \in V_pP\).
+
+    Suppose \(X_p \in V_pP,\) then let \(A = i^{-1}_p(X_p)\). For any \(g \in G\) and \(f \in \smooth{P}\), it follows that
+    \begin{align*}
+        \left(\pf{(\ract g)}{i_p(A)}\right)f &= i_p(A) (f \circ (\ract g))\\
+                                             &= \diff*{f(p \ract \exp(tA) \ract g)}{t}[t=0]
+    \end{align*}
+    from the definition of pushforward and of the \(i_p\) map. Recall \(\Ad{g^{-1}} : T_eG \to T_eG\) is the pushforward of the map \(h\mapsto g^{-1} h g\) at the identity element, then for any \(\varphi \in \smooth{G}\),
+    \begin{equation*}
+        \left(\Ad{g^{-1}}A\right)\varphi = \diff*{\varphi\left(g^{-1} \exp(tA) g\right)}{t}[t=0].
+    \end{equation*}
+    In particular, define \(\varphi(h) = f(p\ract g \ract h)\), obtaining
+    \begin{equation*}
+        \left(\pf{(\ract g)}{i_p(A)}\right) = i_{p \ract g}\left(\Ad{g^{-1}}A\right)
+    \end{equation*}
+    By the definition of the pullback,
+    \begin{align*}
+        \left(\pb{(\ract g)}{\omega}\right)_p \left(i_p(A)\right) &= \omega_{p\ract g}\left(\pf{(\ract g)}{i_p(A)}\right)\\
+                                                                  &= \omega_{p\ract g} \circ i_{p\ract g}\left(\Ad{g^{-1}}A\right)\\
+                                                                  &= \Ad{g^{-1}}A,
+    \end{align*}
+    where we have used the property (a). Recall that \(\omega_p(X_p) = i^{-1}(X_p)\), then
+    \begin{equation*}
+         \left(\pb{(\ract g)}{\omega}\right)_p \left(X_p\right) = \Ad{g^{-1}}\left(\omega_p(X_p)\right),
+    \end{equation*}
+    as desired.
+
+    Suppose \(X_p \in H_pP\), then \(X_p \in \ker \omega_p\). By the definition of the pullback,
+    \begin{align*}
+        \left(\pb{(\ract g)}{\omega}\right)_p \left(X_p\right) &= \omega_{p\ract g}\left(\pf{(\ract g)}{X_p}\right)\\
+                                                               &= 0\\
+                                                               &= \Ad{g^{-1}}\left(\omega_p(X_p)\right),
+    \end{align*}
+    since \(\pf{(\ract g)}{X_p} \in H_{p\ract g}P = \ker \omega_{p\ract g}\).
+\end{proof}
+\todo[Show that a Lie algebra-valued one form that satisfies the properties in the above theorem induces, from its kernel, on a connection.]
+\begin{theorem}{Connection one-form is equivalent to connection}{}
+    Let \(\omega\) be a Lie algebra-valued one form satisfying properties (a), (b), and (c) in \cref{thm:connection_one_form_properties}, then the smooth distribution \(\Delta = \family{\ker \omega_p}{p \in P}\) is a connection.
+\end{theorem}
+% http://faculty.bicmr.pku.edu.cn/~guochuanthiang/MP/Week8.pdf
+

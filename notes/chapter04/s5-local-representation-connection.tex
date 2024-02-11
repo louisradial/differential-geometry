@@ -1,0 +1,176 @@
+\section{Local representatives of a connection}
+Recall that for a Lie group \(G\), any tangent vector \(X_g \in T_gG\) defines a left invariant vector field \(X \in \mathfrak{g}\) with \(X(g) = X_g\). Then, there exists a isomorphism from \(T_gG\) to \(T_eG\) defined by the evaluation of this left invariant vector field at the identity element.
+\begin{definition}{Maurer-Cartan form}{maurer_cartan_form}
+    Let \(G\) be Lie group. The \emph{Maurer-Cartan form \(\Xi\)} is the Lie algebra-valued one-form defined by the map
+    \begin{align*}
+        \Xi_g : T_gG &\linear T_eG\\
+                 X_g &\mapsto \pf{\left(\ell_{g^{-1}}\right)}X_g
+    \end{align*}
+    at every \(g \in G\).
+\end{definition}
+
+Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega : \sections{TP}\). With the pushforward of the map \(g \mapsto p\ract g\) for a fixed \(p \in P\) we may relate the connection one-form with the Maurer-Cartan form.
+\begin{lemma}{Relation between connection one-form and Maurer-Cartan form}{maurercartan_connection}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\) and let \(\Xi : \sections{TG} \to T_eG\) be the Maurer-Cartan form, then
+    \begin{equation*}
+        \omega_{p\ract g}\left(\pf{(p\ract)}{X_g}\right) = \Xi_g(X_g)
+    \end{equation*}
+    for all \(p \in P, g\in G,\) and \(X_g \in T_gG\).
+\end{lemma}
+\begin{proof}
+    Consider \(A = \Xi_g(X_g) \in T_eG.\) For any \(f \in \smooth{P}\), we have
+    \begin{align*}
+        \left(\pf{(p\ract)}{X_g}\right)f &= \left(\pf{(p \ract)}{\pf{(\ell_g)}{A}}\right)f\\
+                                                    &= \left(\pf{(p \ract g \ract)}{A}\right)f\\
+                                                    &= A(f \circ p \ract g \ract)\\
+                                                    &= \diff*{f \circ p \ract g \ract \exp(tA)}{t}[t=0]\\
+                                                    &= i(A)_{p \ract g} f,
+    \end{align*}
+    hence \(\pf{(p\ract)}{X_g} = i_{p \ract g} \circ \Xi_g(X_g).\) As \(\omega_{p \ract g} \circ i_{p \ract g} = \id{T_eG},\) the claim is proved.
+\end{proof}
+
+
+In practice, one wishes to restrict attention to some open subset \(U \subset M\), where a choice of a local section \(\sigma : U \to P\) is made. This section induces
+\begin{enumerate}[label=(\alph*)]
+    \item a Lie algebra-valued one-form \(\omega^U = \pb{\sigma}{\omega} : \sections{TU} \to T_eG\), called a \emph{Yang-Mills field};
+    \item a local trivialization of the principal bundle \(h : U \times G \to P\)
+        \begin{align*}
+            h : U \times G &\to P\\
+                     (m,g) &\mapsto \sigma(m) \ract g.
+        \end{align*}
+\end{enumerate}
+We may then define a local representative of the connection one-form in the trivialization \(U \times G\) with the pullback \(\pb{h}{\omega} : \sections{T(U\times G)} \cong \sections{TU} \oplus \sections{TG} \to T_eG\).
+
+\begin{theorem}{Local representative of the connection one-form}{local_representation_connection}
+    Let \((m, g) \in U \times G\). Then, for all \(v \in T_mU\) and \(\gamma \in T_gG\),
+    \begin{equation*}
+        \pb{h}{\omega}_{(m,g)}(v,\gamma) = \Ad{g^{-1}}\left(\omega_m^U(v)\right) + \Xi_g(\gamma),
+    \end{equation*}
+    where \(\Xi_g : T_gG \to T_eG\) is the Maurer-Cartan form.
+\end{theorem}
+\begin{proof}
+    Let \(v \in T_mU\) and \(\gamma \in T_gG\). Note\nocite{cj_isham_dg} \(h = \ract \circ (\sigma \times \id{G})\). Then, by \cref{thm:pf_pb_composition},
+    \begin{align*}
+        (\pb{h}{\omega})_{(m,g)}(v, \gamma) &= \left(\pb{(\sigma \times \id{G})}{\pb{\ract}{\omega}}\right)_{(m,g)}(v,\gamma)\\
+                                          &= \left(\pb{\ract}{\omega}\right)_{(\sigma(m), g)}(\pf{\sigma}{v}, \gamma)\\
+                                          &= \omega_{\sigma(m) \ract g}\left(\pf{\ract}{(\pf{\sigma}{v}, \gamma)}\right)\\
+                                          &= \omega_{\sigma(m) \ract g}\left(\pf{(\ract g)}{\pf{\sigma}{v}} + \pf{(\sigma(m)\ract)}{\gamma}\right)\\
+                                          &= \omega_{\sigma(m)\ract g}\left(\pf{(\ract g)}{\pf{\sigma}{v}}\right) + \omega_{\sigma(m)\ract g}\left(\pf{\left(\sigma(m) \ract\right)}{\gamma}\right)\\
+                                          &= \left(\pb{(\ract g)}{\omega}\right)_{\sigma(m)}(\pf{\sigma}{v}) + \omega_{\sigma(m)\ract g}\left(\pf{\left(\sigma(m) \ract\right)}{\gamma}\right).
+    \end{align*}
+    By \cref{thm:connection_one_form_properties} and \cref{lem:maurercartan_connection},
+    \begin{align*}
+        (\pb{h}{\omega})_{(m,g)}(v, \gamma) &= \Ad{g^{-1}}\left(\omega_{\sigma(m)}(\pf{\sigma}{v})\right) + \Xi_g(\gamma)\\
+                                            &= \Ad{g^{-1}}\left(\omega^U_{m}(v)\right) + \Xi_g(\gamma),
+    \end{align*}
+    as desired.
+\end{proof}
+
+\begin{example}
+    Consider the frame bundle \(LM\) of an \(n\)-dimensional manifold \(M\), then any choice of chart \((U,x) \in \mathscr{A}_M\) induces a local section
+    \begin{align*}
+        \sigma : U &\to LM\\
+                 m &\mapsto \left(\bvec{x^1}{m}, \dots, \bvec{x^n}{m}\right).
+    \end{align*}
+    With the chosen basis, the Yang-Mills field can be expressed as
+    \begin{equation*}
+        \left(\omega^U\right)_m = \omega^U_\mu (m) \left(dx^\mu\right)_m,
+    \end{equation*}
+    for all \(m \in U\), where
+    \begin{align*}
+        \omega^U_\mu : U &\to T_{\id{\mathbb{R}^n}}\mathrm{GL}(\mathbb{R}^n)\\
+                       m &\mapsto \left(\omega^U\right)_m \left(\bvec{x^\mu}{m}\right)
+    \end{align*}
+    for \(\mu \in \set{1, \dots, n}.\)
+
+    Note a connection one-form in this case is a map \(\omega : \sections{TLM} \to T_{\id{\mathbb{R}^n}}\mathrm{GL}(\mathbb{R}^n)\cong \mathfrak{gl}(\mathbb{R}^n)\), which can be understood as a collection of \(n^2\) maps \(\omega\indices{^i_j} : \sections{TLM} \to \mathbb{R}\), with the identification of \(\mathfrak{gl}(\mathbb{R}^n)\) with real \(n\times n\) matrices and the matrix commutator, where \(i,j \in \set{1,\dots,n}\). By the same token, we define the components of the Yang-Mills field with
+    \begin{equation*}
+        \Gamma\indices{^i_{j\mu}}(m) = \left(\omega^U_\mu(m)\right)\indices{^i_j},
+    \end{equation*}
+    which does not constitute as tensor components, since the \(i,j\) indices do not come from the same vector space as the \(\mu\) index.
+    % check simon rea's notes here 193
+\end{example}
+\begin{example}
+    We construct the Maurer-Cartan form \(\Xi\) for \(G = \mathrm{GL}(\mathbb{R}^n)\). Let \(\mathrm{GL}^+(\mathbb{R}^n)\) be (connected?) an open set containing the identity element, along with chart \(y\) defined with coordinates
+    \begin{align*}
+        y\indices{^i_j} : \mathrm{GL}^+(\mathbb{R}^n) &\to \mathbb{R}\\
+                                                    g &\mapsto g\indices{^i_j}.
+    \end{align*}
+    Let \(A \in T_{\id{\mathbb{R}^n}}\mathrm{GL}^+(\mathbb{R}^n)\) be a Lie algebra element, then \(X = j(A)\) is a left invariant vector field on \(\mathrm{GL}^+(\mathbb{R}^n)\). For any \(g \in \mathrm{GL}^+(\mathbb{R}^n)\), we have
+    \begin{align*}
+        X_g y\indices{^i_j} &= \diff*{y\indices{^i_j} \left(g \bullet \exp(tA)\right)}{t}[t=0]\\
+                            &= \diff*{g\indices{^i_k} \cdot \left(e^{tA}\right)\indices{^k_j}}{t}[t=0]\\
+                            &= g\indices{^i_k} A\indices{^k_j},
+    \end{align*}
+    from which we conclude
+    \begin{equation*}
+        X_g = g\indices{^i_k}A\indices{^k_j} \bvec{y\indices{^i_j}}{g}.
+    \end{equation*}
+    Then, the Maurer-Cartan form is given by the components
+    \begin{equation*}
+        \left(\Xi_g\right)\indices{^i_j} = \left(g^{-1}\right)\indices{^i_k} \left(dy_g\right)\indices{^k_j}
+    \end{equation*}
+    at any point \(g \in \mathrm{GL}^+(\mathbb{R}^n)\). Indeed,
+    \begin{align*}
+        \left(\Xi_g\right)\indices{^i_j}(X) &= \left(g^{-1}\right)\indices{^i_k} \left(dy_g\right)\indices{^k_j}\left(g\indices{^p_r}A\indices{^r_q} \bvec{y\indices{^p_q}}{g}\right)\\
+                                            &= \left(g^{-1}\right)\indices{^i_k}g\indices{^p_r}A\indices{^r_q} \delta^k_p \delta^q_j\\
+                                            &= \left(g^{-1}\right)\indices{^i_p}g\indices{^p_r}A\indices{^r_j} \\
+                                            &= \delta^i_r A\indices{^r_j}\\
+                                            &= A\indices{^i_j}.
+    \end{align*}
+\end{example}
+
+In Physics, we are often prompted to write down a Yang-Mills field from local understanding of a connection. We aim to reconstruct the connection as a global object in the base manifold, akin to chart transition maps. That is, we seek to establish a transition rule from Yang-Mills fields in different local patches on the base space.
+
+Consider two open subsets of the base space \(U_1, U_2 \subset M\) with \(U_1 \cap U_2 \neq \emptyset\) and two local sections \(\sigma_{1} : U_1 \to P\) and \(\sigma_{2} : U_2 \to P\). We introduce the map
+\begin{align*}
+    \Omega : U_1 \cap U_2 &\to G\\
+                        m &\mapsto \Omega(m),
+\end{align*}
+where \(\sigma_2(m) = \sigma_1(m) \ract \Omega(m)\) for all \(m \in U_1 \cap U_2.\) This map is called a \emph{gauge map} and it is well defined because the action is free.
+
+\begin{theorem}{Gauge transformation of Yang-Mills fields}{gauge_transformation}
+    With the above considerations,
+    \begin{equation*}
+        \left(\omega^{U_2}\right)_m = \left(\Ad{\left(\Omega(m)\right)^{-1}}\omega^{U_1}\right)_m + \left(\pb{\Omega}{\Xi}\right)_m
+    \end{equation*}
+    for all \(m\in U_1 \cap U_2\).
+\end{theorem}
+\begin{proof}
+    \todo[Similar to \cref{thm:local_representation_connection}]
+\end{proof}
+
+\begin{example}
+    We again consider the frame bundle. Then in order to compute the pullback \(\pb{\Omega}{\Xi}\), we consider its components
+    \begin{align*}
+        \left(\left(\pb{\Omega}{\Xi}\right)_m\right)\indices{^i_j}\left(\bvec{x^\mu}{m}\right)
+        &= \left(\Xi_{\Omega(m)}\right)\indices{^i_j}\left(\pf{\Omega}{\bvec{x^\mu}{m}}\right)\\
+        &= \left(\Omega(m)^{-1}\right)\indices{^i_k} \left(dy_{\Omega(m)}\right)\indices{^k_j}\left(\pf{\Omega}{\bvec{x^\mu}{m}}\right)\\
+        &= \left(\Omega(m)^{-1}\right)\indices{^i_k} \left(\pf{\Omega}{\bvec{x^\mu}{m}}\right)(y\indices{^k_j})\\
+        &= \left(\Omega(m)^{-1}\right)\indices{^i_k} \bvec[\left(y\indices{^k_j} \circ \Omega\right)]{x^\mu}{m}\\
+        &= \left(\Omega(m)^{-1}\right)\indices{^i_k} \bvec[\left(\Omega\indices{^k_j}\right)]{x^\mu}{m}.
+    \end{align*}
+    Then, the pullback is given by
+    \begin{equation*}
+        \left(\left(\pb{\Omega}{\Xi}\right)_m\right)\indices{^i_j} = \left(\Omega(m)^{-1}\right)\indices{^i_k} \bvec[\left(\Omega\indices{^k_j}\right)]{x^\mu}{m} dx_m^\mu,
+    \end{equation*}
+    which we denote by \(\left(\boldsymbol{\Omega}^{-1} \cdot d \boldsymbol{\Omega}\right)\indices{^i_j}.\)
+
+    Now we compute the other summand, \(\Ad{\Omega(m)^{-1}}{\omega^{U_1}}\). Recall \(\Ad{g} : T_eG \to T_eG\) is the pushforward of the map \(h \mapsto ghg^{-1}.\) Let \(A \in T_eG\), then
+    \begin{equation*}
+        \Ad{g}A = \boldsymbol{g}\cdot \boldsymbol{A} \cdot \boldsymbol{g}^{-1},
+    \end{equation*}
+    since on \(\mathrm{GL}(\mathbb{R}^n)\) and \(\mathrm{gl}(\mathbb{R}^n)\) we may use matrix multiplication. Then, the transition rule between two Yang-Mills fields on the same domain \(U_1 \cap U_2\) is
+    \begin{equation*}
+        \left(\omega^{U_2}\right)\indices{^i_{j\mu}} = \left(\Omega^{-1}\right)\indices{^i_k} \left(\omega^{U_1}\right)\indices{^k_{\ell \mu}} \Omega\indices{^\ell_j} + \left(\Omega^{-1}\right)\indices{^i_k} \bfield{x^\mu} \Omega\indices{^k_\ell}.
+    \end{equation*}
+\end{example}
+Now return to the special case where the sections are induced by choices of coordinates. Let \((U_1, x), (U_2, \tilde{x}) \in \mathscr{A}_M\), then the gauge map \(\Omega\) has components given by Jacobian of the transition maps, that is,
+\begin{equation*}
+    \Omega\indices{^i_j} = \diffp{\tilde{x}^i}{x^j}\text{ and }\left(\Omega^{-1}\right)\indices{^i_j} = \diffp{x^i}{\tilde{x}^j}.
+\end{equation*}
+In this case, we have
+\begin{equation*}
+    \left(\omega^{U_2}\right)\indices{^i_{j\nu}} = \diffp{\tilde{x}^\mu}{x^\nu}\left(\diffp{x^i}{\tilde{x}^k}\left(\omega^{U_1}\right)\indices{^k_{\ell\mu}}\diffp{\tilde{x}^\ell}{x^j} + \diffp{x^i}{\tilde{x}^k}\diffp[1,1]{\tilde{x}^k}{x^\mu, x^\ell}\right),
+\end{equation*}
+which is familiar from the transformation laws for the Christoffel symbols from General Relativity.

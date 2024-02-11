@@ -1,0 +1,29 @@
+\section{Curvature and torsion on principal bundles}
+
+\begin{definition}{Exterior covariant derivative}{exterior_covariant_derivative}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let \(\phi\) be a \(K\)-valued \(k\)-form on \(P\). The map \(D \phi : \sections{T_0^k P} \to K\) defined by
+    \begin{equation*}
+        D\phi(X_1, \dots, X_{k+1}) = d\phi(\hor(X_1), \dots, \hor(X_{k+1}))
+    \end{equation*}
+    is the \emph{exterior covariant derivative of \(\phi\)}.
+\end{definition}
+
+\begin{definition}{Curvature of the connection}{curvature}
+    The \emph{curvature of the connection one-form \(\omega\)} is the Lie algebra-valued 2-form \(\Omega : \sections{T^2_0P} \to T_eG\) given by \(\Omega = D\omega.\)
+\end{definition}
+
+\begin{proposition}{}{}
+    \begin{equation*}
+        \Omega = d\omega + [\omega \wedge \omega],
+    \end{equation*}
+    where
+    \begin{equation*}
+        [\omega \wedge \omega](X,Y) = [\omega(X), \omega(Y)].
+    \end{equation*}
+\end{proposition}
+\begin{remark}
+    If \(G\) is a matrix group, then
+    \begin{equation*}
+        \Omega\indices{^i_j} = d\left(\omega\indices{^i_j}\right) + \omega\indices{^i_k}\wedge\omega\indices{^k_j}
+    \end{equation*}
+\end{remark}

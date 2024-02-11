@@ -49,12 +49,16 @@
     sub-nudge=0 mu
 }
 \newcommand\todo[1][!]{{\color{Red} TODO {#1}}}
+\difdef{l}{i}{outer-Rdelim = \,, outer-Ldelim=}
+\NewDocumentCommand\dli{}{\dl.i.}
 \DeclareMathOperator\Orb{Orb}
 \DeclareMathOperator\Stab{Stab}
 \DeclareMathOperator\sgn{sgn}
 \DeclareMathOperator\End{End}
 \DeclareMathOperator\tr{tr}
 \DeclareMathOperator\sech{sech}
+\DeclareMathOperator\hor{hor}
+\DeclareMathOperator\ver{ver}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiterX\inner[2]{\langle}{\rangle}{#1,\mathopen{}#2}
@@ -201,6 +205,10 @@
 \input{chapter04/s1-group-actions}
 \input{chapter04/s2-principal-fiber-bundles}
 \input{chapter04/s3-associated-bundles}
+\input{chapter04/s4-connections}
+\input{chapter04/s5-local-representation-connection}
+\input{chapter04/s6-parallel-transport}
+\input{chapter04/s7-curvature-torsion}
 
 \printbibliography
 \end{document}

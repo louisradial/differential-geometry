@@ -60,7 +60,7 @@ We must now verify the claim that \(T_pM\) equipped with the above operations is
     as desired. We note the tangent vector to \(\phi\) at \(p\) does not depend of the choice of chart, since the chart map was composed with its inverse.
 \end{proof}
 
-\subsection{A quick note on algebras and derivations}
+\subsection{Algebras and derivations}
 \begin{definition}{Algebra}{algebra}
     An \emph{algebra (over a field)} \(\mathcal{A} = (V, +, \cdot, \bullet)\) is a vector space \((V, +, \cdot)\) over a field \(\mathbb{K}\), equipped with a bilinear map \(\bullet : V \times V \linear V\), called a product.
 \end{definition}
@@ -273,7 +273,7 @@ which implies \(X_{\phi \circ \gamma, \phi(p)} = \pf[p]\phi(X),\) as desired.
 Similarly, we define an object that relates elements in cotangent spaces from one manifold to another.
 
 \begin{definition}{Pullback at a point}{pb_cotangent_space}
-    Let \(\phi : M \to N\) be a smooth map between smooth manifolds. The \emph{pullback \(\pb[p]\phi\) of the map \(\phi\) at the point \(\phi(p)\)} is the linear map
+    Let \(\phi : M \to N\) be a smooth map between smooth manifolds. The \emph{pullback \(\pb[p]\phi\) of the map \(\phi\) at the point \(p\)} is the linear map
     \begin{align*}
         \pb[p]\phi : T_{\phi(p)}^{\ast}N &\linear T_{p}^{\ast}M\\
         \omega &\mapsto \pb[p]\phi(\omega),
@@ -287,6 +287,36 @@ Similarly, we define an object that relates elements in cotangent spaces from on
 \begin{remark}
     Unless the map \(\phi\) is a diffeomorphism, vectors are pushed forward and covectors are pulled back.
 \end{remark}
+
+\begin{theorem}{Pushforward and pullback of a composition}{pf_pb_composition}
+    Let \(f : M \to N\) and \(g : N \to P\) be smooth maps between smooth manifolds and let \(p \in M\). Then,
+    \begin{equation*}
+        \pf[p]{h} = \pf[f(p)]{g} \circ \pf[p]{f} \text{ and }\pb[p]{h} = \pb[p]{f} \circ \pb[f(p)]{g},
+    \end{equation*}
+    where \(h = g \circ f\).
+\end{theorem}
+\begin{remark}
+    The identity for the pushforward is the generalization of the chain rule of elementary calculus.
+\end{remark}
+\begin{proof}
+    We first prove the chain rule. Let \(X \in T_pM\), then for any \(\varphi \in \smooth{P}\),
+    \begin{align*}
+        \left(\pf[p]{h}{X}\right)\varphi &= X(\varphi \circ g \circ f)\\
+                                         &= \left(\pf[p]{f}{X}\right)(\varphi \circ g)\\
+                                         &= \pf[f(p)]{g}{\left(\pf[p]{f}{X}\right)}\varphi\\
+                                         &= \left(\pf[f(p)]{g}{\circ\pf[p]{f}{(X)}}\right)\varphi
+    \end{align*}
+    hence \(\pf[p]{h} = \pf[f(p)]{g} \circ \pf[p]{f}\).
+
+    To prove the other identity, we use the above result. Indeed, let \(\omega \in T_{h(p)}P\), then for any \(X \in T_pM\),
+    \begin{align*}
+        \left(\pb[p]{f}{\circ \pb[f(p)]{g}{\omega}}\right)(X) &= \left(\pb[f(p)]{g}{\omega}\right)\left(\pf[p]{f}{X}\right)\\
+                                                              &= \omega \left(\pf[f(p)]{g}{\circ \pf[p]{f}{X}}\right)\\
+                                                              &= \omega \left(\pf[p]{h}{X}\right)\\
+                                                              &= \pb[p]{h}{\omega}(X),
+    \end{align*}
+    hence \(\pb[p]{h} = \pb[p]{f} \circ \pb[f(p)]{g}.\)
+\end{proof}
 
 \subsection{Ambient space}
 So far, the tangent plane and its structure has been done intrinsically.
@@ -306,7 +336,7 @@ Although the following definitions are done between smooth manifolds \(M\) and \
 \end{example}
 
 \begin{definition}{Embedding}{embedding}
-    An \emph{embedding} is an immersion with image homeomorphic to its range.
+    An \emph{embedding} is an immersion with image homeomorphic to its domain, where the image has the subspace topology inherited from its codomain.
 \end{definition}
 \begin{example}
     The map \(\phi\) defined in the previous example is an embedding, but the map \(\tilde\phi\) is not.

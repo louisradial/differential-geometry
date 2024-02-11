@@ -1,0 +1,152 @@
+\section{Parallel transport}
+Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\). \todo[introduce]
+
+\begin{definition}{Horizontal lift of a curve to the principal bundle}{horizontal_lift}
+    Let \(\gamma : [0,1] \to M\) be a smooth curve and let \(p \in \preim{\pi}{\set{\gamma(0)}}\) be a point in the fiber of the initial point of the curve. The \emph{horizontal lift of the curve \(\gamma\) through the point \(p\)} is the unique curve
+    \begin{equation*}
+        \gamma^\uparrow : [0,1] \to P
+    \end{equation*}
+    with \(\gamma^\uparrow(0) = p\) which satisfies
+    \begin{enumerate}[label=(\alph*)]
+        \item \(\pi \circ \gamma^\uparrow = \gamma\);
+        \item \(\ver\left(X_{\gamma^\uparrow, \gamma^\uparrow(\lambda)}\right) = 0\), for all \(\lambda \in [0,1]\);
+        \item \(\pf{\pi}{X_{\gamma^\uparrow, \gamma^\uparrow(\lambda)}} = X_{\gamma, \gamma(\lambda)}\), for all \(\lambda \in [0,1]\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    The horizontal lift is only unique due to the choice of the point in the fiber.
+\end{remark}
+
+Our strategy to write down an explicit expression for the horizontal lift is to proceed in two steps.
+\begin{enumerate}[label=(\alph*)]
+    \item "Generate" the horizontal lift by starting from some arbitrary smooth curve \(\delta : [0,1] \to P\) projecting to \(\gamma = \pi \circ \delta\) by action of a suitable smooth curve \(g : [0,1] \to G\), such that \(\gamma^\uparrow(\gamma) = \delta(\lambda) \ract g(\lambda)\), for \(\lambda \in [0,1]\).
+
+    The suitable curve \(g : [0,1] \to G\) will be the solution to an ordinary differential equation with the initial condition \(g(0) = g_0\), where \(g_0\) is the unique group element for which \(\delta(0) \ract g_0 = p \in P\).
+    \item We will locally explicitly solve the differential equation for \(g : [0,1]\to G\) by a path-ordered integral over the local Yang-Mills field.
+\end{enumerate}
+
+\begin{theorem}{}{lift_ode}
+    The first order ordinary differential equation for \(g : [0,1] \to G\) is
+    \begin{equation*}
+        \Ad{g(\lambda)^{-1}}\left(\omega_{\delta(\lambda)}X_{\delta, \delta(\lambda)}\right) + \Xi_{g(\lambda)}X_{g, g(\lambda)} = 0
+    \end{equation*}
+    with initial condition \(g(0) = g_0\).
+\end{theorem}
+\begin{proof}
+    \todo[show that \(\delta(\lambda) \ract g(\lambda)\) satisfies the properties of the horizontal lift. did it on a blackboard, should remember it. let g be any curve in \(G\) starting from \(g_0\), then show the above diff equation is equivalent to (b)]
+\end{proof}
+\begin{corollary}
+    If \(G\) is a matrix group, then the differential equation takes the form
+    \begin{equation*}
+        g(\lambda)^{-1} \cdot \omega_{\delta(\lambda)} X_{\delta,\delta(\lambda)} \cdot g(\lambda) + g(\lambda)^{-1} \cdot \dot{g}(\lambda) = 0,
+    \end{equation*}
+    or equivalently,
+    \begin{equation*}
+        \dot{g}(\lambda) = - \omega_{\delta(\lambda)}X_{\delta,\delta(\lambda)} g(\lambda).
+    \end{equation*}
+\end{corollary}
+
+In order to manipulate this differential equation, we focus our attention to a local chart \((U,x) \in \mathscr{A}_M\) of the base manifold. In addition, we choose a local section \(\sigma : U \to P\), with which we consider the curve \(\delta = \sigma \circ \gamma\) and the Yang-Mills field \(\omega^U = \pb{\sigma}\omega\).
+
+Recall the pushforward of a map between manifolds associates a tangent vector to a curve to the tangent vector to the image of the curve under the map, then \(\pf{\sigma}{X_{\gamma,\gamma(\lambda)}} = X_{\delta,\delta(\lambda)}\) for all \(\lambda \in [0,1]\). With this, we have
+\begin{align*}
+    \omega_{\delta(\lambda)}X_{\delta, \delta(\lambda)} &= \omega_{\delta(\lambda)}\left(\pf{\sigma}{X_{\gamma,\gamma(\lambda)}}\right)\\
+                                                        &= (\pb{\sigma}{\omega})_{\gamma(\lambda)}X_{\gamma,\gamma(\lambda)}\\
+                                                        &= \omega^U_{\gamma(\lambda)}X_{\gamma,\gamma(\lambda)}\\
+                                                        &= \left(\omega^U_{\gamma(\lambda)}\right)_\mu (dx_{\gamma(\lambda)})^\mu \left(\left(X_{\gamma, \gamma(\lambda)}\right)^\nu\bvec{x^\nu}{\gamma(\lambda)}\right)\\
+                                                        &= \left(\omega^U_{\gamma(\lambda)}\right)_\mu \left(X_{\gamma,\gamma(\lambda)}\right)^\mu.
+\end{align*}
+\begin{corollary}
+    If \(G\) is a matrix group, then the differential equation is locally expressed as
+    \begin{equation*}
+        \dot{g}(\lambda) = - \left(\omega_{\gamma(\lambda)}^{U}\right)_\mu \dot{\gamma}^\mu(\lambda) g(\lambda),
+    \end{equation*}
+    with initial condition \(\gamma(0) = g_0\).
+\end{corollary}
+
+\begin{theorem}{Local solution in the case of a matrix Lie group}{}
+    Let \(G\) be a matrix Lie group, let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let \((U,x) \in \mathscr{A}_M\) be a chart in the base manifold. The horizontal lift of a curve \(\gamma [0,1] \to U \subset M\) through a point \(p \in P\) is given by the explicit expression
+    \begin{equation*}
+        \gamma^\uparrow(t) = (\sigma \circ \gamma)(t) \ract \left[\mathrm{P}\exp\left(-\int_{0}^{t} \dli{\lambda}\left(\omega_{\gamma(\lambda)}^{U}\right)_\mu \dot{\gamma}^\mu(\lambda)\right)\right]g_0,
+    \end{equation*}
+    for all \(t \in [0,1]\), where \(\sigma : U \to P\) is a smooth local section, \(\omega^U = \pb{\sigma}{\omega}\) is aYang-Mills field, and \(g_0 \in G\) is the unique element such that \((\sigma\circ\gamma)(0) \ract g_0 = p\).
+\end{theorem}
+\begin{proof}
+    We solve the differential equation in the particular case of a matrix group. To simplify notation, we define a map
+    \begin{align*}
+        \Gamma : [0,1] &\to T_eG\\
+               \lambda &\mapsto \left(\omega_{\gamma(\lambda)}^{U}\right)_\mu \dot{\gamma}^\mu(\lambda),
+    \end{align*}
+    then our differential equation becomes
+    \begin{equation*}
+        \dot{g}(\lambda) = - \Gamma(\lambda) g(\lambda),
+    \end{equation*}
+    for all \(\lambda \in [0,1]\), with initial condition \(g(0) = g_0\). Naively, we consider
+    \begin{equation*}
+        g(t) = g_0 - \int_{0}^{t} \dli{\lambda} \Gamma(\lambda) g(\lambda)
+    \end{equation*}
+    for some \(t \in [0,1]\).
+
+    We may recursively substitute this expression in the integrand, obtaining, after \(k\) steps,
+    \begin{equation*}
+        \begin{aligned}
+            g(t) = g_0 &- \int_{0}^{t} \dli{\lambda_1} \Gamma(\lambda_1) g_0\\
+                       &+ \int_{0}^t \dli{\lambda_1} \int_{0}^{\lambda_1} \dli{\lambda_2} \Gamma(\lambda_1)\Gamma(\lambda_2) g_0\\
+                       &\,\vdots\\
+                       &+ (-1)^{k} \int_{0}^{t} \dli{\lambda_1} \dots \int_{0}^{\lambda_{k-1}} \dli{\lambda_k} \Gamma(\lambda_1) \dots \Gamma(\lambda_k) g(\lambda_k).
+        \end{aligned}
+    \end{equation*}
+
+    Notice the first \(k\) terms are possible to compute, since there is no dependence on the map \(g\), therefore arriving at an approximation to the desired map \(g\). Generically, as elements of the matrix Lie algebra \(T_eG\) do not commute, we express the limit \(k \to \infty\) with the \emph{path-ordered exponential}, namely
+    \begin{equation*}
+        g(t) =\mathrm{P}\exp\left(-\int_{0}^{t} \dli{\lambda}\Gamma(\lambda)\right)g_0.
+\end{equation*}
+    By \cref{thm:lift_ode}, the horizontal lift is given by \(\gamma^\uparrow = \sigma \circ \gamma \ract g\).
+\end{proof}
+
+\begin{definition}{Parallel transport map}{parallel_transport_map}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let \(\gamma : [0,1] \to M\) be a smooth curve. The \emph{parallel transport map along \(\gamma\)} is defined by
+    \begin{align*}
+        T_{\gamma} : \preim{\pi}{\set{\gamma(0)}} &\to \preim{\pi}{\set{\gamma(1)}}\\
+                                                p &\mapsto \gamma_p^\uparrow(1),
+    \end{align*}
+    where \(\gamma_p^\uparrow : [0,1] \to P\) is the horizontal lift of \(\gamma\) through the point \(p \in \preim{\pi}{\set{\gamma(0)}}\).
+\end{definition}
+
+\begin{proposition}{Parallel transport map is a bijection}{parallel_transport_bijection}
+    Under the above assumptions, the parallel transport map \(T_{\gamma}\) is a bijection between \(\preim{\pi}{\set{\gamma(0)}}\) and  \(\preim{\pi}{\set{\gamma(1)}}\).
+\end{proposition}
+\begin{proof}
+    \todo[Due to \(\pf{(\ract g)}{H_pP} = H_{p \ract g}P.\)]
+\end{proof}
+
+We consider the special case of closed curves, that is \(\gamma : [0,1] \to M\) with \(\gamma(0) = \gamma(1) = a.\) For each \(p \in \preim{\pi}{\set{a}}\), there exists a unique \(g^p_{\gamma} \in G\) such that \(p \ract g^p_{\gamma} = T_{\gamma}(p).\)
+
+\begin{definition}{Holonomy group of a connection in a principal bundle}{holonomy_group}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle with a connection one-form \(\omega\). The \emph{holonomy group of \(\omega\) at a point \(p \in P\)} is the subgroup of \(G\) defined by
+    \begin{equation*}
+        \mathrm{Hol}_p(\omega) = \set*{g^p_{\gamma} \in G : \gamma \in \mathscr{L}_{\pi(p)}},
+    \end{equation*}
+    where \(\mathscr{L}_{\pi(p)}\) is the space of loops at \(\pi(p).\)
+\end{definition}
+
+We may naturally define horizontal lift to an associated bundle with the construction on the principal bundle.
+\begin{definition}{Horizontal lift of a curve to the associated bundle}{horizontal_lift_associated}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let the smooth manifold \(F\) be a left \(G\)-space, with which we consider the associated bundle \bundle{P_F}{\pi_F}{M}. Let \(\gamma : [0,1] \to M\) be a smooth curve and let \(\gamma^\uparrow_p : [0,1] \to P\) be the horizontal lift of \(\gamma\) through \(p \in \preim{\pi}{\set{\gamma(0)}}\). The \emph{horizontal lift of \(\gamma\) to the associated bundle through \([p,f] \in P_F\)} is the curve
+    \begin{align*}
+        \gamma^{\uparrow^{P_F}}_{[p,f]} : [0,1] &\to P_F\\
+                                        \lambda &\mapsto [\gamma_p^\uparrow(\lambda), f].
+    \end{align*}
+\end{definition}
+
+Similarly, the parallel transport map is defined with the horizontal lift.
+\begin{definition}{Parallel transport map on the associated bundle}{parallel_transport_map_associated}
+    The \emph{parallel transport map along \(\gamma\) on the associated bundle \bundle{P_F}{\pi_F}{M}} is defined by
+    \begin{align*}
+        T^{P_F}_{\gamma} : \preim{\pi_F}{\set{\gamma(0)}} &\to \preim{\pi_F}{\set{\gamma(1)}}\\
+                                                    [p,f] &\mapsto \gamma_{[p,f]}^{\uparrow^{P_F}}(1),
+    \end{align*}
+    where \(\gamma_{[p,f]}^{\uparrow^{P_F}} : [0,1] \to P_F\) is the horizontal lift of \(\gamma\) to the associated bundle through the point \([p,f] \in \preim{\pi_F}{\set{\gamma(0)}}\).
+\end{definition}
+
+If \(F\) is a \(\mathbb{R}\)-vector space and the left action \(\lact : G \times F \to F\) is linear, then \(P_F\) is a vector bundle. Let \(\phi : U \to P_F\) be a local section of the associated bundle. \todo[provide a notion for covariant derivative]
