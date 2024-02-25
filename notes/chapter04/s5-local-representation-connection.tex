@@ -10,12 +10,12 @@ Recall that for a Lie group \(G\), any tangent vector \(X_g \in T_gG\) defines a
 \end{definition}
 
 Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega : \sections{TP}\). With the pushforward of the map \(g \mapsto p\ract g\) for a fixed \(p \in P\) we may relate the connection one-form with the Maurer-Cartan form.
-\begin{lemma}{Relation between connection one-form and Maurer-Cartan form}{maurercartan_connection}
+\begin{lemma}{Maurer-Cartan form is a pullback of the connection one-form}{maurercartan_connection}
     Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\) and let \(\Xi : \sections{TG} \to T_eG\) be the Maurer-Cartan form, then
     \begin{equation*}
         \omega_{p\ract g}\left(\pf{(p\ract)}{X_g}\right) = \Xi_g(X_g)
     \end{equation*}
-    for all \(p \in P, g\in G,\) and \(X_g \in T_gG\).
+    for all \(p \in P, g\in G,\) and \(X_g \in T_gG\). Equivalently, \(\pb{(p\ract)}{(\omega_p)} = \Xi\) for all \(p \in P\).
 \end{lemma}
 \begin{proof}
     Consider \(A = \Xi_g(X_g) \in T_eG.\) For any \(f \in \smooth{P}\), we have
@@ -132,12 +132,23 @@ where \(\sigma_2(m) = \sigma_1(m) \ract \Omega(m)\) for all \(m \in U_1 \cap U_2
 \begin{theorem}{Gauge transformation of Yang-Mills fields}{gauge_transformation}
     With the above considerations,
     \begin{equation*}
-        \left(\omega^{U_2}\right)_m = \left(\Ad{\left(\Omega(m)\right)^{-1}}\omega^{U_1}\right)_m + \left(\pb{\Omega}{\Xi}\right)_m
+        \left(\omega^{U_2}\right)_m = \left(\Ad{\Omega(m)^{-1}}\omega^{U_1}\right)_m + \left(\pb{\Omega}{\Xi}\right)_m
     \end{equation*}
     for all \(m\in U_1 \cap U_2\).
 \end{theorem}
 \begin{proof}
-    \todo[Similar to \cref{thm:local_representation_connection}]
+    Consider \(\sigma_2 : U_1 \cap U_2 \to P\) as the composition \(\sigma_2 = \ract \circ (\sigma_1 \times \Omega)\). Let \(v \in T_m(U_1 \cap U_2)\) for a point \(m \in U_1 \cap U_2\), then
+    \begin{align*}
+        \omega^{U_2}_m(v) &= \left(\pb{\sigma_2}{\omega}\right)_m(v)\\
+                          &= \left(\pb{(\sigma_1 \times \Omega)}{\pb{\ract}{\omega}}\right)_m(v)\\
+                          &= \left(\pb{\ract}{\omega}\right)_{(\sigma_1(m), \Omega(m))} \left(\pf{(\sigma_1\times \Omega)}{v}\right)\\
+                          &= \omega_{\sigma_1(m) \ract \Omega(m)}\pf{\ract}{(\pf{\sigma_1}{v}, \pf{\Omega}{v})}\\
+                          &= \omega_{\sigma_1(m) \ract \Omega(m)}\left(\pf{(\ract\Omega(m))}{\pf{\sigma_1}{v}} + \pf{(\sigma_1(m)\ract)}{\pf{\Omega}{v}}\right)\\
+                          &= \left(\pb{(\ract \Omega(m))}{\omega}\right)_{\sigma_1(m)}(\pf{\sigma_1}{v}) + \omega_{\sigma_1(m)\ract \Omega(m)}\left(\pf{(\sigma_1(m) \ract)}{\pf{\Omega}{v}}\right)\\
+                          &= \Ad{\Omega(m)^{-1}}\left(\omega_{\sigma_1(m)}\pf{\sigma_1}{v}\right)+ \Xi_{\Omega(m)}\pf{\Omega}{v}\\
+                          &= \Ad{\Omega(m)^{-1}}\left(\omega^{U_1}_m(v)\right) + \left(\pb{\Omega}\Xi\right)_m(v),
+    \end{align*}
+    as claimed.
 \end{proof}
 
 \begin{example}

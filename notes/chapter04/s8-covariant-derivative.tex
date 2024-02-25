@@ -1,0 +1,53 @@
+\section{Covariant derivative on an associated vector bundle}
+The geometrical idea of a covariant derivative on an associated vector bundle was discussed when defining the parallel transport on associated bundles. The implementation of the intuitive difference quotient there defined is, however, not as simple. Instead, we provide a technically neater way to define a covariant derivative.
+
+Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), let \(F\) be a vector space with a linear left action \(\lact : G \times F \to F\) in the sense that the map \(g \lact : F \linear F\) is linear for every \(g \in G\), and let \bundle{P_F}{\pi_F}{M} be the associated vector bundle considered. We wish to construct a \emph{covariant derivative \(\nabla\)}, an operator
+\begin{align*}
+    \nabla : TM \times \sections{P_F} &\to \sections{P_F}\\
+                           (T,\sigma) &\mapsto \nabla_T \sigma
+\end{align*}
+satisfying
+\begin{enumerate}[label=(\alph*)]
+    \item \(\smooth{M}\)-linearity with respect to the first argument, that is, \(\nabla_{fT + S}\sigma = f \nabla_T \sigma + \nabla_S \sigma\);
+    \item additivity with respect to the second argument, that is, \(\nabla_T (\sigma + \tau) = \nabla_T \sigma + \nabla_T \tau\); and
+    \item a product rule \(\nabla_T (f \sigma) = (Tf) \sigma + f \nabla_T \sigma\),
+\end{enumerate}
+for all \(\sigma, \tau \in \sections{P_F}\), \(T, S \in T_xM\) and \(f \in \smooth{M}.\)
+
+Let \((U, x) \in \mathscr{A}_M\) be a chart of the base space \(M\), then there is a bijective correspondence between local sections \(\sigma : U \to P_F\) on the associated bundle and local \(G\)-equivariant \(F\)-valued maps on the principal bundle \(h : \tilde{P} = \preim{\pi}{U} \to F\) satisfying \(h(p\ract g) = g^{-1} \lact h(p)\), due to \cref{thm:sections_equivariant}. With this, it's possible to use the principal bundle in order to define the covariant derivative.
+
+\begin{theorem}{Exterior covariant derivative of a \(G\)-equivariant map}{}
+    With the above assumptions, a \(G\)-equivariant \(F\)-valued map on the principal bundle \(\phi : \tilde{P} \to F\) satisfies
+    \begin{equation*}
+        D\phi(X) = d\phi(X) + \omega(X) \lact \phi
+    \end{equation*}
+    for all \(X \in \sections{T\tilde{P}}\).
+\end{theorem}
+\begin{proof}
+    Notice the claimed identity is trivially satisfied for a horizontal vector field, as \(\omega(H\tilde{P}) = \set{0}\). From the linearity of both sides of the equation, it remains to show it is satisfied for vertical vector fields.
+
+    If \(\phi : \tilde{P} \to F\) is a \(G\)-equivariant \(F\)-valued map on the principal bundle, then
+    \begin{equation*}
+        \phi(p \lact \exp(At)) = \exp(-At) \lact \phi(p),
+    \end{equation*}
+    for \(p \in \tilde{P}\), \(A \in T_eG\) and \(t \in (-\varepsilon,\varepsilon)\). Differentiating with respect to \(t\) at \(t = 0\) yields
+    \begin{align*}
+        d_p\phi(i_p(A)) = - A \lact \phi(p),
+    \end{align*}
+    since \(G \lact : F \linear F\) is linear. Recall that \(\omega_p \circ i_p = \id{T_eG}\), then
+    \begin{equation*}
+        d_p\phi(i_p(A)) = -\omega_p(i_p(A)) \lact \phi(p),
+    \end{equation*}
+    for all \(p \in \tilde{P}\) and \(A \in T_eG\).
+
+    Let \(X \in \sections{V\tilde{P}}\) be a vertical vector field, then at each point \(p \in \tilde{P}\), there exists \(A \in T_eG\) such that \(X_p = i_p(A)\), therefore
+    \begin{equation*}
+        d\phi(X) + \omega(X) \lact \phi = 0
+    \end{equation*}
+    follows from the previous result. Then, as \(D\phi = d\phi \circ \hor\), we have \(D\phi(X) = 0\), yielding
+    \begin{equation*}
+        D\phi(X) = d\phi(X) + \omega(X) \lact \phi
+    \end{equation*}
+    for vertical vector fields.
+\end{proof}
+% https://math.stackexchange.com/questions/2830445/how-to-recover-the-covariant-derivative-from-the-pull-back-from-that-on-the-prin

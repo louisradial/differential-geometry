@@ -1,5 +1,5 @@
 \section{Parallel transport}
-Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\). \todo[introduce]
+Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\). The key idea of parallel transport is to use a curve \(\gamma : [0,1]\to M\) on the base manifold and the connection one-form \(\omega\) to associate points in the fiber \(\preim{\pi}{\set{\gamma(0)}}\)  with the fiber \(\preim{\pi}{\set{\gamma(1)}}\). In order to do this, we construct a curve \(\gamma^\uparrow : [0,1] \to P\) in the total space which projects to the original curve \(\gamma\) and whose tangent vectors all lie in the horizontal spaces.
 
 \begin{definition}{Horizontal lift of a curve to the principal bundle}{horizontal_lift}
     Let \(\gamma : [0,1] \to M\) be a smooth curve and let \(p \in \preim{\pi}{\set{\gamma(0)}}\) be a point in the fiber of the initial point of the curve. The \emph{horizontal lift of the curve \(\gamma\) through the point \(p\)} is the unique curve
@@ -25,15 +25,50 @@ Our strategy to write down an explicit expression for the horizontal lift is to 
     \item We will locally explicitly solve the differential equation for \(g : [0,1]\to G\) by a path-ordered integral over the local Yang-Mills field.
 \end{enumerate}
 
-\begin{theorem}{}{lift_ode}
-    The first order ordinary differential equation for \(g : [0,1] \to G\) is
+\begin{theorem}{Ordinary differential equation to determine the horizontal lift}{lift_ode}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), let \(\gamma : [0,1] \to M\) and \(\delta : [0,1] \to P\) be smooth curves satisfying \(\pi \circ \delta = \gamma\), and let \(p \in P\) be a point in the total space. A smooth curve \(g : [0,1] \to G\) satisfies the ordinary differential equation
     \begin{equation*}
         \Ad{g(\lambda)^{-1}}\left(\omega_{\delta(\lambda)}X_{\delta, \delta(\lambda)}\right) + \Xi_{g(\lambda)}X_{g, g(\lambda)} = 0
     \end{equation*}
-    with initial condition \(g(0) = g_0\).
+    with initial condition \(g(0) = g_0\), where \(\delta(0) \ract g_0 = p\), if and only if the curve \(\delta \ract g\) is the horizontal lift of \(\gamma\) through \(p\).
 \end{theorem}
 \begin{proof}
-    \todo[show that \(\delta(\lambda) \ract g(\lambda)\) satisfies the properties of the horizontal lift. did it on a blackboard, should remember it. let g be any curve in \(G\) starting from \(g_0\), then show the above diff equation is equivalent to (b)]
+    Let \(g : [0,1] \to G\) be any smooth curve on \(G\) with \(g(0) = g_0\) and define the smooth curve
+    \begin{align*}
+        \eta : [0,1] &\to P\\
+             \lambda &\mapsto \delta(\lambda) \ract g(\lambda)
+    \end{align*}
+    with \(\eta(0) = p\).
+
+    If \(\delta(\lambda) \in \preim{\pi}{\set{\gamma(\lambda)}}\), then \(\delta(\lambda) \ract g(\lambda) \in \preim{\pi}{\set{\gamma(\lambda)}}\), that is, \(\pi \circ \eta = \gamma\). Recall the pushforward of a tangent vector to a curve is the tangent vector to the image curve. Indeed, for any smooth map \(f \in \smooth{M}\),
+    \begin{align*}
+        \left(\pf{\pi}{X_{\eta,\eta(\lambda)}}\right)f &= X_{\eta,\eta(\lambda)}(f \circ \pi)\\
+                                                       &= \diff*{f \circ \pi \circ \eta(\lambda + t)}{t}[t=0]\\
+                                                       &= \diff*{f \circ \gamma (\lambda + t)}{t}[t=0]\\
+                                                       &= X_{\gamma,\gamma(\lambda)}f,
+    \end{align*}
+    hence \(\pf{\pi}{X_{\eta,\eta(\lambda)}}=X_{\gamma,\gamma(\lambda)}\). Thus, the curve \(\eta\) is the horizontal lift of \(\gamma\) through \(p\) if and only if
+    \begin{equation*}
+        \omega_{\eta(\lambda)}X_{\eta, \eta(\lambda)} = 0
+    \end{equation*}
+    for all \(\lambda \in [0,1].\)
+
+    Notice the curve \(\eta\) is the image of the curve \((\delta, g) : [0,1] \to P \times G\) under the action \(\ract : P \times G \to P\), that is
+    \begin{align*}
+        X_{\eta, \eta(\lambda)} &= \pf{\ract}{\left(X_{\delta,\delta(\lambda)}, X_{g, g(\lambda)}\right)}\\
+                                &= \pf{(\ract g(\lambda))}{X_{\delta,\delta(\lambda)}} + \pf{(\delta(\lambda)\ract)}{X_{g,g(\lambda)}}.
+    \end{align*}
+    Consider \(\omega_{\eta(\lambda)}X_{\eta,\eta(\lambda)}\). Then
+    \begin{align*}
+        \omega_{\eta(\lambda)}X_{\eta, \eta(\lambda)} &= \omega_{\delta(\lambda) \ract g(\lambda)}\left(\pf{(\ract g(\lambda))}{X_{\delta,\delta(\lambda)}}\right) + \omega_{\delta(\lambda) \ract g(\lambda)}\left(\pf{(\delta(\lambda)\ract)}{X_{g,g(\lambda)}}\right)\\
+                                                      &= \left(\pb{(\ract g(\lambda))}\omega\right)_{\delta(\lambda)}X_{\delta,\delta(\lambda)} + \Xi_{g(\lambda)}X_{g,g(\lambda)}\\
+                                                      &= \Ad{g(\lambda)^{-1}}\left(\omega_{\delta(\lambda)}X_{\delta,\delta(\lambda)}\right)+ \Xi_{g(\lambda)}X_{g,g(\lambda)}
+    \end{align*}
+    due to \cref{thm:connection_one_form_properties,lem:maurercartan_connection}. Hence, \(g\) satisfies the differential equation
+    \begin{equation*}
+        \Ad{g(\lambda)^{-1}}\left(\omega_{\delta(\lambda)}X_{\delta, \delta(\lambda)}\right) + \Xi_{g(\lambda)}X_{g, g(\lambda)} = 0
+    \end{equation*}
+    if and only if \(\eta\) is the horizontal lift of the curve \(\gamma\) through \(p\).
 \end{proof}
 \begin{corollary}
     If \(G\) is a matrix group, then the differential equation takes the form
@@ -81,7 +116,7 @@ Recall the pushforward of a map between manifolds associates a tangent vector to
     \begin{equation*}
         \dot{g}(\lambda) = - \Gamma(\lambda) g(\lambda),
     \end{equation*}
-    for all \(\lambda \in [0,1]\), with initial condition \(g(0) = g_0\). Naively, we consider
+    for all \(\lambda \in [0,1]\), with initial condition \(g(0) = g_0\). \todo[Introduce a uniformly converging sequence of curves.] Naively, we consider
     \begin{equation*}
         g(t) = g_0 - \int_{0}^{t} \dli{\lambda} \Gamma(\lambda) g(\lambda)
     \end{equation*}
@@ -114,10 +149,24 @@ Recall the pushforward of a map between manifolds associates a tangent vector to
 \end{definition}
 
 \begin{proposition}{Parallel transport map is a bijection}{parallel_transport_bijection}
-    Under the above assumptions, the parallel transport map \(T_{\gamma}\) is a bijection between \(\preim{\pi}{\set{\gamma(0)}}\) and  \(\preim{\pi}{\set{\gamma(1)}}\).
+    Under the above assumptions, the parallel transport map \(T_{\gamma}\) is a bijection between the fibers \(\preim{\pi}{\set{\gamma(0)}}\) and  \(\preim{\pi}{\set{\gamma(1)}}\).
 \end{proposition}
 \begin{proof}
-    \todo[Due to \(\pf{(\ract g)}{H_pP} = H_{p \ract g}P.\)]
+    Recall that \(\pf{(\ract g)}H_pP = H_{p\ract g}P\) for all \(p \in P\) and \(g \in G\). Then,
+    for a horizontal lift \(\gamma_p^\uparrow\) through \(p\) it follows that
+    \begin{equation*}
+        \gamma_p^\uparrow(\lambda) \ract g = \gamma_{p \ract g}^\uparrow(\lambda),
+    \end{equation*}
+    hence \(T_{\gamma} (p \ract g) = T_{\gamma}(p) \ract g\).
+
+    Suppose there exists \(p_1, p_2 \in \preim{\pi}{\set{\gamma(0)}}\) such that \(T_{\gamma}(p_1) = T_{\gamma}(p_2)\). Since both belong to the same fiber, there exists \(g \in G\) such that \(p_2 = p_1 \ract g\), then
+    \begin{align*}
+        T_{\gamma}(p_1) &= T_{\gamma}(p_1 \ract g)\\
+                        &= T_{\gamma}(p_1) \ract g.
+    \end{align*}
+    Since the action is free, \(g = e\), hence the map is injective.
+
+    Let \(q \in \preim{\pi}{\set{\gamma(1)}}\). Let \(\tilde{p} \in \preim{\pi}{\set{\gamma(0)}}\), then \(T_{\gamma}(\tilde{p}) \in \preim{\pi}{\set{\gamma(1)}}\). There exists \(\tilde{g} \in G\) such that \(q = T_{\gamma}(\tilde{p}) \ract \tilde{g}\). That is, \(p = \tilde{p} \ract \tilde{g} \in \preim{\pi}{\set{\gamma(0)}}\) satisfies \(T_{\gamma}(p) = q\). Therefore, \(T_{\gamma}\) is surjective.
 \end{proof}
 
 We consider the special case of closed curves, that is \(\gamma : [0,1] \to M\) with \(\gamma(0) = \gamma(1) = a.\) For each \(p \in \preim{\pi}{\set{a}}\), there exists a unique \(g^p_{\gamma} \in G\) such that \(p \ract g^p_{\gamma} = T_{\gamma}(p).\)
@@ -130,6 +179,7 @@ We consider the special case of closed curves, that is \(\gamma : [0,1] \to M\) 
     where \(\mathscr{L}_{\pi(p)}\) is the space of loops at \(\pi(p).\)
 \end{definition}
 
+\subsection{Parallel transport in an associated bundle}
 We may naturally define horizontal lift to an associated bundle with the construction on the principal bundle.
 \begin{definition}{Horizontal lift of a curve to the associated bundle}{horizontal_lift_associated}
     Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let the smooth manifold \(F\) be a left \(G\)-space, with which we consider the associated bundle \bundle{P_F}{\pi_F}{M}. Let \(\gamma : [0,1] \to M\) be a smooth curve and let \(\gamma^\uparrow_p : [0,1] \to P\) be the horizontal lift of \(\gamma\) through \(p \in \preim{\pi}{\set{\gamma(0)}}\). The \emph{horizontal lift of \(\gamma\) to the associated bundle through \([p,f] \in P_F\)} is the curve
@@ -149,4 +199,8 @@ Similarly, the parallel transport map is defined with the horizontal lift.
     where \(\gamma_{[p,f]}^{\uparrow^{P_F}} : [0,1] \to P_F\) is the horizontal lift of \(\gamma\) to the associated bundle through the point \([p,f] \in \preim{\pi_F}{\set{\gamma(0)}}\).
 \end{definition}
 
-If \(F\) is a \(\mathbb{R}\)-vector space and the left action \(\lact : G \times F \to F\) is linear, then \(P_F\) is a vector bundle. Let \(\phi : U \to P_F\) be a local section of the associated bundle. \todo[provide a notion for covariant derivative]
+If \(F\) is a \(\mathbb{R}\)-vector space and the left action \(\lact : G \times F \to F\) is linear with respect to the fiber, then \bundle{P_F}{\pi_F}{M} is a \emph{vector bundle} associated to the principal bundle \bundle{P}{\pi}{M}. Let \(\psi : U \to P_F\) be a local section of the associated bundle. With a connection on the principal bundle and the vector space structure of the fibers, we may compare the values of \(\psi\) for neighboring points in \(U\) along a certain direction. This is the geometrical idea behind the \emph{covariant derivative} of a section. More precisely, let \(\gamma : [0, \varepsilon] \to U\) be a curve in \(M\) such that \(\gamma(0) = x\), then the \emph{covariant derivative of \(\psi\) in the direction \(\gamma\) at \(x\)} is the difference quotient
+\begin{equation*}
+    \nabla_{\gamma}\psi = \lim_{t \to 0}\left(\frac{(T_{\gamma}^{P_F}\circ \psi \circ \gamma)(t) - \psi(x)}{t}\right) \in \preim{\pi_F}{\set{x}},
+\end{equation*}
+where the parallel transport maps the fiber \(\preim{\pi_F}{\set{\gamma(t)}}\) to the fiber \(\preim{\pi_F}{\set{x}}\).

@@ -1,4 +1,5 @@
-\section{Curvature and torsion on principal bundles}
+\section{Curvature and torsion on a principal bundle}
+In elementary differential geometry, curvature and torsion on the frame bundle are usually mentioned together in properties of a covariant derivative. More generally, however, only curvature can be defined in a principal bundle equipped with a connection, while torsion requires additional structure. It turns out that in the frame bundle, this structure is a canonically defined, and thus allows to define torsion.
 
 \begin{definition}{Exterior covariant derivative}{exterior_covariant_derivative}
     Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\), and let \(\phi\) be a \(K\)-valued \(k\)-form on \(P\). The map \(D \phi : \sections{T_0^k P} \to K\) defined by
@@ -8,22 +9,132 @@
     is the \emph{exterior covariant derivative of \(\phi\)}.
 \end{definition}
 
-\begin{definition}{Curvature of the connection}{curvature}
-    The \emph{curvature of the connection one-form \(\omega\)} is the Lie algebra-valued 2-form \(\Omega : \sections{T^2_0P} \to T_eG\) given by \(\Omega = D\omega.\)
-\end{definition}
-
-\begin{proposition}{}{}
+\begin{proposition}{Exterior covariant derivative of the connection one-form}{curvature_form}
+    The exterior covariant derivative of the connection one-form \(\omega\) is explicitly expressed as
     \begin{equation*}
-        \Omega = d\omega + [\omega \wedge \omega],
+        D\omega = d\omega + [\omega \wedge \omega],
     \end{equation*}
     where
     \begin{equation*}
-        [\omega \wedge \omega](X,Y) = [\omega(X), \omega(Y)].
+        [\omega \wedge \omega](X,Y) = [\omega(X), \omega(Y)]
     \end{equation*}
+    for all \(X, Y \in \sections{TP}\).
 \end{proposition}
 \begin{remark}
     If \(G\) is a matrix group, then
     \begin{equation*}
-        \Omega\indices{^i_j} = d\left(\omega\indices{^i_j}\right) + \omega\indices{^i_k}\wedge\omega\indices{^k_j}
+        \left(D\omega\right)\indices{^i_j} = d\left(\omega\indices{^i_j}\right) + \omega\indices{^i_k}\wedge\omega\indices{^k_j}.
     \end{equation*}
 \end{remark}
+\begin{proof}
+    Notice both sides of the identity claimed are \(\smooth{P}\)-bilinear and skew symmetric, then we need only consider the cases where \(X, Y \in \sections{TP}\) are both vertical, both horizontal, and one is horizontal while the other is vertical.
+
+    \todo[change this to each point] We consider \(X,Y \in \sections{VP}\), then let \(A = i^{-1}(X)\) and \(B = i^{-1}(Y)\) be elements in \(T_eG\). Recall \(i : T_eG \to \sections{TP}\) is a Lie algebra homomorphism, hence
+    \begin{equation*}
+        i([A,B]) = [i(A), i(B)] = [X,Y].
+    \end{equation*}
+    Clearly \(D\omega(X,Y) = 0\), so it remains to show that the right hand side also vanishes. We have
+    \begin{align*}
+        d\omega(X,Y) + [\omega \wedge \omega](X,Y) &= X(\omega(Y)) - Y(\omega(X)) - \omega([X,Y])+ [\omega(X), \omega(Y)]\\
+                                                   &= X(B) - Y(A) - [A,B] + [A, B]\\
+                                                   &= 0,
+    \end{align*}
+    thus the equation holds for vertical vector fields.
+
+    We consider \(X, Y \in \sections{HP}\), then \(D\omega = d\omega\) by definition. It remains to show that \([\omega \wedge \omega](X,Y) = 0\). Recall that \(\sections{HP} = \ker \omega\), then \([\omega(X), \omega(Y)] = 0\). Thus, the equation holds for horizontal vector fields.
+
+    Finally we consider \(X \in \sections{HP}\) and \(Y \in \sections{VP}\), without loss of generality due to the skew symmetry of the objects involved. In this case, we have
+    \begin{equation*}
+        D\omega(X, Y) = d\omega(X, 0) = 0
+    \end{equation*}
+    and
+    \begin{align*}
+        d\omega(X,Y) + [\omega \wedge \omega](X,Y) &= X(B) - i(B)(\omega(X)) - \omega([X, i(B)]) + [\omega(X), B]\\
+                                                   &= -\omega([X,i(B)]).
+    \end{align*}
+    \todo[It remains to show that the vector field commutator of a horizontal vector field and a vertical vector field is horizontal.]
+\end{proof}
+
+\begin{definition}{Curvature of the connection}{curvature}
+    The \emph{curvature \(\Omega\) of the connection one-form \(\omega\)} is the exterior covariant derivative of \(\omega\), that is, a Lie algebra-valued 2-form \(\Omega : \sections{T^2_0P} \to T_eG\) given by \(\Omega = D\omega.\)
+\end{definition}
+
+In order to relate the curvature of the connection one-form to local objects on the base space, we consider a chart \((U,x) \in \mathscr{A}_M\) and a local section \(\sigma : U \to P\). Similarly to the Yang-Mills field \(\pb{\sigma}{\omega}\), we define the \emph{Yang-Mills field strength} \(\pb{\sigma}{\Omega}\), which in differential geometry is usually referred to as the \emph{Riemann curvature tensor \(\Riem\)}. From \cref{prop:curvature_form}, it follows that
+\begin{align*}
+    \pb{\sigma}{\Omega} &= \pb{\sigma}{\left(d\omega + [\omega \wedge \omega]\right)}\\
+                        &= d(\pb{\sigma}{\omega}) + [\pb{\sigma}{\omega} \wedge \pb{\sigma}{\omega}]\\
+                        &= d\omega^U+ [\omega^U \wedge \omega^U].
+\end{align*}
+In the case of a frame bundle with a matrix group, we have in terms of components
+\begin{equation*}
+    \Riem\indices{^i_{j\mu\nu}} = \bfield{x^\nu}\Gamma\indices{^i_{j\mu}} - \bfield{x^\mu}\Gamma\indices{^i_{j\nu}} + \Gamma\indices{^i_{k\mu}}\Gamma\indices{^k_{j\nu}} - \Gamma\indices{^i_{k\nu}}\Gamma\indices{^k_{j\mu}},
+\end{equation*}
+where \(i,j\) representing the components of the group and \(\mu,\nu\) the components of the tangent space of the frame bundle.
+
+\begin{theorem}{Second Bianchi identity}{bianchi_curvature}
+    Let \(\Omega\) be the curvature of the connection one-form \(\omega\), then \(D\Omega = 0\).
+\end{theorem}
+\begin{remark}
+    It is not the case that \(D \circ D = 0\) generally.
+\end{remark}
+\begin{proof}
+    \todo
+\end{proof}
+
+We now introduce the extra structure needed to define torsion. The key idea is to provide an identification of a distinguished vector space \(V\) with each tangent space of the base space of a principal bundle.
+\begin{definition}{Solder form}{solder_form}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\). A \emph{solder form} \(\theta\) on the total space \(P\) is a \(V\)-valued one-form, satisfying
+    \begin{enumerate}[label=(\alph*)]
+        \item \(V\) is a linear representation space of \(G\) with the same dimension as the dimension of the base space \(M\);
+        \item for all \(X \in \sections{TP}\), \((\theta \circ \ver)(X) = 0\);
+        \item \(G\)-equivariance in the sense that for all \(g \in G\), \(g \lact (\pb{(\ract g)}{\theta}) = \theta\);
+        \item the tangent bundle \(TM\) of the base space and the associated bundle \bundle{P_V}{\pi_V}{M} are isomorphic as associated bundles.
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    Consider the principal \(\mathrm{GL}(\mathbb{R}^n)\)-bundle \bundle{LM}{\pi}{M} of an \(n\)-dimensional smooth manifold \(M\) and the vector space \(V = \mathbb{R}^n\). We define the \(V\)-valued one-form \(\theta : \sections{TLM} \to \mathbb{R}^n\) by
+    \begin{equation*}
+        \theta_e = u_e^{-1} \circ \pf{\pi},
+    \end{equation*}
+    where \(u_e\) is the isomorphism
+    \begin{align*}
+        u_e : \mathbb{R}^n &\linear T_{\pi(e)}M\\
+         (x^1, \dots, x^n) &\mapsto x^ie_i.
+    \end{align*}
+    To explicitly express the inverse map \(u_e^{-1}\), we recall that for every frame \(e\) there exists a unique coframe \(\epsilon\), then
+    \begin{align*}
+        u_e^{-1} : T_{\pi(e)}M &\linear \mathbb{R}^n\\
+                             X &\mapsto \epsilon(X).
+    \end{align*}
+\end{example}
+
+\begin{definition}{Torsion}{torsion}
+    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle equipped with a connection one-form \(\omega\) and a solder form \(\theta\) on \(P\). The \emph{torsion} is the \(V\)-valued two-form \(\Theta = D\theta\).
+\end{definition}
+\begin{proposition}{Torsion expression}{torsion}
+    Under the above assumptions,
+    \begin{equation*}
+        \Theta = d\theta + \omega \wedge_\rho \theta,
+    \end{equation*}
+    where \todo[
+    \begin{equation*}
+        (\omega \wedge_\rho \theta)(X,Y) = \left(\pf{\rho}{\omega(X)}\right) \lact \theta(Y)
+    \end{equation*}]
+    for \(X,Y \in \sections{TP}.\)
+\end{proposition}
+
+\begin{theorem}{First Bianchi identity}{bianchi_torsion}
+    Let \(\Theta\) be the torsion, then \(D\Theta = \Omega \wedge_{\rho} \theta\).
+\end{theorem}
+\begin{remark}
+    In the case of a matrix group, we have
+    \begin{equation*}
+        \Theta^i = d\theta^i + \omega\indices{^i_k}\wedge \theta^k
+    \end{equation*}
+    and
+    \begin{equation*}
+        (D\Theta)^i = \Omega\indices{^i_k} \wedge \theta^k.
+    \end{equation*}
+\end{remark}
+
+Similar to the other objects defined on the principal bundle, the pullback \(T = \pb{\sigma}{\Theta}\) is the \emph{torsion tensor} on the base space, where \(\sigma\) is a local section as before.

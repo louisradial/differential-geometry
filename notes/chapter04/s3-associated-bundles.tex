@@ -38,12 +38,12 @@
 
     Let \(f_1, f_2 \in F\) such that \(\phi_m(f_1) = \phi_m(f_2)\), then there exists \(g \in G\) such that \(p_m = p_m \ract g\) and \(f_2 = g^{-1} \lact f_1\). Since \(\ract\) is free, we have \(g = e\), hence \(f_1 = f_2\).
 
-    Let \([p, f] \in U_m\). Since \(P\) is a right \(G\)-space, there exists a diffeomorphism \(\psi_{p_m} : P \to G\) such that \(p' \ract \psi_{p_m}(p') = p_m\) for all \(p' \in P\) as shown in \cref{thm:orbit_free}. With this diffeomorphism, we have \([p,f] = [p_m, \psi_{p_m}(p) \lact f].\) Thus, \(\phi_m(\psi_{p_m}(p) \lact f) = [p,f],\) that is, the map is surjective.
+    Let \([p, f] \in U_m\). Since \(P\) is a right \(G\)-space, there exists a diffeomorphism \(\psi_{p_m} : P \to G\) such that \(p' \ract \psi_{p_m}(p') = p_m\) for all \(p' \in P\) as shown in \cref{thm:orbit_free}. With this diffeomorphism, we have \([p,f] = [p_m, (\psi_{p_m}(p))^{-1} \lact f].\) Thus, \(\phi_m((\psi_{p_m}(p))^{-1} \lact f) = [p,f],\) that is, the map is surjective.
 
     We have shown the map \(\phi_m\) is a continuous bijection with inverse
     \begin{align*}
         \phi_m^{-1} : U_m &\to F\\
-                    [p,f] &\mapsto \psi_{p_m}(p) \lact f,
+                    [p,f] &\mapsto (\psi_{p_m}(p))^{-1} \lact f,
     \end{align*}
     which is continuous since \(\psi_{p_m}\) and \(\lact\) are smooth maps. Therefore, every fiber of the associated bundle is homeomorphic to \(F.\)
 \end{proof}
@@ -167,15 +167,77 @@ and a principal \(G\)-bundle \bundle{P}{\pi}{M} is trivial if there is a princip
 \todo[relate the trivial fiber bundle to the trivial principal bundle?]
 \end{proof}
 
-\begin{theorem}{Sections on an associated bundle are isomorphic to \(F\)-valued functions on the principal bundle}{sections_associated_bundle}
-    Let \bundle{P}{\pi}{M} be a principal \(G\)-bundle, the smooth manifold \(F\) be a left \(G\)-space, and \(\sigma : M \to P_F\) be a section of the associated bundle \bundle{P_F}{\pi_F}{M}
+\begin{theorem}{Equivalence of local sections and equivariant fiber-valued maps}{sections_equivariant}
+    Let the smooth manifold \(F\) be a left \(G\)-space, and let \bundle{P_F}{\pi_F}{M} be the associated bundle with typical fiber \(F\) to the principal \(G\)-bundle \bundle{P}{\pi}{M}. Let \((U,x) \in \mathscr{A}_M\) be a chart on the base space \(M\). The space of local sections on the associated bundle \(\sigma : U \to P_F\) is isomorphic to the space of local \(G\)-equivariant \(F\)-valued maps on the principal bundle \(h : \preim{\pi}{U} \to F\), that is, \(h\) is \(G\)-equivariant in the sense that
+    \begin{equation*}
+        h(p \ract g) = g^{-1} \lact h(p),
+    \end{equation*}
+    for all \(p \in \preim{\pi}{U}\) and \(g \in G\).
 \end{theorem}
 \begin{proof}
-    \todo[sketch:] Given \(\phi : P \to F\), construct the section
+    Let \(h : \preim{\pi}{U} \to F\) be \(G\)-equivariant. We construct the map
     \begin{align*}
-        \sigma_\phi : M &\to P_F\\
-                      m &\mapsto [p_m, \phi(p_m)],
+        \sigma_h : U &\to P_F\\
+                      m &\mapsto [p_m, h(p_m)],
     \end{align*}
-    where \(p_m \in \preim{\pi}{\set{m}}\). \todo[Show well definition and provide an inverse.]
-\end{proof}
+    where \(p_m \in \preim{\pi}{\set{m}}\) is an arbitrary point in the fiber. Let \(q_m \in \preim{\pi}{\set{m}}\) be another point in the same fiber, then there exists \(g \in G\) such that \(q_m = p_m \ract g\), then
+    \begin{align*}
+        [q_m, h(q_m)] &= [p_m \ract g, h(p_m \ract g)]\\
+                         &= [p_m \ract g, g^{-1} \lact h(p_m)]\\
+                         &= \sigma_h(m),
+    \end{align*}
+    that is, \(\sigma_h\) is well defined due to the \(G\)-equivariance of \(h\). Moreover,
+    \begin{equation*}
+        \pi_F \circ \sigma (m) = \pi(p_m) = m,
+    \end{equation*}
+    for all \(m \in U\), that is, \(\pi_F \circ \sigma = \id{U}\). Hence, for every \(G\)-equivariant local map \(h\) in the principal bundle, there exists a local section \(\sigma_h\) in the associated bundle.
 
+    Let \(\sigma : U \to P_F\) be a local section on the associated bundle. Recall from \cref{prop:associated_fiber} that for each \(p \in \preim{\pi}{U}\) there is an isomorphism from the typical fiber \(F\) to the fiber in the associated bundle of the base point \(\pi(p)\) defined by
+    \begin{align*}
+        \phi_p : F &\to \preim{\pi_F}{\set{\pi(p)}}\\
+                 f &\mapsto [p, f]
+    \end{align*}
+    with inverse
+    \begin{align*}
+        \phi_p^{-1} : \preim{\pi_F}{\set{\pi(p)}} &\to F\\
+                                            [q,f] &\mapsto (\psi_{p}(q))^{-1} \lact f,
+    \end{align*}
+    where \(\psi_p : P \to G\) is the diffeomorphism such that \(q \ract \psi_p(q) = p\). Notice that
+    \begin{align*}
+        \phi_p(f) &= [p,f]\\
+                    &= [p\ract g, g^{-1}\lact f]\\
+                    &= \phi_{p\ract g}(g^{-1} \lact f)
+    \end{align*}
+    for all \(g \in G\). We define the map
+    \begin{align*}
+        h_\sigma : \preim{\pi}{U} &\to F\\
+                                p &\mapsto (\phi_p^{-1} \circ \sigma \circ \pi) (p).
+    \end{align*}
+    Then, for all \(p \in \preim{\pi}{U}\) and \(g \in G\),
+    \begin{align*}
+        h_{\sigma}(p \ract g) &= (\phi_{p\ract g}^{-1}\circ\sigma)(\pi(p \ract g))\\
+                              &= (\phi_{p \ract g}^{-1} \circ \sigma)(\pi(p))\\
+                              &= (\phi_{p\ract g}^{-1} \circ \phi_p \circ \phi_p^{-1} \circ \sigma \circ \pi)(p)\\
+                              &= (\phi_{p\ract g}^{-1} \circ \phi_p)(h_\sigma(p))\\
+                              &= \phi_{p\ract g}^{-1} \circ \phi_{p \ract g}(g^{-1} \lact h_\sigma(p))\\
+                              &= g^{-1} \lact h_\sigma(p),
+    \end{align*}
+    that is, \(h_\sigma\) is a \(G\)-equivariant map. Thus, for every local section on the associated bundle, there exists a \(G\)-equivariant local map in the principal bundle.
+
+    In fact, these constructions are the mutually inverses. Indeed, let \(\sigma, h, \sigma_h\) and \(h_\sigma\) be the same as above and consider \(\sigma_{h_\sigma}\), the local section constructed from the equivariant map \(h_\sigma\), and \(h_{\sigma_h}\), the equivariant map constructed from the local section \(\sigma_h\). For all \(m \in U\),
+    \begin{align*}
+        \sigma_{h_\sigma}(m) &= [p_m, h_\sigma(p_m)]\\
+                             &= [p_m, (\phi_{p_m}^{-1} \circ \sigma \circ \pi)(p_m)]\\
+                             &= (\phi_{p_m} \circ \phi_{p_m}^{-1} \circ \sigma \circ \pi)(p_m)\\
+                             &= (\sigma \circ \pi)(p_m)\\
+                             &= \sigma(m),
+    \end{align*}
+    hence \(\sigma_{h_\sigma} = \sigma\). For all \(p \in \preim{\pi}{U}\),
+    \begin{align*}
+        h_{\sigma_h}(p) &= (\phi_p^{-1} \circ \sigma_h \circ \pi)(p)\\
+                        &= \phi_p^{-1} ([p, h(p)])\\
+                        &= (\phi_p^{-1} \circ \phi_p \circ h)(p)\\
+                        &= h(p),
+    \end{align*}
+    hence \(h_{\sigma_h} = h\). We have thus established an isomorphism from local sections in the associated bundle to \(G\)-equivariant local maps in the principal bundle.
+\end{proof}
